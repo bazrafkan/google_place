@@ -26,7 +26,54 @@ To use this plugin, add **_google_place_** as a [dependency in your pubspec.yaml
 
 ## Sample Usage
 
+- Place Autocomplete
 ```dart
 var googlePlace = GooglePlace("Your-Key");
 var risult = await googlePlace.autocomplete.get("1600 Amphitheatre");
 ```
+
+- Place Query Autocomplete
+```dart
+var googlePlace = GooglePlace("Your-Key");
+var risult = await googlePlace.queryAutocomplete.get("pizza near sydne");
+```
+
+- Place Photos
+```dart
+var googlePlace = GooglePlace("Your-Key");
+Uint8List result = await googlePlace.photos.get(
+ "CnRtAAAATLZNl354RwP_9UKbQ_5Psy40texXePv4oAlgP4qNEkdIrkyse7rPXYGd9D_Uj1rVsQdWT4oRz4QrYAJNpFX7rzqqMlZw2h2E2y5IKMUZ7ouD_SlcHxYq1yL4KbKUv3qtWgTK0A6QbGh87GB3sscrHRIQiG2RrmU_jF4tENr9wGS_YxoUSSDrYjWmrNfeEHSGSc3FyhNLlBU",
+        maxWidth: 400);
+```
+
+- Place Details
+```dart
+var googlePlace = GooglePlace("Your-Key");
+Uint8List result = await googlePlace.details.get("ChIJN1t_tDeuEmsRUsoyG83frY4",
+        fields: "name,rating,formatted_phone_number")
+```
+
+- Place Search
+  
+  - Find Place
+    ```dart
+    var googlePlace = GooglePlace("Your-Key");
+    var result = await googlePlace.search.getFindPlace(
+        "Museum of Contemporary Art Australia", InputType.TextQuery);
+    ```
+
+  - Nearby Search
+    ```dart
+    var googlePlace = GooglePlace("Your-Key");
+    var result = await googlePlace.search.getNearBySearch(
+        Location(lat: -33.8670522, lng: 151.1957362), 1500,
+        type: "restaurant", keyword: "cruise");
+    ```
+
+  - Text Search
+    ```dart
+    var googlePlace = GooglePlace("Your-Key");
+    var result = await googlePlace.search.search.getTextSearch("restaurants in Sydney");
+    ```
+
+
