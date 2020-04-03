@@ -5,12 +5,12 @@ import 'package:google_place/src/details/details_result.dart';
 class DetailsResponse {
   final String status;
   final List<String> htmlAttributions;
-  final DetailsResult results;
+  final DetailsResult result;
 
   DetailsResponse({
     this.status,
     this.htmlAttributions,
-    this.results,
+    this.result,
   });
 
   factory DetailsResponse.fromJson(Map<String, dynamic> json) {
@@ -19,7 +19,7 @@ class DetailsResponse {
       htmlAttributions: json['html_attributions'] != null
           ? (json['html_attributions'] as List<dynamic>).cast<String>()
           : null,
-      results: json['result'] != null
+      result: json['result'] != null
           ? DetailsResult.fromJson(json['result'])
           : null,
     );
