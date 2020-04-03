@@ -8,6 +8,10 @@ An example for **_goole_place_** package.
 
   ![Home page](https://github.com/bazrafkan/google_place/blob/master/example/images/home_page.png)
 
+- Details page
+
+  ![Details page](https://github.com/bazrafkan/google_place/blob/master/example/images/details_page.png)
+
 ## Getting Started
 
 - Creat **_.env_** file in root of this example

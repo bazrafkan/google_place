@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_place/google_place.dart';
@@ -91,6 +93,15 @@ class _HomePageState extends State<HomePage> {
                       title: Text(predictions[index].description),
                       onTap: () {
                         debugPrint(predictions[index].placeId);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => DetailsPage(
+                              placeId: predictions[index].placeId,
+                              googlePlace: googlePlace,
+                            ),
+                          ),
+                        );
                       },
                     );
                   },
@@ -112,6 +123,224 @@ class _HomePageState extends State<HomePage> {
     if (result != null && result.predictions != null && mounted) {
       setState(() {
         predictions = result.predictions;
+      });
+    }
+  }
+}
+
+class DetailsPage extends StatefulWidget {
+  final String placeId;
+  final GooglePlace googlePlace;
+
+  DetailsPage({Key key, this.placeId, this.googlePlace}) : super(key: key);
+
+  @override
+  _DetailsPageState createState() =>
+      _DetailsPageState(this.placeId, this.googlePlace);
+}
+
+class _DetailsPageState extends State<DetailsPage> {
+  final String placeId;
+  final GooglePlace googlePlace;
+
+  _DetailsPageState(this.placeId, this.googlePlace);
+
+  DetailsResult detailsResult;
+  List<Uint8List> images = [];
+
+  @override
+  void initState() {
+    getDetils(this.placeId);
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Details"),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          getDetils(this.placeId);
+        },
+        child: Icon(Icons.refresh),
+      ),
+      body: SafeArea(
+        child: Container(
+          margin: EdgeInsets.only(right: 20, left: 20, top: 20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Container(
+                height: 200,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: images.length,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      width: 250,
+                      child: Card(
+                        elevation: 4,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10.0),
+                          child: Image.memory(
+                            images[index],
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Expanded(
+                child: Card(
+                  elevation: 4,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: ListView(
+                    children: <Widget>[
+                      Container(
+                        margin: EdgeInsets.only(left: 15, top: 10),
+                        child: Text(
+                          "Details",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(left: 15, top: 10),
+                        child: Row(
+                          children: <Widget>[
+                            Text(
+                              "Address: ",
+                              style: TextStyle(
+                                color: Colors.grey,
+                              ),
+                            ),
+                            Text(detailsResult != null &&
+                                    detailsResult.formattedAddress != null
+                                ? detailsResult.formattedAddress
+                                : "null"),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(left: 15, top: 10),
+                        child: Row(
+                          children: <Widget>[
+                            Text(
+                              "Geometry location: ",
+                              style: TextStyle(
+                                color: Colors.grey,
+                              ),
+                            ),
+                            Text(detailsResult != null &&
+                                    detailsResult.geometry != null &&
+                                    detailsResult.geometry.location != null
+                                ? '${detailsResult.geometry.location.lat.toString()},${detailsResult.geometry.location.lng.toString()}'
+                                : "null"),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(left: 15, top: 10),
+                        child: Row(
+                          children: <Widget>[
+                            Text(
+                              "UTC offset: ",
+                              style: TextStyle(
+                                color: Colors.grey,
+                              ),
+                            ),
+                            Text(detailsResult != null &&
+                                    detailsResult.utcOffset != null
+                                ? '${detailsResult.utcOffset.toString()} min'
+                                : "null"),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(left: 15, top: 10),
+                        child: Row(
+                          children: <Widget>[
+                            Text(
+                              "Rating: ",
+                              style: TextStyle(
+                                color: Colors.grey,
+                              ),
+                            ),
+                            Text(detailsResult != null &&
+                                    detailsResult.rating != null
+                                ? '${detailsResult.rating.toString()}'
+                                : "null"),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(left: 15, top: 10),
+                        child: Row(
+                          children: <Widget>[
+                            Text(
+                              "Price level: ",
+                              style: TextStyle(
+                                color: Colors.grey,
+                              ),
+                            ),
+                            Text(detailsResult != null &&
+                                    detailsResult.priceLevel != null
+                                ? '${detailsResult.priceLevel.toString()}'
+                                : "null"),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 20, bottom: 10),
+                child: Image.asset("assets/powered_by_google.png"),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  void getDetils(String placeId) async {
+    var result = await this.googlePlace.details.get(placeId);
+    if (result != null && result.result != null && mounted) {
+      setState(() {
+        detailsResult = result.result;
+        images = [];
+      });
+
+      if (result.result.photos != null) {
+        for (var photo in result.result.photos) {
+          getPhoto(photo.photoReference);
+        }
+      }
+    }
+  }
+
+  void getPhoto(String photoReference) async {
+    var result =
+        await this.googlePlace.photos.get(photoReference, maxWidth: 400);
+    if (result != null && mounted) {
+      setState(() {
+        images.add(result);
       });
     }
   }
