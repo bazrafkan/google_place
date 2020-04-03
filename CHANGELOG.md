@@ -1,3 +1,7 @@
+## [0.2.2] - 2020-04-03
+
+- Fix bug when http not respond
+
 ## [0.2.1] - 2020-04-03
 
 - Add Details page in example
