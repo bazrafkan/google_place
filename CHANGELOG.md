@@ -1,3 +1,7 @@
+## [0.2.1] - 2020-04-03
+
+- Add Details page in example
+
 ## [0.2.0] - 2020-04-03
 
 - Change structure code
