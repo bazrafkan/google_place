@@ -28,7 +28,8 @@ To use this plugin, add **_google_place_** as a [dependency in your pubspec.yaml
 
 - [Example](https://github.com/bazrafkan/google_place/blob/master/example)
 
-  - ![Home page](https://github.com/bazrafkan/google_place/blob/master/example/images/home_page.png)
+  ![Home page](https://github.com/bazrafkan/google_place/blob/master/example/images/home_page.png)
+  ![Details page](https://github.com/bazrafkan/google_place/blob/master/example/images/details_page.png)
 
 ## Sample Usage
 
