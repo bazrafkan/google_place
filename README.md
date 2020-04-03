@@ -24,21 +24,29 @@ To use this plugin, add **_google_place_** as a [dependency in your pubspec.yaml
   - Go to Google Developers Console.
   - Choose the project that you want to enable Google Place on.
 
+## Example
+
+- [Example](https://github.com/bazrafkan/google_place/blob/master/example)
+  [Home page](https://github.com/bazrafkan/google_place/blob/master/example/images/home_page.png)
+
 ## Sample Usage
 
 - Place Autocomplete
+
 ```dart
 var googlePlace = GooglePlace("Your-Key");
 var risult = await googlePlace.autocomplete.get("1600 Amphitheatre");
 ```
 
 - Place Query Autocomplete
+
 ```dart
 var googlePlace = GooglePlace("Your-Key");
 var risult = await googlePlace.queryAutocomplete.get("pizza near sydne");
 ```
 
 - Place Photos
+
 ```dart
 var googlePlace = GooglePlace("Your-Key");
 Uint8List result = await googlePlace.photos.get(
@@ -47,6 +55,7 @@ Uint8List result = await googlePlace.photos.get(
 ```
 
 - Place Details
+
 ```dart
 var googlePlace = GooglePlace("Your-Key");
 Uint8List result = await googlePlace.details.get("ChIJN1t_tDeuEmsRUsoyG83frY4",
@@ -54,8 +63,9 @@ Uint8List result = await googlePlace.details.get("ChIJN1t_tDeuEmsRUsoyG83frY4",
 ```
 
 - Place Search
-  
+
   - Find Place
+
     ```dart
     var googlePlace = GooglePlace("Your-Key");
     var result = await googlePlace.search.getFindPlace(
@@ -63,6 +73,7 @@ Uint8List result = await googlePlace.details.get("ChIJN1t_tDeuEmsRUsoyG83frY4",
     ```
 
   - Nearby Search
+
     ```dart
     var googlePlace = GooglePlace("Your-Key");
     var result = await googlePlace.search.getNearBySearch(
@@ -75,5 +86,3 @@ Uint8List result = await googlePlace.details.get("ChIJN1t_tDeuEmsRUsoyG83frY4",
     var googlePlace = GooglePlace("Your-Key");
     var result = await googlePlace.search.search.getTextSearch("restaurants in Sydney");
     ```
-
-
