@@ -1,3 +1,7 @@
+## [0.2.0] - 2020-04-03
+
+- Change structure code
+
 ## [0.1.0] - 2020-04-03
 
 - Add example project and fix bug
