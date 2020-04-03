@@ -3,7 +3,7 @@ import 'package:google_place/src/models/opening_hours.dart';
 import 'package:google_place/src/models/photo.dart';
 import 'package:google_place/src/models/plus_code.dart';
 
-class Candidate {
+class SearchResult {
   final Geometry geometry;
   final OpeningHours openingHours;
   final List<Photo> photos;
@@ -22,7 +22,7 @@ class Candidate {
   final String vicinity;
   final bool permanentlyClosed;
 
-  Candidate({
+  SearchResult({
     this.geometry,
     this.openingHours,
     this.photos,
@@ -42,8 +42,8 @@ class Candidate {
     this.permanentlyClosed,
   });
 
-  factory Candidate.fromJson(Map<String, dynamic> json) {
-    return Candidate(
+  factory SearchResult.fromJson(Map<String, dynamic> json) {
+    return SearchResult(
       geometry:
           json['geometry'] != null ? Geometry.fromJson(json['geometry']) : null,
       openingHours: json['opening_hours'] != null

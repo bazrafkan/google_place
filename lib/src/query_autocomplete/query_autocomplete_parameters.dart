@@ -1,11 +1,11 @@
-import 'package:google_place/src/models/lat_lng.dart';
+import 'package:google_place/src/models/lat_lon.dart';
 
 class QueryAutocompleteParameters {
   static Map<String, String> createParameters(
     String apiKEY,
     String input,
     int offset,
-    LatLng location,
+    LatLon location,
     int radius,
     String language,
   ) {

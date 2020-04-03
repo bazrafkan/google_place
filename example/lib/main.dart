@@ -28,7 +28,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   GooglePlace googlePlace;
-  List<Prediction> predictions = [];
+  List<AutocompletePrediction> predictions = [];
 
   @override
   void initState() {
@@ -65,6 +65,12 @@ class _HomePageState extends State<HomePage> {
                 onChanged: (value) {
                   if (value.isNotEmpty) {
                     autoCompleteSearch(value);
+                  } else {
+                    if (predictions.length > 0 && mounted) {
+                      setState(() {
+                        predictions = [];
+                      });
+                    }
                   }
                 },
               ),

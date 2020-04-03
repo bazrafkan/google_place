@@ -2,7 +2,7 @@ import 'package:google_place/src/models/matched_substring.dart';
 import 'package:google_place/src/models/structured_formatting.dart';
 import 'package:google_place/src/models/term.dart';
 
-class Prediction {
+class AutocompletePrediction {
   final String description;
   final int distanceMeters;
   final String id;
@@ -13,7 +13,7 @@ class Prediction {
   final List<Term> terms;
   final List<String> types;
 
-  Prediction({
+  AutocompletePrediction({
     this.description,
     this.distanceMeters,
     this.id,
@@ -25,8 +25,8 @@ class Prediction {
     this.types,
   });
 
-  factory Prediction.fromJson(Map<String, dynamic> json) {
-    return Prediction(
+  factory AutocompletePrediction.fromJson(Map<String, dynamic> json) {
+    return AutocompletePrediction(
       description: json['description'] as String,
       distanceMeters: json['distance_meters'] as int,
       id: json['id'] as String,

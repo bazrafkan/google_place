@@ -2,10 +2,10 @@ import 'package:google_place/src/models/input_type.dart';
 import 'package:google_place/src/models/location.dart';
 import 'package:google_place/src/models/locationbias.dart';
 import 'package:google_place/src/models/rank-by.dart';
-import 'package:google_place/src/search/find_place_result.dart';
-import 'package:google_place/src/search/near_by_search_result.dart';
+import 'package:google_place/src/search/find_place_response.dart';
+import 'package:google_place/src/search/near_by_search_response.dart';
 import 'package:google_place/src/search/search_parameters.dart';
-import 'package:google_place/src/search/text_search_result.dart';
+import 'package:google_place/src/search/text_search_response.dart';
 import 'package:google_place/src/utils/network_utility.dart';
 
 class Search {
@@ -17,7 +17,7 @@ class Search {
 
   Search(this.apiKEY);
 
-  Future<FindPlaceResult> getFindPlace(
+  Future<FindPlaceResponse> getFindPlace(
     String input,
     InputType inputType, {
     String language,
@@ -39,10 +39,10 @@ class Search {
 
     var uri = Uri.https(_authority, _unencodedPathFindPlace, queryParameters);
     var response = await NetworkUtility.fetchUrl(uri);
-    return FindPlaceResult.parseFindPlaceResult(response);
+    return FindPlaceResponse.parseFindPlaceResult(response);
   }
 
-  Future<NearBySearchResult> getNearBySearch(
+  Future<NearBySearchResponse> getNearBySearch(
     Location location,
     int radius, {
     String keyword,
@@ -75,10 +75,10 @@ class Search {
     var uri =
         Uri.https(_authority, _unencodedPathNearBySearch, queryParameters);
     var response = await NetworkUtility.fetchUrl(uri);
-    return NearBySearchResult.parseNearBySearchResult(response);
+    return NearBySearchResponse.parseNearBySearchResult(response);
   }
 
-  Future<TextSearchResult> getTextSearch(
+  Future<TextSearchResponse> getTextSearch(
     String query, {
     String region,
     Location location,
@@ -108,6 +108,6 @@ class Search {
 
     var uri = Uri.https(_authority, _unencodedPathTextSearch, queryParameters);
     var response = await NetworkUtility.fetchUrl(uri);
-    return TextSearchResult.parseTextSearchResult(response);
+    return TextSearchResponse.parseTextSearchResult(response);
   }
 }

@@ -1,16 +1,16 @@
 import 'dart:convert';
 
 import 'package:google_place/src/models/debug_log.dart';
-import 'package:google_place/src/search/result.dart';
+import 'package:google_place/src/search/search_result.dart';
 
-class NearBySearchResult {
+class TextSearchResponse {
   final String status;
   final List<String> htmlAttributions;
   final String nextPageToken;
   final DebugLog debugLog;
-  final List<Result> results;
+  final List<SearchResult> results;
 
-  NearBySearchResult({
+  TextSearchResponse({
     this.status,
     this.htmlAttributions,
     this.nextPageToken,
@@ -18,8 +18,8 @@ class NearBySearchResult {
     this.results,
   });
 
-  factory NearBySearchResult.fromJson(Map<String, dynamic> json) {
-    return NearBySearchResult(
+  factory TextSearchResponse.fromJson(Map<String, dynamic> json) {
+    return TextSearchResponse(
       status: json['status'],
       htmlAttributions: json['html_attributions'] != null
           ? (json['html_attributions'] as List<dynamic>).cast<String>()
@@ -30,14 +30,14 @@ class NearBySearchResult {
           : null,
       results: json['results'] != null
           ? json['results']
-              .map<Result>((json) => Result.fromJson(json))
+              .map<SearchResult>((json) => SearchResult.fromJson(json))
               .toList()
           : null,
     );
   }
 
-  static NearBySearchResult parseNearBySearchResult(String responseBody) {
+  static TextSearchResponse parseTextSearchResult(String responseBody) {
     final parsed = json.decode(responseBody).cast<String, dynamic>();
-    return NearBySearchResult.fromJson(parsed);
+    return TextSearchResponse.fromJson(parsed);
   }
 }

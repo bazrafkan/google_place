@@ -1,4 +1,4 @@
-import 'package:google_place/src/models/lat_lng.dart';
+import 'package:google_place/src/models/lat_lon.dart';
 
 class AutocompleteParameters {
   static Map<String, String> createParameters(
@@ -6,8 +6,8 @@ class AutocompleteParameters {
     String input,
     String sessionToken,
     int offset,
-    LatLng origin,
-    LatLng location,
+    LatLon origin,
+    LatLon location,
     int radius,
     String language,
     String types,

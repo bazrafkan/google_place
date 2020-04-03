@@ -1,4 +1,4 @@
-import 'package:google_place/src/models/lat_lng.dart';
+import 'package:google_place/src/models/lat_lon.dart';
 
 /// [Locationbias] - Prefer results in a specified area, by specifying either a radius plus lat/lng,
 /// or two lat/lng pairs representing the points of a rectangle.
@@ -8,7 +8,7 @@ class Locationbias {
   final bool ipbias;
 
   /// [point] - A single lat/lng coordinate.
-  final LatLng point;
+  final LatLon point;
 
   /// [circular] - A string specifying radius in meters, plus lat/lng in decimal degrees.
   final Circular circular;
@@ -48,7 +48,7 @@ class Locationbias {
 
 class Circular {
   final int radius;
-  final LatLng latLng;
+  final LatLon latLng;
 
   Circular(this.radius, this.latLng)
       : assert(radius != null),
@@ -56,8 +56,8 @@ class Circular {
 }
 
 class Rectangular {
-  final LatLng southWest;
-  final LatLng northEast;
+  final LatLon southWest;
+  final LatLon northEast;
 
   Rectangular(this.southWest, this.northEast)
       : assert(southWest != null),

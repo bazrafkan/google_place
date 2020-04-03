@@ -1,5 +1,5 @@
 import 'package:google_place/src/details/details_parameters.dart';
-import 'package:google_place/src/details/details_result.dart';
+import 'package:google_place/src/details/details_response.dart';
 import 'package:google_place/src/utils/network_utility.dart';
 
 class Details {
@@ -9,7 +9,7 @@ class Details {
 
   Details(this.apiKEY);
 
-  Future<DetailsResult> get(
+  Future<DetailsResponse> get(
     String placeId, {
     String language,
     String region,
@@ -29,6 +29,6 @@ class Details {
 
     var uri = Uri.https(_authority, _unencodedPath, queryParameters);
     var response = await NetworkUtility.fetchUrl(uri);
-    return DetailsResult.parseDetailsResult(response);
+    return DetailsResponse.parseDetailsResult(response);
   }
 }

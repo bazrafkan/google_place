@@ -1,6 +1,6 @@
 import 'package:google_place/src/autocomplete/autocomplete_parameters.dart';
-import 'package:google_place/src/autocomplete/autocomplete_result.dart';
-import 'package:google_place/src/models/lat_lng.dart';
+import 'package:google_place/src/autocomplete/autocomplete_response.dart';
+import 'package:google_place/src/models/lat_lon.dart';
 import 'package:google_place/src/utils/network_utility.dart';
 
 class Autocomplete {
@@ -16,12 +16,12 @@ class Autocomplete {
   /// The [input] argument should be readable by programmers, and should state
   /// an alternative feature (if available) as well as when an annotated feature
   /// is expected to be removed.
-  Future<AutocompleteResult> get(
+  Future<AutocompleteResponse> get(
     String input, {
     String sessionToken,
     int offset,
-    LatLng origin,
-    LatLng location,
+    LatLon origin,
+    LatLon location,
     int radius,
     String language,
     String types,
@@ -49,6 +49,6 @@ class Autocomplete {
     );
     var uri = Uri.https(_authority, _unencodedPath, queryParameters);
     var response = await NetworkUtility.fetchUrl(uri);
-    return AutocompleteResult.parseAutocompleteResult(response);
+    return AutocompleteResponse.parseAutocompleteResult(response);
   }
 }
