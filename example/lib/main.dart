@@ -159,8 +159,10 @@ class _DetailsPageState extends State<DetailsPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Details"),
+        backgroundColor: Colors.blueAccent,
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.blueAccent,
         onPressed: () {
           getDetils(this.placeId);
         },
@@ -218,90 +220,99 @@ class _DetailsPageState extends State<DetailsPage> {
                           ),
                         ),
                       ),
+                      detailsResult != null && detailsResult.types != null
+                          ? Container(
+                              margin: EdgeInsets.only(left: 15, top: 10),
+                              height: 50,
+                              child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: detailsResult.types.length,
+                                itemBuilder: (context, index) {
+                                  return Container(
+                                    margin: EdgeInsets.only(right: 10),
+                                    child: Chip(
+                                      label: Text(
+                                        detailsResult.types[index],
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      backgroundColor: Colors.blueAccent,
+                                    ),
+                                  );
+                                },
+                              ),
+                            )
+                          : Container(),
                       Container(
                         margin: EdgeInsets.only(left: 15, top: 10),
-                        child: Row(
-                          children: <Widget>[
-                            Text(
-                              "Address: ",
-                              style: TextStyle(
-                                color: Colors.grey,
-                              ),
-                            ),
-                            Text(detailsResult != null &&
+                        child: ListTile(
+                          leading: CircleAvatar(
+                            child: Icon(Icons.location_on),
+                          ),
+                          title: Text(
+                            detailsResult != null &&
                                     detailsResult.formattedAddress != null
-                                ? detailsResult.formattedAddress
-                                : "null"),
-                          ],
+                                ? 'Address: ${detailsResult.formattedAddress}'
+                                : "Address: null",
+                          ),
                         ),
                       ),
                       Container(
                         margin: EdgeInsets.only(left: 15, top: 10),
-                        child: Row(
-                          children: <Widget>[
-                            Text(
-                              "Geometry location: ",
-                              style: TextStyle(
-                                color: Colors.grey,
-                              ),
-                            ),
-                            Text(detailsResult != null &&
+                        child: ListTile(
+                          leading: CircleAvatar(
+                            child: Icon(Icons.location_searching),
+                          ),
+                          title: Text(
+                            detailsResult != null &&
                                     detailsResult.geometry != null &&
                                     detailsResult.geometry.location != null
-                                ? '${detailsResult.geometry.location.lat.toString()},${detailsResult.geometry.location.lng.toString()}'
-                                : "null"),
-                          ],
+                                ? 'Geometry: ${detailsResult.geometry.location.lat.toString()},${detailsResult.geometry.location.lng.toString()}'
+                                : "Geometry: null",
+                          ),
                         ),
                       ),
                       Container(
                         margin: EdgeInsets.only(left: 15, top: 10),
-                        child: Row(
-                          children: <Widget>[
-                            Text(
-                              "UTC offset: ",
-                              style: TextStyle(
-                                color: Colors.grey,
-                              ),
-                            ),
-                            Text(detailsResult != null &&
+                        child: ListTile(
+                          leading: CircleAvatar(
+                            child: Icon(Icons.timelapse),
+                          ),
+                          title: Text(
+                            detailsResult != null &&
                                     detailsResult.utcOffset != null
-                                ? '${detailsResult.utcOffset.toString()} min'
-                                : "null"),
-                          ],
+                                ? 'UTC offset: ${detailsResult.utcOffset.toString()} min'
+                                : "UTC offset: null",
+                          ),
                         ),
                       ),
                       Container(
                         margin: EdgeInsets.only(left: 15, top: 10),
-                        child: Row(
-                          children: <Widget>[
-                            Text(
-                              "Rating: ",
-                              style: TextStyle(
-                                color: Colors.grey,
-                              ),
-                            ),
-                            Text(detailsResult != null &&
+                        child: ListTile(
+                          leading: CircleAvatar(
+                            child: Icon(Icons.rate_review),
+                          ),
+                          title: Text(
+                            detailsResult != null &&
                                     detailsResult.rating != null
-                                ? '${detailsResult.rating.toString()}'
-                                : "null"),
-                          ],
+                                ? 'Rating: ${detailsResult.rating.toString()}'
+                                : "Rating: null",
+                          ),
                         ),
                       ),
                       Container(
                         margin: EdgeInsets.only(left: 15, top: 10),
-                        child: Row(
-                          children: <Widget>[
-                            Text(
-                              "Price level: ",
-                              style: TextStyle(
-                                color: Colors.grey,
-                              ),
-                            ),
-                            Text(detailsResult != null &&
+                        child: ListTile(
+                          leading: CircleAvatar(
+                            child: Icon(Icons.attach_money),
+                          ),
+                          title: Text(
+                            detailsResult != null &&
                                     detailsResult.priceLevel != null
-                                ? '${detailsResult.priceLevel.toString()}'
-                                : "null"),
-                          ],
+                                ? 'Price level: ${detailsResult.priceLevel.toString()}'
+                                : "Price level: null",
+                          ),
                         ),
                       ),
                     ],
