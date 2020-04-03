@@ -1,7 +1,6 @@
 name: google_place
 description: A new Flutter package for handle google place api
-version: 0.0.1
-author: Mohammad Bazrafkan <bazrafkan.mb@gmail.com>
+version: 0.0.2
 homepage: https://github.com/bazrafkan/google_place
 
 environment:
