@@ -1,3 +1,9 @@
+## [0.0.3] - 2020-04-03
+
+- Update yaml and remvoe unused function
+  - Update description in pubspec file
+  - Remove unused function in LatLng
+
 ## [0.0.2] - 2020-04-03
 
 - Fix warning in pubspec file
