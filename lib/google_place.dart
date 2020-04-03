@@ -7,6 +7,7 @@ import 'package:google_place/src/query_autocomplete/query_autocomplete.dart';
 import 'package:google_place/src/search/search.dart';
 
 export 'package:google_place/src/autocomplete/autocomplete_result.dart';
+export 'package:google_place/src/autocomplete/prediction.dart';
 export 'package:google_place/src/models/input_type.dart';
 export 'package:google_place/src/models/lat_lng.dart';
 export 'package:google_place/src/models/locationbias.dart';
