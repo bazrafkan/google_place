@@ -5,10 +5,14 @@ class NetworkUtility {
     Uri uri, {
     Map<String, String> headers,
   }) async {
-    final response = await http.get(uri, headers: headers);
-    if (response.statusCode == 200) {
-      return response.body;
+    try {
+      final response = await http.get(uri, headers: headers);
+      if (response.statusCode == 200) {
+        return response.body;
+      }
+      return null;
+    } catch (e) {
+      return null;
     }
-    return null;
   }
 }

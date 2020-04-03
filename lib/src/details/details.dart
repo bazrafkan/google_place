@@ -29,6 +29,9 @@ class Details {
 
     var uri = Uri.https(_authority, _unencodedPath, queryParameters);
     var response = await NetworkUtility.fetchUrl(uri);
-    return DetailsResponse.parseDetailsResult(response);
+    if (response != null) {
+      return DetailsResponse.parseDetailsResult(response);
+    }
+    return null;
   }
 }

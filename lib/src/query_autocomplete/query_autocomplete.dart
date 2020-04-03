@@ -35,6 +35,9 @@ class QueryAutocomplete {
     );
     var uri = Uri.https(_authority, _unencodedPath, queryParameters);
     var response = await NetworkUtility.fetchUrl(uri);
-    return AutocompleteResponse.parseAutocompleteResult(response);
+    if (response != null) {
+      return AutocompleteResponse.parseAutocompleteResult(response);
+    }
+    return null;
   }
 }

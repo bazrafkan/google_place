@@ -39,7 +39,10 @@ class Search {
 
     var uri = Uri.https(_authority, _unencodedPathFindPlace, queryParameters);
     var response = await NetworkUtility.fetchUrl(uri);
-    return FindPlaceResponse.parseFindPlaceResult(response);
+    if (response != null) {
+      return FindPlaceResponse.parseFindPlaceResult(response);
+    }
+    return null;
   }
 
   Future<NearBySearchResponse> getNearBySearch(
@@ -75,7 +78,10 @@ class Search {
     var uri =
         Uri.https(_authority, _unencodedPathNearBySearch, queryParameters);
     var response = await NetworkUtility.fetchUrl(uri);
-    return NearBySearchResponse.parseNearBySearchResult(response);
+    if (response != null) {
+      return NearBySearchResponse.parseNearBySearchResult(response);
+    }
+    return null;
   }
 
   Future<TextSearchResponse> getTextSearch(
@@ -108,6 +114,9 @@ class Search {
 
     var uri = Uri.https(_authority, _unencodedPathTextSearch, queryParameters);
     var response = await NetworkUtility.fetchUrl(uri);
-    return TextSearchResponse.parseTextSearchResult(response);
+    if (response != null) {
+      return TextSearchResponse.parseTextSearchResult(response);
+    }
+    return null;
   }
 }

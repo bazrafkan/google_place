@@ -26,8 +26,7 @@ class Photos {
     if (response != null) {
       List<int> list = response.codeUnits;
       return Uint8List.fromList(list);
-    } else {
-      return null;
     }
+    return null;
   }
 }
