@@ -22,17 +22,6 @@ class LatLng {
   /// The longitude in degrees between -180.0 (inclusive) and 180.0 (exclusive).
   final double longitude;
 
-  dynamic _toJson() {
-    return <double>[latitude, longitude];
-  }
-
-  static LatLng _fromJson(dynamic json) {
-    if (json == null) {
-      return null;
-    }
-    return LatLng(json[0], json[1]);
-  }
-
   @override
   String toString() => '$runtimeType($latitude, $longitude)';
 
