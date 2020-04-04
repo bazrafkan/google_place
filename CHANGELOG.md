@@ -1,3 +1,7 @@
+## [0.2.3] - 2020-04-04
+
+- Update pubspec file
+
 ## [0.2.2] - 2020-04-03
 
 - Fix bug when http not respond
