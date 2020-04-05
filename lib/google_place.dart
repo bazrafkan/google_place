@@ -17,7 +17,9 @@ export 'package:google_place/src/search/search_candidate.dart';
 export 'package:google_place/src/search/search_result.dart';
 
 export 'package:google_place/src/models/address_component.dart';
+export 'package:google_place/src/models/bounds.dart';
 export 'package:google_place/src/models/close.dart';
+export 'package:google_place/src/models/component.dart';
 export 'package:google_place/src/models/debug_log.dart';
 export 'package:google_place/src/models/geometry.dart';
 export 'package:google_place/src/models/input_type.dart';
