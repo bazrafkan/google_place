@@ -1,3 +1,7 @@
+## [0.2.6] - 2020-04-05
+
+- Update README file
+
 ## [0.2.5] - 2020-04-05
 
 - Fix bug for double variables
