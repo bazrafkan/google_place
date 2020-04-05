@@ -1,3 +1,7 @@
+## [0.2.5] - 2020-04-05
+
+- Fix bug for double variables
+
 ## [0.2.4] - 2020-04-05
 
 - Fix bug for component item in models and autocomplete
