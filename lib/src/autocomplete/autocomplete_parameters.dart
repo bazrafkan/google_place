@@ -1,3 +1,4 @@
+import 'package:google_place/src/models/component.dart';
 import 'package:google_place/src/models/lat_lon.dart';
 
 class AutocompleteParameters {
@@ -11,7 +12,7 @@ class AutocompleteParameters {
     int radius,
     String language,
     String types,
-    List<String> components,
+    List<Component> components,
     bool strictbounds,
   ) {
     String result = input.trimRight();
@@ -21,14 +22,18 @@ class AutocompleteParameters {
       'key': apiKEY,
     };
 
-    String componentsQuery;
-    if (components != null) {
+    if (components != null && components.length > 0) {
+      String result = '';
       for (int i = 0; i < components.length; i++) {
-        componentsQuery += 'country:${components[i]}';
+        result += '${components[i].component}:${components[i].value}';
         if (i + 1 != components.length) {
-          componentsQuery += '|';
+          result += '|';
         }
       }
+      var item = {
+        'components': result,
+      };
+      queryParameters.addAll(item);
     }
 
     if (origin != null) {
@@ -87,12 +92,6 @@ class AutocompleteParameters {
       queryParameters.addAll(item);
     }
 
-    if (componentsQuery != null && componentsQuery != '') {
-      var item = {
-        'components': componentsQuery,
-      };
-      queryParameters.addAll(item);
-    }
     return queryParameters;
   }
 }

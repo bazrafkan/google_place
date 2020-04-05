@@ -1,5 +1,6 @@
 import 'package:google_place/src/autocomplete/autocomplete_parameters.dart';
 import 'package:google_place/src/autocomplete/autocomplete_response.dart';
+import 'package:google_place/src/models/component.dart';
 import 'package:google_place/src/models/lat_lon.dart';
 import 'package:google_place/src/utils/network_utility.dart';
 
@@ -25,7 +26,7 @@ class Autocomplete {
     int radius,
     String language,
     String types,
-    List<String> components,
+    List<Component> components,
     bool strictbounds = false,
   }) async {
     assert(input != null);
