@@ -1,3 +1,8 @@
+## [0.2.4] - 2020-04-05
+
+- Fix bug for component item in models and autocomplete
+- Add bounds item in models and geometry
+
 ## [0.2.3] - 2020-04-04
 
 - Update pubspec file
