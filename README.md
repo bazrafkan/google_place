@@ -28,8 +28,8 @@ To use this plugin, add **_google_place_** as a [dependency in your pubspec.yaml
 
 - [Example](https://github.com/bazrafkan/google_place/blob/master/example)
 
-  ![Home page](https://github.com/bazrafkan/google_place/blob/master/example/images/home_page.png)
-  ![Details page](https://github.com/bazrafkan/google_place/blob/master/example/images/details_page.png)
+  ![Home page](example/images/home_page.png)
+  ![Details page](example/images/details_page.png)
 
 ## Sample Usage
 
@@ -84,6 +84,7 @@ Uint8List result = await googlePlace.details.get("ChIJN1t_tDeuEmsRUsoyG83frY4",
     ```
 
   - Text Search
+
     ```dart
     var googlePlace = GooglePlace("Your-Key");
     var result = await googlePlace.search.search.getTextSearch("restaurants in Sydney");
