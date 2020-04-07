@@ -1,3 +1,9 @@
+# CHANGELOG
+
+## [0.2.7] - 2020-04-07
+
+- Update pubspec file
+
 ## [0.2.6] - 2020-04-05
 
 - Update README file
