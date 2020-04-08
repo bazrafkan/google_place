@@ -6,16 +6,10 @@ import 'package:google_place/src/photos/photos.dart';
 import 'package:google_place/src/query_autocomplete/query_autocomplete.dart';
 import 'package:google_place/src/search/search.dart';
 
-export 'package:google_place/src/autocomplete/autocomplete_response.dart';
 export 'package:google_place/src/autocomplete/autocomplete_prediction.dart';
+export 'package:google_place/src/autocomplete/autocomplete_response.dart';
 export 'package:google_place/src/details/details_response.dart';
 export 'package:google_place/src/details/details_result.dart';
-export 'package:google_place/src/search/find_place_response.dart';
-export 'package:google_place/src/search/near_by_search_response.dart';
-export 'package:google_place/src/search/text_search_response.dart';
-export 'package:google_place/src/search/search_candidate.dart';
-export 'package:google_place/src/search/search_result.dart';
-
 export 'package:google_place/src/models/address_component.dart';
 export 'package:google_place/src/models/bounds.dart';
 export 'package:google_place/src/models/close.dart';
@@ -40,13 +34,31 @@ export 'package:google_place/src/models/southwest.dart';
 export 'package:google_place/src/models/structured_formatting.dart';
 export 'package:google_place/src/models/term.dart';
 export 'package:google_place/src/models/viewport.dart';
+export 'package:google_place/src/search/find_place_response.dart';
+export 'package:google_place/src/search/near_by_search_response.dart';
+export 'package:google_place/src/search/search_candidate.dart';
+export 'package:google_place/src/search/search_result.dart';
+export 'package:google_place/src/search/text_search_response.dart';
 
+/// The Places API is a service that returns information about places.
+/// Places are defined within this API as establishments, geographic locations, or prominent points of interest.
 class GooglePlace {
+  /// [apiKEY] Your application's API key. This key identifies your application.
   final String apiKEY;
+
+  /// [search] returns a list of places based on a user's location or search string.
   Search search;
+
+  /// [details] returns more detailed information about a specific place, including user reviews.
   Details details;
+
+  /// [photos] provides access to the millions of place-related photos stored in Google's Place database.
   Photos photos;
+
+  /// [autocomplete] automatically fills in the name and/or address of a place as users type.
   Autocomplete autocomplete;
+
+  /// [queryAutocomplete] provides a query prediction service for text-based geographic searches, returning suggested queries as users type.
   QueryAutocomplete queryAutocomplete;
 
   GooglePlace(this.apiKEY) {
