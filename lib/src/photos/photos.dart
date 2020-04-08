@@ -11,10 +11,13 @@ class Photos {
   Photos(this.apiKEY);
 
   Future<Uint8List> get(
-    String photoReference, {
+    String photoReference,
     int maxHeight,
     int maxWidth,
-  }) async {
+  ) async {
+    assert(photoReference != null);
+    assert(photoReference != "");
+    assert(maxHeight != null || maxWidth != null);
     var queryParameters = PhotoParameters.createParameters(
       apiKEY,
       photoReference,

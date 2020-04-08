@@ -347,8 +347,7 @@ class _DetailsPageState extends State<DetailsPage> {
   }
 
   void getPhoto(String photoReference) async {
-    var result =
-        await this.googlePlace.photos.get(photoReference, maxWidth: 400);
+    var result = await this.googlePlace.photos.get(photoReference, null, 400);
     if (result != null && mounted) {
       setState(() {
         images.add(result);
