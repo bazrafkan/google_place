@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## [0.3.1] - 2020-05-08
+
+- Update pubspec file in example
+- Update README file in example
+
 ## [0.3.0] - 2020-04-08
 
 - Fix bug for palce photos parameters
