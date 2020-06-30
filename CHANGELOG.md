@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## [0.3.2] - 2020-06-30
+
+- Fix bug for location parameter in autocomplete and query autocomplete
+- Update dependency
+
 ## [0.3.1] - 2020-05-08
 
 - Update pubspec file in example
@@ -7,7 +12,7 @@
 
 ## [0.3.0] - 2020-04-08
 
-- Fix bug for palce photos parameters
+- Fix bug for place photos parameters
 - Update description for methods
 - Update CONTRIBUTING and README files
 
