@@ -18,7 +18,7 @@ class QueryAutocompleteParameters {
 
     if (location != null) {
       var item = {
-        'location': '${location.latitude},${location.latitude}',
+        'location': '${location.latitude},${location.longitude}',
       };
       queryParameters.addAll(item);
     }
