@@ -49,7 +49,7 @@ class QueryAutocomplete {
       radius,
       language,
     );
-    var uri = Uri.https(_authority, _unencodedPath, queryParameters);
+    var uri = Uri.parse(Uri.https(_authority, _unencodedPath, queryParameters).toString().replaceAll("%", ",").replaceAll(",2C", ","));
     var response = await NetworkUtility.fetchUrl(uri);
     if (response != null) {
       return AutocompleteResponse.parseAutocompleteResult(response);

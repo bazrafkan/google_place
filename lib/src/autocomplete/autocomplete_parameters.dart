@@ -38,14 +38,14 @@ class AutocompleteParameters {
 
     if (origin != null) {
       var item = {
-        'origin': '${origin.latitude},${origin.latitude}',
+        'origin': '${origin.latitude},${origin.longitude}',
       };
       queryParameters.addAll(item);
     }
 
     if (location != null) {
       var item = {
-        'location': '${location.latitude},${location.latitude}',
+        'location': '${location.latitude},${location.longitude}',
       };
       queryParameters.addAll(item);
     }
@@ -87,7 +87,7 @@ class AutocompleteParameters {
 
     if (strictbounds) {
       var item = {
-        'strictbounds': 'strictbounds',
+        'strictbounds': strictbounds.toString(),
       };
       queryParameters.addAll(item);
     }
