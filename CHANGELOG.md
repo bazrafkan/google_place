@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## [0.3.3] - 2020-08-23
+
+- Add some commands
+- Code refactor
+- Update dependency
+
 ## [0.3.2] - 2020-06-30
 
 - Fix bug for location parameter in autocomplete and query autocomplete
