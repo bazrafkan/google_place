@@ -3,7 +3,8 @@ import 'package:http/http.dart' as http;
 
 /// The Network Utility
 class NetworkUtility {
-  static Future<String> fetchUrl(Uri uri, {
+  static Future<String> fetchUrl(
+    Uri uri, {
     Map<String, String> headers,
   }) async {
     try {
