@@ -1,11 +1,10 @@
 import 'dart:typed_data';
 
-import 'package:google_place/src/photos/photo_parameters.dart';
 import 'package:google_place/src/utils/network_utility.dart';
 
 class Photos {
-  final _authority = 'maps.googleapis.com';
-  final _unencodedPath = 'maps/api/place/photo';
+  static final _authority = 'maps.googleapis.com';
+  static final _unencodedPath = 'maps/api/place/photo';
   final String apiKEY;
 
   Photos(this.apiKEY);
@@ -35,7 +34,7 @@ class Photos {
     assert(photoReference != null);
     assert(photoReference != "");
     assert(maxHeight != null || maxWidth != null);
-    var queryParameters = PhotoParameters.createParameters(
+    var queryParameters = _createParameters(
       apiKEY,
       photoReference,
       maxHeight,
@@ -48,5 +47,31 @@ class Photos {
       return Uint8List.fromList(list);
     }
     return null;
+  }
+
+  /// Prepare query Parameters
+  Map<String, String> _createParameters(
+    String apiKEY,
+    String photoReference,
+    int maxHeight,
+    int maxWidth,
+  ) {
+    Map<String, String> queryParameters = {
+      'photoreference': photoReference,
+      'key': apiKEY,
+    };
+    if (maxHeight != null) {
+      var item = {
+        'maxheight': maxHeight.toString(),
+      };
+      queryParameters.addAll(item);
+    }
+    if (maxWidth != null) {
+      var item = {
+        'maxwidth': maxWidth.toString(),
+      };
+      queryParameters.addAll(item);
+    }
+    return queryParameters;
   }
 }

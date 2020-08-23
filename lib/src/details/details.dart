@@ -1,10 +1,9 @@
-import 'package:google_place/src/details/details_parameters.dart';
 import 'package:google_place/src/details/details_response.dart';
 import 'package:google_place/src/utils/network_utility.dart';
 
 class Details {
-  final _authority = 'maps.googleapis.com';
-  final _unencodedPath = 'maps/api/place/details/json';
+  static final _authority = 'maps.googleapis.com';
+  static final _unencodedPath = 'maps/api/place/details/json';
   final String apiKEY;
 
   Details(this.apiKEY);
@@ -43,7 +42,7 @@ class Details {
   }) async {
     assert(placeId != null);
     assert(placeId != "");
-    var queryParameters = DetailsParameters.createParameters(
+    var queryParameters = _createParameters(
       apiKEY,
       placeId,
       language,
@@ -58,5 +57,49 @@ class Details {
       return DetailsResponse.parseDetailsResult(response);
     }
     return null;
+  }
+
+  /// Prepare query Parameters
+  Map<String, String> _createParameters(
+    String apiKEY,
+    String placeId,
+    String language,
+    String region,
+    String sessionToken,
+    String fields,
+  ) {
+    Map<String, String> queryParameters = {
+      'key': apiKEY,
+      'place_id': placeId,
+    };
+
+    if (language != null && language != '') {
+      var item = {
+        'language': language,
+      };
+      queryParameters.addAll(item);
+    }
+
+    if (region != null && region != '') {
+      var item = {
+        'region': region,
+      };
+      queryParameters.addAll(item);
+    }
+
+    if (sessionToken != null && sessionToken != '') {
+      var item = {
+        'sessiontoken': sessionToken,
+      };
+      queryParameters.addAll(item);
+    }
+
+    if (fields != null && fields != '') {
+      var item = {
+        'fields': fields,
+      };
+      queryParameters.addAll(item);
+    }
+    return queryParameters;
   }
 }

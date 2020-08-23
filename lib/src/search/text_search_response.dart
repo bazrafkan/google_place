@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:google_place/src/models/debug_log.dart';
 import 'package:google_place/src/search/search_result.dart';
 
+/// The Text Search response contains html Attributions and search results and status
 class TextSearchResponse {
   final String status;
   final List<String> htmlAttributions;

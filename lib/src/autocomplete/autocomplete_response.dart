@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:google_place/src/autocomplete/autocomplete_prediction.dart';
 
+/// The Autocomplete response contains place predictions and status
 class AutocompleteResponse {
   final String status;
   final List<AutocompletePrediction> predictions;

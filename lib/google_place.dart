@@ -61,6 +61,9 @@ class GooglePlace {
   /// [queryAutocomplete] provides a query prediction service for text-based geographic searches, returning suggested queries as users type.
   QueryAutocomplete queryAutocomplete;
 
+  /// [timeout] timeout for http call.
+  static Duration timeout = Duration(milliseconds: 1500);
+
   GooglePlace(this.apiKEY) {
     assert(apiKEY != null);
     this.search = Search(apiKEY);
