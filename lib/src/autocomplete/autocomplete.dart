@@ -60,19 +60,18 @@ class Autocomplete {
   /// [strictbounds] Optional parameters - Returns only those places that are strictly within
   /// the region defined by location and radius. This is a restriction, rather than a bias,
   /// meaning that results outside this region will not be returned even if they match the user input.
-  Future<AutocompleteResponse> get(
+  Future<AutocompleteResponse?> get(
     String input, {
-    String sessionToken,
-    int offset,
-    LatLon origin,
-    LatLon location,
-    int radius,
-    String language,
-    String types,
-    List<Component> components,
+    String? sessionToken,
+    int? offset,
+    LatLon? origin,
+    LatLon? location,
+    int? radius,
+    String? language,
+    String? types,
+    List<Component>? components,
     bool strictbounds = false,
   }) async {
-    assert(input != null);
     assert(input != "");
     if (strictbounds) {
       assert(location != null);
@@ -103,14 +102,14 @@ class Autocomplete {
   Map<String, String> _createParameters(
     String apiKEY,
     String input,
-    String sessionToken,
-    int offset,
-    LatLon origin,
-    LatLon location,
-    int radius,
-    String language,
-    String types,
-    List<Component> components,
+    String? sessionToken,
+    int? offset,
+    LatLon? origin,
+    LatLon? location,
+    int? radius,
+    String? language,
+    String? types,
+    List<Component>? components,
     bool strictbounds,
   ) {
     String result = input.trimRight();

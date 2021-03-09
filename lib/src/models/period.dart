@@ -6,10 +6,10 @@ class Period {
   /// Note: If a place is always open, the close section will be missing from the response.
   /// Clients can rely on always-open being represented as an open period containing day with
   /// value 0 and time with value 0000, and no close.
-  final Close close;
+  final Close? close;
 
   /// [open] contains a pair of day and time objects describing when the place opens.
-  final Open open;
+  final Open? open;
 
   Period({this.close, this.open});
 

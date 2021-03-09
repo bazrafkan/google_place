@@ -5,11 +5,11 @@ import 'package:google_place/src/search/search_result.dart';
 
 /// The Text Search response contains html Attributions and search results and status
 class TextSearchResponse {
-  final String status;
-  final List<String> htmlAttributions;
-  final String nextPageToken;
-  final DebugLog debugLog;
-  final List<SearchResult> results;
+  final String? status;
+  final List<String>? htmlAttributions;
+  final String? nextPageToken;
+  final DebugLog? debugLog;
+  final List<SearchResult>? results;
 
   TextSearchResponse({
     this.status,

@@ -1,5 +1,5 @@
 class DebugLog {
-  final List<String> line;
+  final List<String>? line;
 
   DebugLog({this.line});
 

@@ -33,14 +33,13 @@ class Details {
   ///
   /// [sessionToken] Optional parameters - One or more fields, specifying the types of place data to return,
   /// separated by a comma.
-  Future<DetailsResponse> get(
+  Future<DetailsResponse?> get(
     String placeId, {
-    String language,
-    String region,
-    String sessionToken,
-    String fields,
+    String? language,
+    String? region,
+    String? sessionToken,
+    String? fields,
   }) async {
-    assert(placeId != null);
     assert(placeId != "");
     var queryParameters = _createParameters(
       apiKEY,
@@ -63,10 +62,10 @@ class Details {
   Map<String, String> _createParameters(
     String apiKEY,
     String placeId,
-    String language,
-    String region,
-    String sessionToken,
-    String fields,
+    String? language,
+    String? region,
+    String? sessionToken,
+    String? fields,
   ) {
     Map<String, String> queryParameters = {
       'key': apiKEY,

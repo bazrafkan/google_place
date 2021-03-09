@@ -26,14 +26,12 @@ class Photos {
   /// dimension, it will be scaled to match the smaller of the two dimensions, restricted to its
   /// original aspect ratio. Both the maxheight and maxwidth properties accept an integer
   /// between 1 and 1600.
-  Future<Uint8List> get(
+  Future<Uint8List?> get(
     String photoReference,
     int maxHeight,
     int maxWidth,
   ) async {
-    assert(photoReference != null);
     assert(photoReference != "");
-    assert(maxHeight != null || maxWidth != null);
     var queryParameters = _createParameters(
       apiKEY,
       photoReference,
@@ -53,18 +51,14 @@ class Photos {
   Map<String, String> _createParameters(
     String apiKEY,
     String photoReference,
-    int maxHeight,
-    int maxWidth,
+    int? maxHeight,
+    int? maxWidth,
   ) {
     Map<String, String> queryParameters = {
       'photoreference': photoReference,
       'key': apiKEY,
     };
     if (maxHeight != null) {
-      var item = {
-        'maxheight': maxHeight.toString(),
-      };
-      queryParameters.addAll(item);
     }
     if (maxWidth != null) {
       var item = {
