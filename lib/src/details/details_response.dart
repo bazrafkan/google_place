@@ -4,9 +4,9 @@ import 'package:google_place/src/details/details_result.dart';
 
 /// The Details response contains html Attributions and details and status
 class DetailsResponse {
-  final String status;
-  final List<String> htmlAttributions;
-  final DetailsResult result;
+  final String? status;
+  final List<String>? htmlAttributions;
+  final DetailsResult? result;
 
   DetailsResponse({
     this.status,

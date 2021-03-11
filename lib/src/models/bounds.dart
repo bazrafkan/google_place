@@ -2,8 +2,8 @@ import 'package:google_place/src/models/northeast.dart';
 import 'package:google_place/src/models/southwest.dart';
 
 class Bounds {
-  final Northeast northeast;
-  final Southwest southwest;
+  final Northeast? northeast;
+  final Southwest? southwest;
 
   Bounds({this.northeast, this.southwest});
 

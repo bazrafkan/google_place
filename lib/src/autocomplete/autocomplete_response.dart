@@ -4,14 +4,14 @@ import 'package:google_place/src/autocomplete/autocomplete_prediction.dart';
 
 /// The Autocomplete response contains place predictions and status
 class AutocompleteResponse {
-  final String status;
-  final List<AutocompletePrediction> predictions;
+  final String? status;
+  final List<AutocompletePrediction>? predictions;
 
   AutocompleteResponse({this.status, this.predictions});
 
   factory AutocompleteResponse.fromJson(Map<String, dynamic> json) {
     return AutocompleteResponse(
-      status: json['status'] as String,
+      status: json['status'] as String?,
       predictions: json['predictions'] != null
           ? json['predictions']
               .map<AutocompletePrediction>(

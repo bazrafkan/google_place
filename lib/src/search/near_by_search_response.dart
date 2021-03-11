@@ -5,11 +5,11 @@ import 'package:google_place/src/search/search_result.dart';
 
 /// The Near By Search response contains html Attributions and search results and status
 class NearBySearchResponse {
-  final String status;
-  final List<String> htmlAttributions;
-  final String nextPageToken;
-  final DebugLog debugLog;
-  final List<SearchResult> results;
+  final String? status;
+  final List<String>? htmlAttributions;
+  final String? nextPageToken;
+  final DebugLog? debugLog;
+  final List<SearchResult>? results;
 
   NearBySearchResponse({
     this.status,

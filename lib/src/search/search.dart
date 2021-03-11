@@ -37,17 +37,14 @@ class Search {
   ///
   /// [locationbias] Optional parameters - Prefer results in a specified area, by specifying either a radius plus
   /// lat/lng, or two lat/lng pairs representing the points of a rectangle.
-  Future<FindPlaceResponse> getFindPlace(
+  Future<FindPlaceResponse?> getFindPlace(
     String input,
     InputType inputType, {
-    String language,
-    String fields,
-    Locationbias locationbias,
+    String? language,
+    String? fields,
+    Locationbias? locationbias,
   }) async {
-    assert(input != null);
     assert(input != "");
-    assert(inputType != null);
-    assert(inputType != null);
     var queryParameters = _createFindPlaceParameters(
       apiKEY,
       input,
@@ -104,21 +101,19 @@ class Search {
   /// [pagetoken] Optional parameters - Returns up to 20 results from a previously run search. Setting a
   /// pagetoken parameter will execute a search with the same parameters used previously — all parameters
   /// other than pagetoken will be ignored.
-  Future<NearBySearchResponse> getNearBySearch(
+  Future<NearBySearchResponse?> getNearBySearch(
     Location location,
     int radius, {
-    String keyword,
-    String language,
-    int minprice,
-    int maxprice,
-    String name,
-    bool opennow,
-    RankBy rankby,
-    String type,
-    String pagetoken,
+    String? keyword,
+    String? language,
+    int? minprice,
+    int? maxprice,
+    String? name,
+    bool? opennow,
+    RankBy? rankby,
+    String? type,
+    String? pagetoken,
   }) async {
-    assert(location != null);
-    assert(radius != null);
     var queryParameters = _createNearBySearchParameters(
       apiKEY,
       location,
@@ -188,19 +183,18 @@ class Search {
   /// [pagetoken] Optional parameters - Returns up to 20 results from a previously run search. Setting a pagetoken
   /// parameter will execute a search with the same parameters used previously — all parameters other than pagetoken
   /// will be ignored.
-  Future<TextSearchResponse> getTextSearch(
+  Future<TextSearchResponse?> getTextSearch(
     String query, {
-    String region,
-    Location location,
-    int radius,
-    String language,
-    int minprice,
-    int maxprice,
-    bool opennow,
-    String type,
-    String pagetoken,
+    String? region,
+    Location? location,
+    int? radius,
+    String? language,
+    int? minprice,
+    int? maxprice,
+    bool? opennow,
+    String? type,
+    String? pagetoken,
   }) async {
-    assert(query != null);
     assert(query != "");
     var queryParameters = _createTextSearchParameters(
       apiKEY,
@@ -225,17 +219,17 @@ class Search {
   }
 
   /// Prepare query Parameters for find place
-  Map<String, String> _createFindPlaceParameters(
+  Map<String, String?> _createFindPlaceParameters(
     String apiKEY,
     String input,
     InputType inputType,
-    String language,
-    String fields,
-    Locationbias locationbias,
+    String? language,
+    String? fields,
+    Locationbias? locationbias,
   ) {
     String result = input.trimRight();
     result = result.trimLeft();
-    Map<String, String> queryParameters = {
+    Map<String, String?> queryParameters = {
       'input': result,
       'key': apiKEY,
       'inputtype': inputType == InputType.TextQuery
@@ -258,21 +252,21 @@ class Search {
     }
 
     if (locationbias != null) {
-      String value;
-      if (locationbias.ipbias != null && locationbias.ipbias) {
+      String? value;
+      if (locationbias.ipbias != null && locationbias.ipbias!) {
         value = 'ipbias';
       }
       if (locationbias.point != null) {
         value =
-            'point:${locationbias.point.latitude},${locationbias.point.longitude}';
+            'point:${locationbias.point!.latitude},${locationbias.point!.longitude}';
       }
       if (locationbias.circular != null) {
         value =
-            'circle:${locationbias.circular.radius}@${locationbias.circular.latLng.latitude},${locationbias.circular.latLng.longitude}';
+            'circle:${locationbias.circular!.radius}@${locationbias.circular!.latLng.latitude},${locationbias.circular!.latLng.longitude}';
       }
       if (locationbias.rectangular != null) {
         value =
-            'rectangle:${locationbias.rectangular.southWest.latitude},${locationbias.rectangular.southWest.longitude}|${locationbias.rectangular.northEast.latitude},${locationbias.rectangular.northEast.longitude}';
+            'rectangle:${locationbias.rectangular!.southWest.latitude},${locationbias.rectangular!.southWest.longitude}|${locationbias.rectangular!.northEast.latitude},${locationbias.rectangular!.northEast.longitude}';
       }
       var item = {
         'locationbias': value,
@@ -283,21 +277,21 @@ class Search {
   }
 
   /// Prepare query Parameters for near by search
-  Map<String, String> _createNearBySearchParameters(
+  Map<String, String?> _createNearBySearchParameters(
     apiKEY,
     Location location,
     int radius,
-    String keyword,
-    String language,
-    int minprice,
-    int maxprice,
-    String name,
-    bool opennow,
-    RankBy rankby,
-    String type,
-    String pagetoken,
+    String? keyword,
+    String? language,
+    int? minprice,
+    int? maxprice,
+    String? name,
+    bool? opennow,
+    RankBy? rankby,
+    String? type,
+    String? pagetoken,
   ) {
-    Map<String, String> queryParameters = {
+    Map<String, String?> queryParameters = {
       'location': '${location.lat},${location.lng}',
       'key': apiKEY,
       'radius': radius.toString(),
@@ -346,7 +340,7 @@ class Search {
     }
 
     if (rankby != null) {
-      String value;
+      String? value;
       if (rankby == RankBy.Prominence) {
         value = 'prominence';
       }
@@ -381,15 +375,15 @@ class Search {
   Map<String, String> _createTextSearchParameters(
     apiKEY,
     String query,
-    String region,
-    Location location,
-    int radius,
-    String language,
-    int minprice,
-    int maxprice,
-    bool opennow,
-    String type,
-    String pagetoken,
+    String? region,
+    Location? location,
+    int? radius,
+    String? language,
+    int? minprice,
+    int? maxprice,
+    bool? opennow,
+    String? type,
+    String? pagetoken,
   ) {
     String result = query.trimRight();
     result = result.trimLeft();

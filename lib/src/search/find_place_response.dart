@@ -5,11 +5,11 @@ import 'package:google_place/src/search/search_candidate.dart';
 
 /// The Find Place Search response contains html Attributions and search results and status
 class FindPlaceResponse {
-  final String status;
-  final List<String> htmlAttributions;
-  final String nextPageToken;
-  final DebugLog debugLog;
-  final List<SearchCandidate> candidates;
+  final String? status;
+  final List<String>? htmlAttributions;
+  final String? nextPageToken;
+  final DebugLog? debugLog;
+  final List<SearchCandidate>? candidates;
 
   FindPlaceResponse({
     this.status,

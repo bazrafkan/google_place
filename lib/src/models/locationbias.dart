@@ -5,20 +5,20 @@ import 'package:google_place/src/models/lat_lon.dart';
 /// If this parameter is not specified, the API uses IP address biasing by default.
 class Locationbias {
   /// [ipbias] - Instructs the API to use IP address biasing.
-  final bool ipbias;
+  final bool? ipbias;
 
   /// [point] - A single lat/lng coordinate.
-  final LatLon point;
+  final LatLon? point;
 
   /// [circular] - A string specifying radius in meters, plus lat/lng in decimal degrees.
-  final Circular circular;
+  final Circular? circular;
 
   /// [rectangular] - A string specifying two lat/lng pairs in decimal degrees,
   /// representing the south/west and north/east points of a rectangle.
-  final Rectangular rectangular;
+  final Rectangular? rectangular;
 
   Locationbias({this.ipbias, this.point, this.circular, this.rectangular}) {
-    if (ipbias != null && ipbias) {
+    if (ipbias != null && ipbias!) {
       assert(point == null);
       assert(circular == null);
       assert(rectangular == null);
@@ -38,7 +38,7 @@ class Locationbias {
       assert(point == null);
       assert(circular == null);
     }
-    if (ipbias == null && ipbias)
+    if (ipbias == null && ipbias!)
       assert((ipbias != null || ipbias != false) &&
           point != null &&
           circular != null &&
@@ -50,16 +50,12 @@ class Circular {
   final int radius;
   final LatLon latLng;
 
-  Circular(this.radius, this.latLng)
-      : assert(radius != null),
-        assert(latLng != null);
+  Circular(this.radius, this.latLng);
 }
 
 class Rectangular {
   final LatLon southWest;
   final LatLon northEast;
 
-  Rectangular(this.southWest, this.northEast)
-      : assert(southWest != null),
-        assert(northEast != null);
+  Rectangular(this.southWest, this.northEast);
 }

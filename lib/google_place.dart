@@ -47,25 +47,24 @@ class GooglePlace {
   final String apiKEY;
 
   /// [search] returns a list of places based on a user's location or search string.
-  Search search;
+  late Search search;
 
   /// [details] returns more detailed information about a specific place, including user reviews.
-  Details details;
+  late Details details;
 
   /// [photos] provides access to the millions of place-related photos stored in Google's Place database.
-  Photos photos;
+  late Photos photos;
 
   /// [autocomplete] automatically fills in the name and/or address of a place as users type.
-  Autocomplete autocomplete;
+  late Autocomplete autocomplete;
 
   /// [queryAutocomplete] provides a query prediction service for text-based geographic searches, returning suggested queries as users type.
-  QueryAutocomplete queryAutocomplete;
+  late QueryAutocomplete queryAutocomplete;
 
   /// [timeout] timeout for http call.
   static Duration timeout = Duration(milliseconds: 1500);
 
   GooglePlace(this.apiKEY) {
-    assert(apiKEY != null);
     this.search = Search(apiKEY);
     this.details = Details(apiKEY);
     this.photos = Photos(apiKEY);

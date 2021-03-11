@@ -1,6 +1,6 @@
 class Southwest {
-  final double lat;
-  final double lng;
+  final double? lat;
+  final double? lng;
 
   Southwest({this.lat, this.lng});
 
