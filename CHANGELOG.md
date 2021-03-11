@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## [0.4.0] - 2021-03-11
+
+- Add null-safety
+
 ## [0.3.3] - 2020-08-23
 
 - Add some commands
