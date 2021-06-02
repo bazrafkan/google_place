@@ -346,6 +346,7 @@ class Search {
       }
       if (rankby == RankBy.Distance) {
         value = 'distance';
+        queryParameters.remove('radius');
       }
 
       var item = {
