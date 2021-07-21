@@ -1,3 +1,4 @@
+import 'package:google_place/google_place.dart';
 import 'package:google_place/src/autocomplete/autocomplete_response.dart';
 import 'package:google_place/src/models/component.dart';
 import 'package:google_place/src/models/lat_lon.dart';
@@ -7,8 +8,9 @@ class Autocomplete {
   static final _authority = 'maps.googleapis.com';
   static final _unencodedPath = 'maps/api/place/autocomplete/json';
   final String apiKEY;
+  final Map<String, String> headers;
 
-  Autocomplete(this.apiKEY);
+  Autocomplete(this.apiKEY, this.headers);
 
   /// The Place Autocomplete service is a web service that returns place predictions in response
   ///  to an HTTP request. The request specifies a textual search string and optional geographic
@@ -91,7 +93,7 @@ class Autocomplete {
       strictbounds,
     );
     var uri = Uri.https(_authority, _unencodedPath, queryParameters);
-    var response = await NetworkUtility.fetchUrl(uri);
+    var response = await NetworkUtility.fetchUrl(uri, headers: headers);
     if (response != null) {
       return AutocompleteResponse.parseAutocompleteResult(response);
     }

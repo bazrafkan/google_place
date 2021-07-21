@@ -1,3 +1,4 @@
+import 'package:google_place/google_place.dart';
 import 'package:google_place/src/autocomplete/autocomplete_response.dart';
 import 'package:google_place/src/models/lat_lon.dart';
 import 'package:google_place/src/utils/network_utility.dart';
@@ -6,8 +7,9 @@ class QueryAutocomplete {
   static final _authority = 'maps.googleapis.com';
   static final _unencodedPath = 'maps/api/place/queryautocomplete/json';
   final String apiKEY;
+  final Map<String, String> headers;
 
-  QueryAutocomplete(this.apiKEY);
+  QueryAutocomplete(this.apiKEY, this.headers);
 
   /// The Query Autocomplete service can be used to provide a query prediction for text-based
   /// geographic searches, by returning suggested queries as you type.
@@ -48,7 +50,7 @@ class QueryAutocomplete {
       language,
     );
     var uri = Uri.https(_authority, _unencodedPath, queryParameters);
-    var response = await NetworkUtility.fetchUrl(uri);
+    var response = await NetworkUtility.fetchUrl(uri, headers: headers);
     if (response != null) {
       return AutocompleteResponse.parseAutocompleteResult(response);
     }

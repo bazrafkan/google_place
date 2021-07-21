@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## [0.3.4] - 2021-07-01
+- Added ability to pass custom headers in requests.
+
 ## [0.3.3] - 2020-08-23
 
 - Add some commands

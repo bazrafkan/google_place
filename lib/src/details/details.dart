@@ -1,3 +1,4 @@
+import 'package:google_place/google_place.dart';
 import 'package:google_place/src/details/details_response.dart';
 import 'package:google_place/src/utils/network_utility.dart';
 
@@ -5,8 +6,9 @@ class Details {
   static final _authority = 'maps.googleapis.com';
   static final _unencodedPath = 'maps/api/place/details/json';
   final String apiKEY;
+  final Map<String, String> headers;
 
-  Details(this.apiKEY);
+  Details(this.apiKEY, this.headers);
 
   /// Once you have a place_id from a Place Search, you can request more details about a
   /// particular establishment or point of interest by initiating a Place Details request.
@@ -51,7 +53,7 @@ class Details {
     );
 
     var uri = Uri.https(_authority, _unencodedPath, queryParameters);
-    var response = await NetworkUtility.fetchUrl(uri);
+    var response = await NetworkUtility.fetchUrl(uri, headers: headers);
     if (response != null) {
       return DetailsResponse.parseDetailsResult(response);
     }
