@@ -45,6 +45,12 @@ class Autocomplete {
   ///  Note that setting a radius biases results to the indicated area, but may not fully restrict
   /// results to the specified area. See Location Biasing and Location Restrict below.
   ///
+  /// [region] Optional parameters - The region code, specified as a ccTLD (country code top-level domain)
+  /// two-character value. Most ccTLD codes are identical to ISO 3166-1 codes, with some exceptions.
+  /// This parameter will only influence, not fully restrict, results. If more relevant results
+  ///  exist outside of the specified region, they may be included. When this parameter is used,
+  ///  the country name is omitted from the resulting formatted_address for results in the specified region.
+  ///
   /// [language] Optional parameters -  The language code, indicating in which language the results
   ///  should be returned, if possible. Searches are also biased to the selected language; results
   /// in the selected language may be given a higher ranking. See the list of supported languages
@@ -69,6 +75,7 @@ class Autocomplete {
     LatLon? origin,
     LatLon? location,
     int? radius,
+    String? region,
     String? language,
     String? types,
     List<Component>? components,
@@ -87,6 +94,7 @@ class Autocomplete {
       origin,
       location,
       radius,
+      region,
       language,
       types,
       components,
@@ -109,6 +117,7 @@ class Autocomplete {
     LatLon? origin,
     LatLon? location,
     int? radius,
+    String? region,
     String? language,
     String? types,
     List<Component>? components,
@@ -166,6 +175,13 @@ class Autocomplete {
     if (sessionToken != null && sessionToken != '') {
       var item = {
         'sessionToken': sessionToken,
+      };
+      queryParameters.addAll(item);
+    }
+
+    if (region != null && region != '') {
+      var item = {
+        'region': region,
       };
       queryParameters.addAll(item);
     }
