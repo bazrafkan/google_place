@@ -33,7 +33,7 @@ class Details {
   /// billing purposes. Use this for Place Details requests that are called following an autocomplete
   /// request in the same user session.
   ///
-  /// [sessionToken] Optional parameters - One or more fields, specifying the types of place data to return,
+  /// [fields] Optional parameters - One or more fields, specifying the types of place data to return,
   /// separated by a comma.
   Future<DetailsResponse?> get(
     String placeId, {
