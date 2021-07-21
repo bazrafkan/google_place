@@ -6,8 +6,9 @@ class Photos {
   static final _authority = 'maps.googleapis.com';
   static final _unencodedPath = 'maps/api/place/photo';
   final String apiKEY;
+  final Map<String, String> headers;
 
-  Photos(this.apiKEY);
+  Photos(this.apiKEY, this.headers);
 
   /// The Place Photo service, part of the Places API, is a read- only API that allows you to
   /// add high quality photographic content to your application. The Place Photo service gives
@@ -39,7 +40,7 @@ class Photos {
       maxWidth,
     );
     var uri = Uri.https(_authority, _unencodedPath, queryParameters);
-    var response = await NetworkUtility.fetchUrl(uri);
+    var response = await NetworkUtility.fetchUrl(uri, headers: headers);
     if (response != null) {
       List<int> list = response.codeUnits;
       return Uint8List.fromList(list);
@@ -58,8 +59,7 @@ class Photos {
       'photoreference': photoReference,
       'key': apiKEY,
     };
-    if (maxHeight != null) {
-    }
+    if (maxHeight != null) {}
     if (maxWidth != null) {
       var item = {
         'maxwidth': maxWidth.toString(),

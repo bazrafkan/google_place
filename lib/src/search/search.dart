@@ -1,3 +1,4 @@
+import 'package:google_place/google_place.dart';
 import 'package:google_place/src/models/input_type.dart';
 import 'package:google_place/src/models/location.dart';
 import 'package:google_place/src/models/locationbias.dart';
@@ -14,8 +15,9 @@ class Search {
   static final _unencodedPathNearBySearch = 'maps/api/place/nearbysearch/json';
   static final _unencodedPathTextSearch = 'maps/api/place/textsearch/json';
   final String apiKEY;
+  final Map<String, String> headers;
 
-  Search(this.apiKEY);
+  Search(this.apiKEY, this.headers);
 
   /// A Find Place request takes a text input and returns a place.
   /// The input can be any kind of Places text data, such as a name, address, or phone number.
@@ -55,7 +57,7 @@ class Search {
     );
 
     var uri = Uri.https(_authority, _unencodedPathFindPlace, queryParameters);
-    var response = await NetworkUtility.fetchUrl(uri);
+    var response = await NetworkUtility.fetchUrl(uri, headers: headers);
     if (response != null) {
       return FindPlaceResponse.parseFindPlaceResult(response);
     }
@@ -131,7 +133,7 @@ class Search {
 
     var uri =
         Uri.https(_authority, _unencodedPathNearBySearch, queryParameters);
-    var response = await NetworkUtility.fetchUrl(uri);
+    var response = await NetworkUtility.fetchUrl(uri, headers: headers);
     if (response != null) {
       return NearBySearchResponse.parseNearBySearchResult(response);
     }
@@ -211,7 +213,7 @@ class Search {
     );
 
     var uri = Uri.https(_authority, _unencodedPathTextSearch, queryParameters);
-    var response = await NetworkUtility.fetchUrl(uri);
+    var response = await NetworkUtility.fetchUrl(uri, headers: headers);
     if (response != null) {
       return TextSearchResponse.parseTextSearchResult(response);
     }
@@ -234,7 +236,9 @@ class Search {
       'key': apiKEY,
       'inputtype': inputType == InputType.TextQuery
           ? 'textquery'
-          : inputType == InputType.PhoneNumber ? 'phonenumber' : 'textquery',
+          : inputType == InputType.PhoneNumber
+              ? 'phonenumber'
+              : 'textquery',
     };
 
     if (language != null && language != '') {
@@ -346,6 +350,7 @@ class Search {
       }
       if (rankby == RankBy.Distance) {
         value = 'distance';
+        queryParameters.remove('radius');
       }
 
       var item = {

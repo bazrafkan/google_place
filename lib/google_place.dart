@@ -64,11 +64,17 @@ class GooglePlace {
   /// [timeout] timeout for http call.
   static Duration timeout = Duration(milliseconds: 1500);
 
-  GooglePlace(this.apiKEY) {
-    this.search = Search(apiKEY);
-    this.details = Details(apiKEY);
-    this.photos = Photos(apiKEY);
-    this.autocomplete = Autocomplete(apiKEY);
-    this.queryAutocomplete = QueryAutocomplete(apiKEY);
+  /// Optional headers to pass on each request
+  final Map<String, String> headers;
+
+  GooglePlace(
+    this.apiKEY, {
+    this.headers = const {},
+  }) {
+    this.search = Search(apiKEY, headers);
+    this.details = Details(apiKEY, headers);
+    this.photos = Photos(apiKEY, headers);
+    this.autocomplete = Autocomplete(apiKEY, headers);
+    this.queryAutocomplete = QueryAutocomplete(apiKEY, headers);
   }
 }
