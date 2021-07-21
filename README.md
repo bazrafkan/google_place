@@ -1,6 +1,6 @@
 # google_place
 
-A Flutter plugin that provides a [Google Place API](https://developers.google.com/places/web-service/intro).
+A Flutter plugin for iOS and Android that provides a [Google Place API](https://developers.google.com/places/web-service/intro).
 
 ## Preview
 
@@ -88,3 +88,19 @@ Uint8List result = await googlePlace.details.get("ChIJN1t_tDeuEmsRUsoyG83frY4",
     var googlePlace = GooglePlace("Your-Key");
     var result = await googlePlace.search.search.getTextSearch("restaurants in Sydney");
     ```
+
+## Custom Headers
+
+Now is possible to set custom header to use platform-specific API keys where you must provide the following headers.
+
+```dart
+final headers = <String, String>{
+      if (defaultTargetPlatform == TargetPlatform.iOS)
+        'x-ios-bundle-identifier': Env().bundleIdentifier, // com.my.app
+      if (defaultTargetPlatform == TargetPlatform.android) ...{
+        'x-android-package': Env().bundleIdentifier, // com.my.app
+        'x-android-cert': Env().ANDROID_SIGNING_KEY_SHA1, // signing key used to build/publish the app
+      }
+    };
+var googlePlace = GooglePlace("Your-Key", headers: headers);
+```
