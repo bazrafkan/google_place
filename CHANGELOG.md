@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## [0.4.1] - 2021-07-21
+
+- Fix bug for radius parameter in search
+- Add ability to pass custom headers in requests
+- Add region parameter in autocomplete
+- Update dependency
+- Update README file
+
 ## [0.4.0] - 2021-03-11
 
 - Add null-safety
