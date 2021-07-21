@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 /// A pair of latitude and longitude coordinates, stored as degrees.
 class LatLon {
   /// Creates a geographical location specified in degrees [latitude] and
@@ -22,12 +20,4 @@ class LatLon {
 
   @override
   String toString() => '$runtimeType($latitude, $longitude)';
-
-  @override
-  bool operator ==(Object o) {
-    return o is LatLon && o.latitude == latitude && o.longitude == longitude;
-  }
-
-  @override
-  int get hashCode => hashValues(latitude, longitude);
 }
