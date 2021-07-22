@@ -8,8 +8,9 @@ class QueryAutocomplete {
   static final _unencodedPath = 'maps/api/place/queryautocomplete/json';
   final String apiKEY;
   final Map<String, String> headers;
+  final String? proxyUrl;
 
-  QueryAutocomplete(this.apiKEY, this.headers);
+  QueryAutocomplete(this.apiKEY, this.headers, this.proxyUrl);
 
   /// The Query Autocomplete service can be used to provide a query prediction for text-based
   /// geographic searches, by returning suggested queries as you type.
@@ -49,7 +50,14 @@ class QueryAutocomplete {
       radius,
       language,
     );
-    var uri = Uri.https(_authority, _unencodedPath, queryParameters);
+
+    var uri = Uri.https(
+      proxyUrl != null && proxyUrl != '' ? proxyUrl! : _authority,
+      proxyUrl != null && proxyUrl != ''
+          ? 'https://$_authority/$_unencodedPath'
+          : _unencodedPath,
+      queryParameters,
+    );
     var response = await NetworkUtility.fetchUrl(uri, headers: headers);
     if (response != null) {
       return AutocompleteResponse.parseAutocompleteResult(response);

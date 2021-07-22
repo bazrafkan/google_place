@@ -67,14 +67,18 @@ class GooglePlace {
   /// Optional headers to pass on each request
   final Map<String, String> headers;
 
+  /// Optional proxy url to web request
+  final String? proxyUrl;
+
   GooglePlace(
     this.apiKEY, {
     this.headers = const {},
+    this.proxyUrl,
   }) {
-    this.search = Search(apiKEY, headers);
-    this.details = Details(apiKEY, headers);
-    this.photos = Photos(apiKEY, headers);
-    this.autocomplete = Autocomplete(apiKEY, headers);
-    this.queryAutocomplete = QueryAutocomplete(apiKEY, headers);
+    this.search = Search(apiKEY, headers, proxyUrl);
+    this.details = Details(apiKEY, headers, proxyUrl);
+    this.photos = Photos(apiKEY, headers, proxyUrl);
+    this.autocomplete = Autocomplete(apiKEY, headers, proxyUrl);
+    this.queryAutocomplete = QueryAutocomplete(apiKEY, headers, proxyUrl);
   }
 }

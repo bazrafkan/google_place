@@ -7,8 +7,9 @@ class Details {
   static final _unencodedPath = 'maps/api/place/details/json';
   final String apiKEY;
   final Map<String, String> headers;
+  final String? proxyUrl;
 
-  Details(this.apiKEY, this.headers);
+  Details(this.apiKEY, this.headers, this.proxyUrl);
 
   /// Once you have a place_id from a Place Search, you can request more details about a
   /// particular establishment or point of interest by initiating a Place Details request.
@@ -52,7 +53,13 @@ class Details {
       fields,
     );
 
-    var uri = Uri.https(_authority, _unencodedPath, queryParameters);
+    var uri = Uri.https(
+      proxyUrl != null && proxyUrl != '' ? proxyUrl! : _authority,
+      proxyUrl != null && proxyUrl != ''
+          ? 'https://$_authority/$_unencodedPath'
+          : _unencodedPath,
+      queryParameters,
+    );
     var response = await NetworkUtility.fetchUrl(uri, headers: headers);
     if (response != null) {
       return DetailsResponse.parseDetailsResult(response);

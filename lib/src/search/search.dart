@@ -16,8 +16,9 @@ class Search {
   static final _unencodedPathTextSearch = 'maps/api/place/textsearch/json';
   final String apiKEY;
   final Map<String, String> headers;
+  final String? proxyUrl;
 
-  Search(this.apiKEY, this.headers);
+  Search(this.apiKEY, this.headers, this.proxyUrl);
 
   /// A Find Place request takes a text input and returns a place.
   /// The input can be any kind of Places text data, such as a name, address, or phone number.
@@ -56,7 +57,13 @@ class Search {
       locationbias,
     );
 
-    var uri = Uri.https(_authority, _unencodedPathFindPlace, queryParameters);
+    var uri = Uri.https(
+      proxyUrl != null && proxyUrl != '' ? proxyUrl! : _authority,
+      proxyUrl != null && proxyUrl != ''
+          ? 'https://$_authority/$_unencodedPathFindPlace'
+          : _unencodedPathFindPlace,
+      queryParameters,
+    );
     var response = await NetworkUtility.fetchUrl(uri, headers: headers);
     if (response != null) {
       return FindPlaceResponse.parseFindPlaceResult(response);

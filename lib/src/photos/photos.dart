@@ -7,8 +7,9 @@ class Photos {
   static final _unencodedPath = 'maps/api/place/photo';
   final String apiKEY;
   final Map<String, String> headers;
+  final String? proxyUrl;
 
-  Photos(this.apiKEY, this.headers);
+  Photos(this.apiKEY, this.headers, this.proxyUrl);
 
   /// The Place Photo service, part of the Places API, is a read- only API that allows you to
   /// add high quality photographic content to your application. The Place Photo service gives
@@ -39,7 +40,13 @@ class Photos {
       maxHeight,
       maxWidth,
     );
-    var uri = Uri.https(_authority, _unencodedPath, queryParameters);
+    var uri = Uri.https(
+      proxyUrl != null && proxyUrl != '' ? proxyUrl! : _authority,
+      proxyUrl != null && proxyUrl != ''
+          ? 'https://$_authority/$_unencodedPath'
+          : _unencodedPath,
+      queryParameters,
+    );
     var response = await NetworkUtility.fetchUrl(uri, headers: headers);
     if (response != null) {
       List<int> list = response.codeUnits;

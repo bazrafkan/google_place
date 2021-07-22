@@ -9,8 +9,9 @@ class Autocomplete {
   static final _unencodedPath = 'maps/api/place/autocomplete/json';
   final String apiKEY;
   final Map<String, String> headers;
+  final String? proxyUrl;
 
-  Autocomplete(this.apiKEY, this.headers);
+  Autocomplete(this.apiKEY, this.headers, this.proxyUrl);
 
   /// The Place Autocomplete service is a web service that returns place predictions in response
   ///  to an HTTP request. The request specifies a textual search string and optional geographic
@@ -100,7 +101,14 @@ class Autocomplete {
       components,
       strictbounds,
     );
-    var uri = Uri.https(_authority, _unencodedPath, queryParameters);
+
+    var uri = Uri.https(
+      proxyUrl != null && proxyUrl != '' ? proxyUrl! : _authority,
+      proxyUrl != null && proxyUrl != ''
+          ? 'https://$_authority/$_unencodedPath'
+          : _unencodedPath,
+      queryParameters,
+    );
     var response = await NetworkUtility.fetchUrl(uri, headers: headers);
     if (response != null) {
       return AutocompleteResponse.parseAutocompleteResult(response);
