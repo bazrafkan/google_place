@@ -1,6 +1,6 @@
 # google_place
 
-A Flutter plugin for iOS and Android that provides a [Google Place API](https://developers.google.com/places/web-service/intro).
+A Flutter plugin for iOS and Android and Web that provides a [Google Place API](https://developers.google.com/places/web-service/intro).
 
 ## Preview
 
@@ -103,4 +103,12 @@ final headers = <String, String>{
       }
     };
 var googlePlace = GooglePlace("Your-Key", headers: headers);
+```
+
+## Proxy URL for Web
+
+Now is possible to set proxy url for web.
+
+```dart
+var googlePlace = GooglePlace("Your-Key", proxyUrl: 'cors-anywhere.herokuapp.com');
 ```
