@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## [0.4.2] - 2021-07-22
+
+- Fix for standard dart VM and remove dart:ui lib
+- Add web implementation
+- Update README file
+
 ## [0.4.1] - 2021-07-21
 
 - Fix bug for radius parameter in search
