@@ -67,6 +67,58 @@ class Details {
     return null;
   }
 
+  /// Once you have a place_id from a Place Search, you can request more details about a
+  /// particular establishment or point of interest by initiating a Place Details request.
+  /// A Place Details request returns more comprehensive information about the indicated
+  /// place such as its complete address, phone number, user rating and reviews.
+  ///
+  /// [placeId] Required parameters - A textual identifier that uniquely identifies a place,
+  /// returned from a Place Search. For more information about place IDs.
+  ///
+  /// [language] Optional parameters - The language code, indicating in which language the
+  /// results should be returned, if possible. Note that some fields may not be available in
+  /// the requested language. See the list of supported languages and their codes. Note that
+  ///  we often update supported languages so this list may not be exhaustive.
+  ///
+  /// [region] Optional parameters - The region code, specified as a ccTLD (country code top-level domain)
+  /// two-character value. Most ccTLD codes are identical to ISO 3166-1 codes, with some exceptions.
+  /// This parameter will only influence, not fully restrict, results. If more relevant results
+  ///  exist outside of the specified region, they may be included. When this parameter is used,
+  ///  the country name is omitted from the resulting formatted_address for results in the specified region.
+  ///
+  /// [sessionToken] Optional parameters - A random string which identifies an autocomplete session for
+  /// billing purposes. Use this for Place Details requests that are called following an autocomplete
+  /// request in the same user session.
+  ///
+  /// [fields] Optional parameters - One or more fields, specifying the types of place data to return,
+  /// separated by a comma.
+  Future<String?> getJson(
+    String placeId, {
+    String? language,
+    String? region,
+    String? sessionToken,
+    String? fields,
+  }) async {
+    assert(placeId != "");
+    var queryParameters = _createParameters(
+      apiKEY,
+      placeId,
+      language,
+      region,
+      sessionToken,
+      fields,
+    );
+
+    var uri = Uri.https(
+      proxyUrl != null && proxyUrl != '' ? proxyUrl! : _authority,
+      proxyUrl != null && proxyUrl != ''
+          ? 'https://$_authority/$_unencodedPath'
+          : _unencodedPath,
+      queryParameters,
+    );
+    return await NetworkUtility.fetchUrl(uri, headers: headers);
+  }
+
   /// Prepare query Parameters
   Map<String, String> _createParameters(
     String apiKEY,
