@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## [0.4.3] - 2021-07-25
+
+- Add get json output
+
 ## [0.4.2] - 2021-07-22
 
 - Fix for standard dart VM and remove dart:ui lib
