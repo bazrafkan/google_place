@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## [0.4.4] - 2021-08-10
+
+- Added support for more proxy URI's, 
+- Added tests & manually tested with http://cors-anywhere.herokuapp.com
+- GooglePlace::proxyUrl can now be formatted as [https:// || http://]host[:<port>][/<path>][?<url-param-name>=]
+
 ## [0.4.3] - 2021-07-25
 
 - Add get json output
