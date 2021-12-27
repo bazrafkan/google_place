@@ -1,7 +1,4 @@
 import 'package:google_place/google_place.dart';
-import 'package:google_place/src/autocomplete/autocomplete_response.dart';
-import 'package:google_place/src/models/component.dart';
-import 'package:google_place/src/models/lat_lon.dart';
 import 'package:google_place/src/utils/network_utility.dart';
 
 class Autocomplete {

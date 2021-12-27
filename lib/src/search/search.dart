@@ -1,11 +1,4 @@
 import 'package:google_place/google_place.dart';
-import 'package:google_place/src/models/input_type.dart';
-import 'package:google_place/src/models/location.dart';
-import 'package:google_place/src/models/locationbias.dart';
-import 'package:google_place/src/models/rank-by.dart';
-import 'package:google_place/src/search/find_place_response.dart';
-import 'package:google_place/src/search/near_by_search_response.dart';
-import 'package:google_place/src/search/text_search_response.dart';
 import 'package:google_place/src/utils/network_utility.dart';
 
 class Search {
