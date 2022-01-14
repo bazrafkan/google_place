@@ -37,14 +37,14 @@ To use this plugin, add **_google_place_** as a [dependency in your pubspec.yaml
 
 ```dart
 var googlePlace = GooglePlace("Your-Key");
-var risult = await googlePlace.autocomplete.get("1600 Amphitheatre");
+var result = await googlePlace.autocomplete.get("1600 Amphitheatre");
 ```
 
 - Place Query Autocomplete
 
 ```dart
 var googlePlace = GooglePlace("Your-Key");
-var risult = await googlePlace.queryAutocomplete.get("pizza near sydne");
+var result = await googlePlace.queryAutocomplete.get("pizza near sydne");
 ```
 
 - Place Photos
@@ -86,7 +86,7 @@ Uint8List result = await googlePlace.details.get("ChIJN1t_tDeuEmsRUsoyG83frY4",
 
     ```dart
     var googlePlace = GooglePlace("Your-Key");
-    var result = await googlePlace.search.search.getTextSearch("restaurants in Sydney");
+    var result = await googlePlace.search.getTextSearch("restaurants in Sydney");
     ```
 
 ## Custom Headers
