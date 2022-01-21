@@ -107,8 +107,8 @@ var googlePlace = GooglePlace("Your-Key", headers: headers);
 
 ## Proxy URL for Web
 
-Now is possible to set proxy url for web.
+Now is possible to set proxy url for web. **proxyUrl** can be formatted as [https:// || http://]host[:<port>][/<path>][?<url-param-name>=]
 
 ```dart
-var googlePlace = GooglePlace("Your-Key", proxyUrl: 'cors-anywhere.herokuapp.com');
+var googlePlace = GooglePlace("Your-Key", proxyUrl: 'https://localhost:5000');
 ```
