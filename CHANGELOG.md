@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## [0.4.6] - 2022-01-21
+
+- Fix bug for Locationbias object
+
 ## [0.4.5] - 2022-01-21
 
 - Reformatting code
