@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## [0.4.5] - 2022-01-21
+
+- Reformatting code
+
 ## [0.4.4] - 2022-01-21
 
 - Added support for more proxy URI's, 
