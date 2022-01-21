@@ -1,7 +1,4 @@
 import 'package:google_place/google_place.dart';
-import 'package:google_place/src/autocomplete/autocomplete_response.dart';
-import 'package:google_place/src/models/component.dart';
-import 'package:google_place/src/models/lat_lon.dart';
 import 'package:google_place/src/utils/network_utility.dart';
 
 class Autocomplete {
@@ -102,13 +99,7 @@ class Autocomplete {
       strictbounds,
     );
 
-    var uri = Uri.https(
-      proxyUrl != null && proxyUrl != '' ? proxyUrl! : _authority,
-      proxyUrl != null && proxyUrl != ''
-          ? 'https://$_authority/$_unencodedPath'
-          : _unencodedPath,
-      queryParameters,
-    );
+    var uri = NetworkUtility.createUri(proxyUrl, _authority, _unencodedPath, queryParameters);
     var response = await NetworkUtility.fetchUrl(uri, headers: headers);
     if (response != null) {
       return AutocompleteResponse.parseAutocompleteResult(response);
@@ -206,9 +197,7 @@ class Autocomplete {
 
     var uri = Uri.https(
       proxyUrl != null && proxyUrl != '' ? proxyUrl! : _authority,
-      proxyUrl != null && proxyUrl != ''
-          ? 'https://$_authority/$_unencodedPath'
-          : _unencodedPath,
+      proxyUrl != null && proxyUrl != '' ? 'https://$_authority/$_unencodedPath' : _unencodedPath,
       queryParameters,
     );
     return await NetworkUtility.fetchUrl(uri, headers: headers);

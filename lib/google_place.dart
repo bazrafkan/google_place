@@ -68,6 +68,8 @@ class GooglePlace {
   final Map<String, String> headers;
 
   /// Optional proxy url to web request
+  /// Can be formatted as [https:// || http://]host[:<port>][/<path>][?<url-param-name>=]
+  /// http proxies are supported, but are not recommended for production use.
   final String? proxyUrl;
 
   GooglePlace(
