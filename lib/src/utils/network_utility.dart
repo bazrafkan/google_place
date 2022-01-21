@@ -8,7 +8,8 @@ class NetworkUtility {
     Map<String, String>? headers,
   }) async {
     try {
-      final response = await http.get(uri, headers: headers).timeout(GooglePlace.timeout);
+      final response =
+          await http.get(uri, headers: headers).timeout(GooglePlace.timeout);
       if (response.statusCode == 200) {
         return response.body;
       }
@@ -23,8 +24,8 @@ class NetworkUtility {
   /// [authority] Required parameters - the domain name of the google server, usually https://maps.googleapis.com
   /// [unencodedGoogleMapsPath] Required parameters - the path to the api, usually something like maps/api/...
   /// [queryParameters] Required parameters - a map of query parameters to be appended to the url
-  static Uri createUri(String? proxyUrl, String authority, String unencodedGoogleMapsPath,
-      Map<String, String?> queryParameters) {
+  static Uri createUri(String? proxyUrl, String authority,
+      String unencodedGoogleMapsPath, Map<String, String?> queryParameters) {
     Uri uri;
     final googleApiUri = Uri.https(
       authority,
@@ -45,14 +46,18 @@ class NetworkUtility {
       }
 
       if (proxyHostname.contains("/")) {
-        everythingAfterHostname = proxyHostname.substring(proxyHostname.indexOf("/"));
+        everythingAfterHostname =
+            proxyHostname.substring(proxyHostname.indexOf("/"));
         proxyHostname = proxyHostname.substring(0, proxyHostname.indexOf("/"));
       }
 
-      if (everythingAfterHostname.contains("?") && everythingAfterHostname.contains("=")) {
-        var proxyPath = everythingAfterHostname.substring(0, everythingAfterHostname.indexOf("?"));
+      if (everythingAfterHostname.contains("?") &&
+          everythingAfterHostname.contains("=")) {
+        var proxyPath = everythingAfterHostname.substring(
+            0, everythingAfterHostname.indexOf("?"));
         var parameterName = everythingAfterHostname.substring(
-            everythingAfterHostname.indexOf("?") + 1, everythingAfterHostname.indexOf("="));
+            everythingAfterHostname.indexOf("?") + 1,
+            everythingAfterHostname.indexOf("="));
         var googleMapsUrlParam = {parameterName: googleApiUri.toString()};
         queryParameters.addAll(googleMapsUrlParam);
         if (usingHttps) {

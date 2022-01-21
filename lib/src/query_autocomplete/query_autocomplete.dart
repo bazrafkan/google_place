@@ -48,7 +48,8 @@ class QueryAutocomplete {
       radius,
       language,
     );
-    var uri = NetworkUtility.createUri(proxyUrl, _authority, _unencodedPath, queryParameters);
+    var uri = NetworkUtility.createUri(
+        proxyUrl, _authority, _unencodedPath, queryParameters);
     var response = await NetworkUtility.fetchUrl(uri, headers: headers);
     if (response != null) {
       return AutocompleteResponse.parseAutocompleteResult(response);
@@ -95,7 +96,8 @@ class QueryAutocomplete {
       language,
     );
 
-    var uri = NetworkUtility.createUri(proxyUrl, _authority, _unencodedPath, queryParameters);
+    var uri = NetworkUtility.createUri(
+        proxyUrl, _authority, _unencodedPath, queryParameters);
     return await NetworkUtility.fetchUrl(uri, headers: headers);
   }
 

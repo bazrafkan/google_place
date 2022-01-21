@@ -3,7 +3,8 @@ import 'package:google_place/src/utils/network_utility.dart';
 
 class Search {
   static final _authority = 'maps.googleapis.com';
-  static final _unencodedPathFindPlace = 'maps/api/place/findplacefromtext/json';
+  static final _unencodedPathFindPlace =
+      'maps/api/place/findplacefromtext/json';
   static final _unencodedPathNearBySearch = 'maps/api/place/nearbysearch/json';
   static final _unencodedPathTextSearch = 'maps/api/place/textsearch/json';
   final String apiKEY;
@@ -49,7 +50,8 @@ class Search {
       locationbias,
     );
 
-    var uri = NetworkUtility.createUri(proxyUrl, _authority, _unencodedPathFindPlace, queryParameters);
+    var uri = NetworkUtility.createUri(
+        proxyUrl, _authority, _unencodedPathFindPlace, queryParameters);
     var response = await NetworkUtility.fetchUrl(uri, headers: headers);
     if (response != null) {
       return FindPlaceResponse.parseFindPlaceResult(response);
@@ -124,7 +126,8 @@ class Search {
       pagetoken,
     );
 
-    var uri = Uri.https(_authority, _unencodedPathNearBySearch, queryParameters);
+    var uri =
+        Uri.https(_authority, _unencodedPathNearBySearch, queryParameters);
     var response = await NetworkUtility.fetchUrl(uri, headers: headers);
     if (response != null) {
       return NearBySearchResponse.parseNearBySearchResult(response);
@@ -326,7 +329,8 @@ class Search {
       pagetoken,
     );
 
-    var uri = Uri.https(_authority, _unencodedPathNearBySearch, queryParameters);
+    var uri =
+        Uri.https(_authority, _unencodedPathNearBySearch, queryParameters);
     return await NetworkUtility.fetchUrl(uri, headers: headers);
   }
 
@@ -447,7 +451,8 @@ class Search {
         value = 'ipbias';
       }
       if (locationbias.point != null) {
-        value = 'point:${locationbias.point!.latitude},${locationbias.point!.longitude}';
+        value =
+            'point:${locationbias.point!.latitude},${locationbias.point!.longitude}';
       }
       if (locationbias.circular != null) {
         value =
