@@ -72,11 +72,9 @@ class GooglePlace {
   /// http proxies are supported, but are not recommended for production use.
   final String? proxyUrl;
 
-  GooglePlace(
-    this.apiKEY, {
-    this.headers = const {},
-    this.proxyUrl,
-  }) {
+  GooglePlace(this.apiKEY,
+      {this.headers = const {}, this.proxyUrl, Duration? duration}) {
+    if (duration != null) timeout = duration;
     this.search = Search(apiKEY, headers, proxyUrl);
     this.details = Details(apiKEY, headers, proxyUrl);
     this.photos = Photos(apiKEY, headers, proxyUrl);
