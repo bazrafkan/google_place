@@ -19,5 +19,12 @@ class LatLon {
   final double longitude;
 
   @override
+  bool operator ==(covariant LatLon other) =>
+      latitude == other.latitude && longitude == other.longitude;
+
+  @override
+  int get hashCode => Object.hash(latitude, longitude);
+
+  @override
   String toString() => '$runtimeType($latitude, $longitude)';
 }

@@ -38,8 +38,8 @@ class Locationbias {
       assert(point == null);
       assert(circular == null);
     }
-    if (ipbias == null || ipbias!)
-      assert(point != null && circular != null && rectangular != null);
+    if (ipbias == null)
+      assert(point != null || circular != null || rectangular != null);
   }
 }
 
@@ -48,6 +48,13 @@ class Circular {
   final LatLon latLng;
 
   Circular(this.radius, this.latLng);
+
+  @override
+  bool operator ==(covariant Circular other) =>
+      radius == other.radius && latLng == other.latLng;
+
+  @override
+  int get hashCode => Object.hash(radius, latLng);
 }
 
 class Rectangular {
@@ -55,4 +62,11 @@ class Rectangular {
   final LatLon northEast;
 
   Rectangular(this.southWest, this.northEast);
+
+  @override
+  bool operator ==(covariant Rectangular other) =>
+      southWest == other.southWest && northEast == other.northEast;
+
+  @override
+  int get hashCode => Object.hash(southWest, northEast);
 }
