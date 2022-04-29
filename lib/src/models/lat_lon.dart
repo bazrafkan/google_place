@@ -1,3 +1,4 @@
+// TODO: Why do we have this when we have Location?
 class LatLon {
   const LatLon(double latitude, double longitude)
       : latitude =

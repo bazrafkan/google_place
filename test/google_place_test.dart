@@ -3,8 +3,9 @@ import 'package:google_place/google_place.dart';
 
 void main() {
   String apiKey = "Your-Key";
+
   test('init', () async {
-    var googlePlace =
+    final googlePlace =
         GooglePlace(apiKey, proxyUrl: 'cors-anywhere.herokuapp.com');
     expect(googlePlace.apiKEY, apiKey);
     expect(googlePlace.search.apiKEY, apiKey);
@@ -14,6 +15,7 @@ void main() {
     expect(googlePlace.autocomplete.apiKEY, apiKey);
     expect(googlePlace.queryAutocomplete.apiKEY, apiKey);
   });
+
   test('proxies with paths and parameters', () async {
     GooglePlace googlePlace;
     //try some good proxy urls

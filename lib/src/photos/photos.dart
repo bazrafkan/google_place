@@ -38,23 +38,25 @@ class Photos {
     int maxWidth,
   ) async {
     assert(photoReference != "");
-    var queryParameters = _createParameters(
+    final queryParameters = _createParameters(
       apiKEY,
       photoReference,
       maxHeight,
       maxWidth,
     );
-    var uri = createUri(
+    final uri = createUri(
       proxyUrl,
       _authority,
       _unencodedPath,
       queryParameters,
     );
-    var response = await fetchUrl(uri, headers: headers);
+    final response = await fetchUrl(uri, headers: headers);
+
     if (response != null) {
       List<int> list = response.codeUnits;
       return Uint8List.fromList(list);
     }
+
     return null;
   }
 
@@ -81,19 +83,20 @@ class Photos {
     int maxWidth,
   ) async {
     assert(photoReference != "");
-    var queryParameters = _createParameters(
+    final queryParameters = _createParameters(
       apiKEY,
       photoReference,
       maxHeight,
       maxWidth,
     );
-    var uri = Uri.https(
+    final uri = Uri.https(
       proxyUrl != null && proxyUrl != '' ? proxyUrl! : _authority,
       proxyUrl != null && proxyUrl != ''
           ? 'https://$_authority/$_unencodedPath'
           : _unencodedPath,
       queryParameters,
     );
+
     return await fetchUrl(uri, headers: headers);
   }
 
@@ -107,14 +110,10 @@ class Photos {
     Map<String, String> queryParameters = {
       'photoreference': photoReference,
       'key': apiKEY,
+      if (maxWidth != null) 'maxwidth': maxWidth.toString(),
+      if (maxHeight != null) 'maxheight': maxHeight.toString(),
     };
-    if (maxHeight != null) {}
-    if (maxWidth != null) {
-      var item = {
-        'maxwidth': maxWidth.toString(),
-      };
-      queryParameters.addAll(item);
-    }
+
     return queryParameters;
   }
 }
