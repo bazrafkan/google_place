@@ -7,19 +7,12 @@ part of 'geometry.dart';
 // **************************************************************************
 
 Geometry _$GeometryFromJson(Map<String, dynamic> json) => Geometry(
-      location: json['location'] == null
-          ? null
-          : Location.fromJson(json['location'] as Map<String, dynamic>),
-      viewport: json['viewport'] == null
-          ? null
-          : Bounds.fromJson(json['viewport'] as Map<String, dynamic>),
-      bounds: json['bounds'] == null
-          ? null
-          : Bounds.fromJson(json['bounds'] as Map<String, dynamic>),
+      location:
+          LatLngLiteral.fromJson(json['location'] as Map<String, dynamic>),
+      viewport: Bounds.fromJson(json['viewport'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$GeometryToJson(Geometry instance) => <String, dynamic>{
       'location': instance.location,
       'viewport': instance.viewport,
-      'bounds': instance.bounds,
     };

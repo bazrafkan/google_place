@@ -7,12 +7,10 @@ part of 'bounds.dart';
 // **************************************************************************
 
 Bounds _$BoundsFromJson(Map<String, dynamic> json) => Bounds(
-      northeast: json['northeast'] == null
-          ? null
-          : Location.fromJson(json['northeast'] as Map<String, dynamic>),
-      southwest: json['southwest'] == null
-          ? null
-          : Location.fromJson(json['southwest'] as Map<String, dynamic>),
+      northeast:
+          LatLngLiteral.fromJson(json['northeast'] as Map<String, dynamic>),
+      southwest:
+          LatLngLiteral.fromJson(json['southwest'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$BoundsToJson(Bounds instance) => <String, dynamic>{

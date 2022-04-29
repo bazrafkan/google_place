@@ -1,15 +1,19 @@
-import 'package:google_place/src/models/location/location.dart';
+import 'package:google_place/src/models/lat_lng_literal/lat_lng_literal.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'bounds.g.dart';
 
+/// A rectangle in geographical coordinates from points at the southwest and northeast corners.
 @JsonSerializable()
 class Bounds {
-  final Location? northeast;
+  final LatLngLiteral northeast;
 
-  final Location? southwest;
+  final LatLngLiteral southwest;
 
-  const Bounds({this.northeast, this.southwest});
+  const Bounds({
+    required this.northeast,
+    required this.southwest,
+  });
 
   factory Bounds.fromJson(Map<String, dynamic> json) => _$BoundsFromJson(json);
 

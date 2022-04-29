@@ -41,7 +41,7 @@ class Search {
   ///
   /// [locationbias] Optional parameters - Prefer results in a specified area, by specifying either a radius plus
   /// lat/lng, or two lat/lng pairs representing the points of a rectangle.
-  Future<FindPlaceResponse?> getFindPlace(
+  Future<PlacesFindPlaceFromTextResponse?> getFindPlace(
     String input,
     InputType inputType, {
     String? language,
@@ -66,7 +66,7 @@ class Search {
     final response = await fetchUrl(uri, headers: headers);
 
     if (response != null) {
-      return FindPlaceResponse.fromJson(
+      return PlacesFindPlaceFromTextResponse.fromJson(
         jsonDecode(response) as Map<String, dynamic>,
       );
     }
@@ -113,8 +113,8 @@ class Search {
   /// [pagetoken] Optional parameters - Returns up to 20 results from a previously run search. Setting a
   /// pagetoken parameter will execute a search with the same parameters used previously — all parameters
   /// other than pagetoken will be ignored.
-  Future<NearbySearchResponse?> getNearBySearch(
-    Location location,
+  Future<PlacesNearbySearchResponse?> getNearBySearch(
+    LatLngLiteral location,
     int radius, {
     String? keyword,
     String? language,
@@ -145,7 +145,7 @@ class Search {
     final response = await fetchUrl(uri, headers: headers);
 
     if (response != null) {
-      return NearbySearchResponse.fromJson(
+      return PlacesNearbySearchResponse.fromJson(
         jsonDecode(response) as Map<String, dynamic>,
       );
     }
@@ -198,10 +198,10 @@ class Search {
   /// [pagetoken] Optional parameters - Returns up to 20 results from a previously run search. Setting a pagetoken
   /// parameter will execute a search with the same parameters used previously — all parameters other than pagetoken
   /// will be ignored.
-  Future<TextSearchResponse?> getTextSearch(
+  Future<PlacesTextSearchResponse?> getTextSearch(
     String query, {
     String? region,
-    Location? location,
+    LatLngLiteral? location,
     int? radius,
     String? language,
     int? minprice,
@@ -229,7 +229,7 @@ class Search {
     final response = await fetchUrl(uri, headers: headers);
 
     if (response != null) {
-      return TextSearchResponse.fromJson(
+      return PlacesTextSearchResponse.fromJson(
         jsonDecode(response) as Map<String, dynamic>,
       );
     }
@@ -324,7 +324,7 @@ class Search {
   /// pagetoken parameter will execute a search with the same parameters used previously — all parameters
   /// other than pagetoken will be ignored.
   Future<String?> getNearBySearchJson(
-    Location location,
+    LatLngLiteral location,
     int radius, {
     String? keyword,
     String? language,
@@ -404,7 +404,7 @@ class Search {
   Future<String?> getTextSearchJson(
     String query, {
     String? region,
-    Location? location,
+    LatLngLiteral? location,
     int? radius,
     String? language,
     int? minprice,
@@ -482,7 +482,7 @@ class Search {
   /// Prepare query Parameters for near by search
   Map<String, String?> _createNearBySearchParameters(
     String apiKEY,
-    Location location,
+    LatLngLiteral location,
     int radius,
     String? keyword,
     String? language,
@@ -527,7 +527,7 @@ class Search {
     String apiKEY,
     String query,
     String? region,
-    Location? location,
+    LatLngLiteral? location,
     int? radius,
     String? language,
     int? minprice,

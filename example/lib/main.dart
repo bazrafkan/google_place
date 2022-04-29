@@ -141,7 +141,7 @@ class DetailsPage extends StatefulWidget {
 }
 
 class _DetailsPageState extends State<DetailsPage> {
-  DetailsResult detailsResult;
+  Place detailsResult;
 
   List<Uint8List> images = [];
 

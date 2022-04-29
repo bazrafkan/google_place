@@ -7,7 +7,7 @@ part of 'plus_code.dart';
 // **************************************************************************
 
 PlusCode _$PlusCodeFromJson(Map<String, dynamic> json) => PlusCode(
-      globalCode: json['global_code'] as String?,
+      globalCode: json['global_code'] as String,
       compoundCode: json['compound_code'] as String?,
     );
 

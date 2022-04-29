@@ -8,10 +8,9 @@ part of 'address_component.dart';
 
 AddressComponent _$AddressComponentFromJson(Map<String, dynamic> json) =>
     AddressComponent(
-      longName: json['long_name'] as String?,
-      shortName: json['short_name'] as String?,
-      types:
-          (json['types'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      longName: json['long_name'] as String,
+      shortName: json['short_name'] as String,
+      types: (json['types'] as List<dynamic>).map((e) => e as String).toList(),
     );
 
 Map<String, dynamic> _$AddressComponentToJson(AddressComponent instance) =>

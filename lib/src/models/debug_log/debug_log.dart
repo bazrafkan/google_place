@@ -2,6 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'debug_log.g.dart';
 
+// TODO: I don't think this is a real thing
 @JsonSerializable()
 class DebugLog {
   final List<String>? line;
