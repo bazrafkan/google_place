@@ -1,6 +1,7 @@
 name: example
 description: A new Flutter project.
 version: 1.0.0+1
+publish_to: none
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
@@ -14,6 +15,7 @@ dependencies:
     path: ../
 
 dev_dependencies:
+  flutter_lints: ^1.0.0
   flutter_test:
     sdk: flutter
 

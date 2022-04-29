@@ -4,9 +4,9 @@ import 'package:google_place/src/details/details_response/details_response.dart'
 import 'package:google_place/src/utils/network_utility.dart';
 
 class Details {
-  static final _authority = 'maps.googleapis.com';
+  static const _authority = 'maps.googleapis.com';
 
-  static final _unencodedPath = 'maps/api/place/details/json';
+  static const _unencodedPath = 'maps/api/place/details/json';
 
   final String apiKEY;
 
@@ -57,16 +57,18 @@ class Details {
       sessionToken,
       fields,
     );
-    final uri = NetworkUtility.createUri(
+    final uri = createUri(
       proxyUrl,
       _authority,
       _unencodedPath,
       queryParameters,
     );
-    final response = await NetworkUtility.fetchUrl(uri, headers: headers);
+    final response = await fetchUrl(uri, headers: headers);
 
     if (response != null) {
-      return DetailsResponse.fromJson(jsonDecode(response));
+      return DetailsResponse.fromJson(
+        jsonDecode(response) as Map<String, dynamic>,
+      );
     }
 
     return null;
@@ -121,7 +123,7 @@ class Details {
       queryParameters,
     );
 
-    return await NetworkUtility.fetchUrl(uri, headers: headers);
+    return await fetchUrl(uri, headers: headers);
   }
 
   /// Prepare query Parameters

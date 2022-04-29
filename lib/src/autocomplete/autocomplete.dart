@@ -1,13 +1,12 @@
 import 'dart:convert';
 
 import 'package:google_place/google_place.dart';
-import 'package:google_place/src/autocomplete/autocomplete_response/autocomplete_response.dart';
 import 'package:google_place/src/utils/network_utility.dart';
 
 class Autocomplete {
-  static final _authority = 'maps.googleapis.com';
+  static const _authority = 'maps.googleapis.com';
 
-  static final _unencodedPath = 'maps/api/place/autocomplete/json';
+  static const _unencodedPath = 'maps/api/place/autocomplete/json';
 
   final String apiKEY;
 
@@ -110,17 +109,19 @@ class Autocomplete {
       strictbounds,
     );
 
-    var uri = NetworkUtility.createUri(
+    var uri = createUri(
       proxyUrl,
       _authority,
       _unencodedPath,
       queryParameters,
     );
 
-    final response = await NetworkUtility.fetchUrl(uri, headers: headers);
+    final response = await fetchUrl(uri, headers: headers);
 
     if (response != null) {
-      return AutocompleteResponse.fromJson(jsonDecode(response));
+      return AutocompleteResponse.fromJson(
+        jsonDecode(response) as Map<String, dynamic>,
+      );
     }
 
     return null;
@@ -221,7 +222,7 @@ class Autocomplete {
           : _unencodedPath,
       queryParameters,
     );
-    return await NetworkUtility.fetchUrl(uri, headers: headers);
+    return await fetchUrl(uri, headers: headers);
   }
 
   /// Prepare query Parameters
@@ -257,7 +258,7 @@ class Autocomplete {
     };
 
     // TODO: What is this doing?
-    if (components != null && components.length > 0) {
+    if (components != null && components.isNotEmpty) {
       String result = '';
       for (int i = 0; i < components.length; i++) {
         result += '${components[i].component}:${components[i].value}';

@@ -56,7 +56,7 @@ class GooglePlace {
   late QueryAutocomplete queryAutocomplete;
 
   /// [timeout] timeout for http call.
-  static Duration timeout = Duration(milliseconds: 1500);
+  static Duration timeout = const Duration(milliseconds: 1500);
 
   /// Optional headers to pass on each request
   final Map<String, String> headers;
@@ -71,10 +71,10 @@ class GooglePlace {
     this.headers = const {},
     this.proxyUrl,
   }) {
-    this.search = Search(apiKEY, headers, proxyUrl);
-    this.details = Details(apiKEY, headers, proxyUrl);
-    this.photos = Photos(apiKEY, headers, proxyUrl);
-    this.autocomplete = Autocomplete(apiKEY, headers, proxyUrl);
-    this.queryAutocomplete = QueryAutocomplete(apiKEY, headers, proxyUrl);
+    search = Search(apiKEY, headers, proxyUrl);
+    details = Details(apiKEY, headers, proxyUrl);
+    photos = Photos(apiKEY, headers, proxyUrl);
+    autocomplete = Autocomplete(apiKEY, headers, proxyUrl);
+    queryAutocomplete = QueryAutocomplete(apiKEY, headers, proxyUrl);
   }
 }

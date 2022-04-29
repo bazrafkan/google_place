@@ -1,0 +1,29 @@
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  exclude:
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
+    - "**/*.gr.dart"
+    - "lib/generated/**"
+    - "lib/firebase_options.dart"
+  strong-mode:
+    implicit-casts: false
+    implicit-dynamic: false
+  errors:
+    invalid_annotation_target: ignore
+
+linter:
+  rules:
+    - avoid_shadowing_type_parameters
+    - parameter_assignments
+    - require_trailing_commas
+    - only_throw_errors
+    - always_use_package_imports
+    - avoid_dynamic_calls
+    - prefer_void_to_null
+    - always_declare_return_types
+    - avoid_classes_with_only_static_members
+    - unnecessary_lambdas
+    - unnecessary_const
+    - avoid_void_async

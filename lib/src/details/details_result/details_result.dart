@@ -114,7 +114,8 @@ class DetailsResult {
   /// [permanentlyClosed] is a boolean flag indicating whether the place has shut down either permanently
   /// or temporarily (value true). If the place is operational, or if no data is available, the flag is absent from the response.
   @Deprecated(
-      'permanently_closed is now deprecated. Instead, use business_status to get the operational status of businesses.')
+    'permanently_closed is now deprecated. Instead, use business_status to get the operational status of businesses.',
+  )
   final bool? permanentlyClosed;
 
   const DetailsResult({

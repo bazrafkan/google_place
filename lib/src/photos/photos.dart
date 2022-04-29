@@ -3,13 +3,17 @@ import 'dart:typed_data';
 import 'package:google_place/src/utils/network_utility.dart';
 
 class Photos {
-  static final _authority = 'maps.googleapis.com';
-  static final _unencodedPath = 'maps/api/place/photo';
+  static const _authority = 'maps.googleapis.com';
+
+  static const _unencodedPath = 'maps/api/place/photo';
+
   final String apiKEY;
+
   final Map<String, String> headers;
+
   final String? proxyUrl;
 
-  Photos(this.apiKEY, this.headers, this.proxyUrl);
+  const Photos(this.apiKEY, this.headers, this.proxyUrl);
 
   /// The Place Photo service, part of the Places API, is a read- only API that allows you to
   /// add high quality photographic content to your application. The Place Photo service gives
@@ -40,9 +44,13 @@ class Photos {
       maxHeight,
       maxWidth,
     );
-    var uri = NetworkUtility.createUri(
-        proxyUrl, _authority, _unencodedPath, queryParameters);
-    var response = await NetworkUtility.fetchUrl(uri, headers: headers);
+    var uri = createUri(
+      proxyUrl,
+      _authority,
+      _unencodedPath,
+      queryParameters,
+    );
+    var response = await fetchUrl(uri, headers: headers);
     if (response != null) {
       List<int> list = response.codeUnits;
       return Uint8List.fromList(list);
@@ -86,7 +94,7 @@ class Photos {
           : _unencodedPath,
       queryParameters,
     );
-    return await NetworkUtility.fetchUrl(uri, headers: headers);
+    return await fetchUrl(uri, headers: headers);
   }
 
   /// Prepare query Parameters

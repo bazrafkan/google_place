@@ -23,11 +23,15 @@ void main() {
     await googlePlace.photos.get("photoReference", 10, 10);
     googlePlace = GooglePlace(apiKey, proxyUrl: 'https://1.2.3.4/proxy');
     await googlePlace.queryAutocomplete.get("some place");
-    googlePlace = GooglePlace(apiKey,
-        proxyUrl: 'https://localhost:6969/proxy/proxy-two/');
-    await googlePlace.search.getFindPlace("some place", InputType.TextQuery);
-    googlePlace = GooglePlace(apiKey,
-        proxyUrl: 'localhost:6969/proxy/proxy-two?gmapsurl=');
+    googlePlace = GooglePlace(
+      apiKey,
+      proxyUrl: 'https://localhost:6969/proxy/proxy-two/',
+    );
+    await googlePlace.search.getFindPlace("some place", InputType.textQuery);
+    googlePlace = GooglePlace(
+      apiKey,
+      proxyUrl: 'localhost:6969/proxy/proxy-two?gmapsurl=',
+    );
     await googlePlace.autocomplete.get("some place");
     //try a bad hostname
     googlePlace = GooglePlace(apiKey, proxyUrl: 'localhost:6969******');

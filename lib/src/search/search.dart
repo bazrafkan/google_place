@@ -1,19 +1,17 @@
 import 'dart:convert';
 
 import 'package:google_place/google_place.dart';
-import 'package:google_place/src/search/find_place_response/find_place_response.dart';
-import 'package:google_place/src/search/nearby_search_response/nearby_search_response.dart';
 import 'package:google_place/src/utils/network_utility.dart';
 
 class Search {
-  static final _authority = 'maps.googleapis.com';
+  static const _authority = 'maps.googleapis.com';
 
-  static final _unencodedPathFindPlace =
+  static const _unencodedPathFindPlace =
       'maps/api/place/findplacefromtext/json';
 
-  static final _unencodedPathNearBySearch = 'maps/api/place/nearbysearch/json';
+  static const _unencodedPathNearBySearch = 'maps/api/place/nearbysearch/json';
 
-  static final _unencodedPathTextSearch = 'maps/api/place/textsearch/json';
+  static const _unencodedPathTextSearch = 'maps/api/place/textsearch/json';
 
   final String apiKEY;
 
@@ -59,12 +57,18 @@ class Search {
       fields,
       locationbias,
     );
-    final uri = NetworkUtility.createUri(
-        proxyUrl, _authority, _unencodedPathFindPlace, queryParameters);
-    final response = await NetworkUtility.fetchUrl(uri, headers: headers);
+    final uri = createUri(
+      proxyUrl,
+      _authority,
+      _unencodedPathFindPlace,
+      queryParameters,
+    );
+    final response = await fetchUrl(uri, headers: headers);
 
     if (response != null) {
-      return FindPlaceResponse.fromJson(jsonDecode(response));
+      return FindPlaceResponse.fromJson(
+        jsonDecode(response) as Map<String, dynamic>,
+      );
     }
 
     return null;
@@ -138,10 +142,12 @@ class Search {
     );
     final uri =
         Uri.https(_authority, _unencodedPathNearBySearch, queryParameters);
-    final response = await NetworkUtility.fetchUrl(uri, headers: headers);
+    final response = await fetchUrl(uri, headers: headers);
 
     if (response != null) {
-      return NearbySearchResponse.fromJson(jsonDecode(response));
+      return NearbySearchResponse.fromJson(
+        jsonDecode(response) as Map<String, dynamic>,
+      );
     }
 
     return null;
@@ -220,10 +226,12 @@ class Search {
     );
     final uri =
         Uri.https(_authority, _unencodedPathTextSearch, queryParameters);
-    final response = await NetworkUtility.fetchUrl(uri, headers: headers);
+    final response = await fetchUrl(uri, headers: headers);
 
     if (response != null) {
-      return TextSearchResponse.fromJson(jsonDecode(response));
+      return TextSearchResponse.fromJson(
+        jsonDecode(response) as Map<String, dynamic>,
+      );
     }
 
     return null;
@@ -273,7 +281,7 @@ class Search {
           : _unencodedPathFindPlace,
       queryParameters,
     );
-    return await NetworkUtility.fetchUrl(uri, headers: headers);
+    return await fetchUrl(uri, headers: headers);
   }
 
   /// A Nearby Search lets you search for places within a specified area.
@@ -345,7 +353,7 @@ class Search {
 
     var uri =
         Uri.https(_authority, _unencodedPathNearBySearch, queryParameters);
-    return await NetworkUtility.fetchUrl(uri, headers: headers);
+    return await fetchUrl(uri, headers: headers);
   }
 
   /// The Google Places API Text Search Service is a web service that returns information about a set of places
@@ -421,7 +429,7 @@ class Search {
     );
 
     var uri = Uri.https(_authority, _unencodedPathTextSearch, queryParameters);
-    return await NetworkUtility.fetchUrl(uri, headers: headers);
+    return await fetchUrl(uri, headers: headers);
   }
 
   /// Prepare query Parameters for find place
@@ -433,31 +441,18 @@ class Search {
     String? fields,
     Locationbias? locationbias,
   ) {
-    String result = input.trimRight();
-    result = result.trimLeft();
-    Map<String, String?> queryParameters = {
-      'input': result,
+    final cleanedInput = input.trimRight().trimLeft();
+    final queryParameters = <String, String?>{
+      'input': cleanedInput,
       'key': apiKEY,
-      'inputtype': inputType == InputType.TextQuery
+      'inputtype': inputType == InputType.textQuery
           ? 'textquery'
-          : inputType == InputType.PhoneNumber
+          : inputType == InputType.phoneNumber
               ? 'phonenumber'
               : 'textquery',
+      if (language != null && language != '') 'language': language,
+      if (fields != null && fields != '') 'fields': fields,
     };
-
-    if (language != null && language != '') {
-      var item = {
-        'language': language,
-      };
-      queryParameters.addAll(item);
-    }
-
-    if (fields != null && fields != '') {
-      var item = {
-        'fields': fields,
-      };
-      queryParameters.addAll(item);
-    }
 
     if (locationbias != null) {
       String? value;
@@ -476,17 +471,17 @@ class Search {
         value =
             'rectangle:${locationbias.rectangular!.southWest.latitude},${locationbias.rectangular!.southWest.longitude}|${locationbias.rectangular!.northEast.latitude},${locationbias.rectangular!.northEast.longitude}';
       }
-      var item = {
-        'locationbias': value,
-      };
+
+      final item = {'locationbias': value};
       queryParameters.addAll(item);
     }
+
     return queryParameters;
   }
 
   /// Prepare query Parameters for near by search
   Map<String, String?> _createNearBySearchParameters(
-    apiKEY,
+    String apiKEY,
     Location location,
     int radius,
     String? keyword,
@@ -499,81 +494,28 @@ class Search {
     String? type,
     String? pagetoken,
   ) {
-    Map<String, String?> queryParameters = {
+    final queryParameters = <String, String?>{
       'location': '${location.lat},${location.lng}',
       'key': apiKEY,
       'radius': radius.toString(),
+      if (keyword != null && keyword != '') 'keyword': keyword,
+      if (language != null && language != '') 'language': language,
+      if (minprice != null) 'minprice': minprice.toString(),
+      if (maxprice != null) 'maxprice': maxprice.toString(),
+      if (name != null && name != '') 'name': name,
+      if (opennow != null && opennow) 'opennow': 'opennow',
+      if (type != null && type != '') 'type': type,
+      if (pagetoken != null && pagetoken != '') 'pagetoken': pagetoken,
     };
 
-    if (keyword != null && keyword != '') {
-      var item = {
-        'keyword': keyword,
-      };
-      queryParameters.addAll(item);
-    }
-
-    if (language != null && language != '') {
-      var item = {
-        'language': language,
-      };
-      queryParameters.addAll(item);
-    }
-
-    if (minprice != null) {
-      var item = {
-        'minprice': minprice.toString(),
-      };
-      queryParameters.addAll(item);
-    }
-
-    if (maxprice != null) {
-      var item = {
-        'maxprice': maxprice.toString(),
-      };
-      queryParameters.addAll(item);
-    }
-
-    if (name != null && name != '') {
-      var item = {
-        'name': name,
-      };
-      queryParameters.addAll(item);
-    }
-
-    if (opennow != null && opennow) {
-      var item = {
-        'opennow': 'opennow',
-      };
-      queryParameters.addAll(item);
-    }
-
+    // TODO: Clean this up
     if (rankby != null) {
-      String? value;
-      if (rankby == RankBy.Prominence) {
-        value = 'prominence';
-      }
-      if (rankby == RankBy.Distance) {
-        value = 'distance';
+      if (rankby == RankBy.distance) {
         queryParameters.remove('radius');
       }
 
-      var item = {
-        'rankby': value,
-      };
-      queryParameters.addAll(item);
-    }
+      final item = {'rankby': rankby.name};
 
-    if (type != null && type != '') {
-      var item = {
-        'type': type,
-      };
-      queryParameters.addAll(item);
-    }
-
-    if (pagetoken != null && pagetoken != '') {
-      var item = {
-        'pagetoken': pagetoken,
-      };
       queryParameters.addAll(item);
     }
 
@@ -582,7 +524,7 @@ class Search {
 
   /// Prepare query Parameters for text search
   Map<String, String> _createTextSearchParameters(
-    apiKEY,
+    String apiKEY,
     String query,
     String? region,
     Location? location,
@@ -594,75 +536,20 @@ class Search {
     String? type,
     String? pagetoken,
   ) {
-    String result = query.trimRight();
-    result = result.trimLeft();
-    Map<String, String> queryParameters = {
-      'query': result,
+    final cleanedQuery = query.trimRight().trimLeft();
+    final queryParameters = <String, String>{
+      'query': cleanedQuery,
       'key': apiKEY,
+      if (region != null && region != '') 'region': region,
+      if (location != null) 'location': '${location.lat},${location.lng}',
+      if (radius != null) 'radius': radius.toString(),
+      if (language != null && language != '') 'language': language,
+      if (minprice != null) 'minprice': minprice.toString(),
+      if (maxprice != null) 'maxprice': maxprice.toString(),
+      if (opennow != null && opennow) 'opennow': 'opennow',
+      if (type != null && type != '') 'type': type,
+      if (pagetoken != null && pagetoken != '') 'pagetoken': pagetoken,
     };
-
-    if (region != null && region != '') {
-      var item = {
-        'region': region,
-      };
-      queryParameters.addAll(item);
-    }
-
-    if (location != null) {
-      var item = {
-        'location': '${location.lat},${location.lng}',
-      };
-      queryParameters.addAll(item);
-    }
-
-    if (radius != null) {
-      var item = {
-        'radius': radius.toString(),
-      };
-      queryParameters.addAll(item);
-    }
-
-    if (language != null && language != '') {
-      var item = {
-        'language': language,
-      };
-      queryParameters.addAll(item);
-    }
-
-    if (minprice != null) {
-      var item = {
-        'minprice': minprice.toString(),
-      };
-      queryParameters.addAll(item);
-    }
-
-    if (maxprice != null) {
-      var item = {
-        'maxprice': maxprice.toString(),
-      };
-      queryParameters.addAll(item);
-    }
-
-    if (opennow != null && opennow) {
-      var item = {
-        'opennow': 'opennow',
-      };
-      queryParameters.addAll(item);
-    }
-
-    if (type != null && type != '') {
-      var item = {
-        'type': type,
-      };
-      queryParameters.addAll(item);
-    }
-
-    if (pagetoken != null && pagetoken != '') {
-      var item = {
-        'pagetoken': pagetoken,
-      };
-      queryParameters.addAll(item);
-    }
 
     return queryParameters;
   }
