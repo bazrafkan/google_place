@@ -2,11 +2,11 @@ import 'package:google_place/src/models/debug_log/debug_log.dart';
 import 'package:google_place/src/search/search_result/search_result.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'text_search_response.g.dart';
+part 'nearby_search_response.g.dart';
 
-/// The Text Search response contains html Attributions and search results and status
+/// The Near By Search response contains html Attributions and search results and status
 @JsonSerializable()
-class TextSearchResponse {
+class NearbySearchResponse {
   final String? status;
 
   final List<String>? htmlAttributions;
@@ -17,7 +17,7 @@ class TextSearchResponse {
 
   final List<SearchResult>? results;
 
-  const TextSearchResponse({
+  const NearbySearchResponse({
     this.status,
     this.htmlAttributions,
     this.nextPageToken,
@@ -25,8 +25,8 @@ class TextSearchResponse {
     this.results,
   });
 
-  factory TextSearchResponse.fromJson(Map<String, dynamic> json) =>
-      _$TextSearchResponseFromJson(json);
+  factory NearbySearchResponse.fromJson(Map<String, dynamic> json) =>
+      _$NearbySearchResponseFromJson(json);
 
-  Map<String, dynamic> toJson() => _$TextSearchResponseToJson(this);
+  Map<String, dynamic> toJson() => _$NearbySearchResponseToJson(this);
 }

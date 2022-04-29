@@ -2,11 +2,11 @@ import 'package:google_place/src/models/debug_log/debug_log.dart';
 import 'package:google_place/src/search/search_result/search_result.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'text_search_response.g.dart';
+part 'find_place_response.g.dart';
 
-/// The Text Search response contains html Attributions and search results and status
+/// The Find Place Search response contains html Attributions and search results and status
 @JsonSerializable()
-class TextSearchResponse {
+class FindPlaceResponse {
   final String? status;
 
   final List<String>? htmlAttributions;
@@ -15,18 +15,18 @@ class TextSearchResponse {
 
   final DebugLog? debugLog;
 
-  final List<SearchResult>? results;
+  final List<SearchResult>? candidates;
 
-  const TextSearchResponse({
+  const FindPlaceResponse({
     this.status,
     this.htmlAttributions,
     this.nextPageToken,
     this.debugLog,
-    this.results,
+    this.candidates,
   });
 
-  factory TextSearchResponse.fromJson(Map<String, dynamic> json) =>
-      _$TextSearchResponseFromJson(json);
+  factory FindPlaceResponse.fromJson(Map<String, dynamic> json) =>
+      _$FindPlaceResponseFromJson(json);
 
-  Map<String, dynamic> toJson() => _$TextSearchResponseToJson(this);
+  Map<String, dynamic> toJson() => _$FindPlaceResponseToJson(this);
 }

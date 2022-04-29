@@ -1,0 +1,1 @@
+enum RankBy { Prominence, Distance }

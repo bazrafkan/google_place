@@ -10,6 +10,7 @@ class NetworkUtility {
     try {
       final response =
           await http.get(uri, headers: headers).timeout(GooglePlace.timeout);
+
       if (response.statusCode == 200) {
         return response.body;
       }
@@ -24,8 +25,12 @@ class NetworkUtility {
   /// [authority] Required parameters - the domain name of the google server, usually https://maps.googleapis.com
   /// [unencodedGoogleMapsPath] Required parameters - the path to the api, usually something like maps/api/...
   /// [queryParameters] Required parameters - a map of query parameters to be appended to the url
-  static Uri createUri(String? proxyUrl, String authority,
-      String unencodedGoogleMapsPath, Map<String, String?> queryParameters) {
+  static Uri createUri(
+    String? proxyUrl,
+    String authority,
+    String unencodedGoogleMapsPath,
+    Map<String, String?> queryParameters,
+  ) {
     Uri uri;
     final googleApiUri = Uri.https(
       authority,
@@ -92,7 +97,7 @@ class NetworkUtility {
     } else {
       uri = googleApiUri;
     }
-    // print(uri.toString());
+
     return uri;
   }
 }

@@ -1,14 +1,21 @@
+import 'dart:convert';
+
 import 'package:google_place/google_place.dart';
+import 'package:google_place/src/autocomplete/autocomplete_response/autocomplete_response.dart';
 import 'package:google_place/src/utils/network_utility.dart';
 
 class QueryAutocomplete {
   static final _authority = 'maps.googleapis.com';
+
   static final _unencodedPath = 'maps/api/place/queryautocomplete/json';
+
   final String apiKEY;
+
   final Map<String, String> headers;
+
   final String? proxyUrl;
 
-  QueryAutocomplete(this.apiKEY, this.headers, this.proxyUrl);
+  const QueryAutocomplete(this.apiKEY, this.headers, this.proxyUrl);
 
   /// The Query Autocomplete service can be used to provide a query prediction for text-based
   /// geographic searches, by returning suggested queries as you type.
@@ -40,7 +47,7 @@ class QueryAutocomplete {
     String? language,
   }) async {
     assert(input != "");
-    var queryParameters = _createParameters(
+    final queryParameters = _createParameters(
       apiKEY,
       input,
       offset,
@@ -48,12 +55,18 @@ class QueryAutocomplete {
       radius,
       language,
     );
-    var uri = NetworkUtility.createUri(
-        proxyUrl, _authority, _unencodedPath, queryParameters);
-    var response = await NetworkUtility.fetchUrl(uri, headers: headers);
+    final uri = NetworkUtility.createUri(
+      proxyUrl,
+      _authority,
+      _unencodedPath,
+      queryParameters,
+    );
+    final response = await NetworkUtility.fetchUrl(uri, headers: headers);
+
     if (response != null) {
-      return AutocompleteResponse.parseAutocompleteResult(response);
+      return AutocompleteResponse.fromJson(jsonDecode(response));
     }
+
     return null;
   }
 
@@ -87,7 +100,7 @@ class QueryAutocomplete {
     String? language,
   }) async {
     assert(input != "");
-    var queryParameters = _createParameters(
+    final queryParameters = _createParameters(
       apiKEY,
       input,
       offset,
@@ -95,9 +108,13 @@ class QueryAutocomplete {
       radius,
       language,
     );
+    final uri = NetworkUtility.createUri(
+      proxyUrl,
+      _authority,
+      _unencodedPath,
+      queryParameters,
+    );
 
-    var uri = NetworkUtility.createUri(
-        proxyUrl, _authority, _unencodedPath, queryParameters);
     return await NetworkUtility.fetchUrl(uri, headers: headers);
   }
 
@@ -110,40 +127,17 @@ class QueryAutocomplete {
     int? radius,
     String? language,
   ) {
-    String result = input.trimRight();
-    result = result.trimLeft();
-    Map<String, String> queryParameters = {
-      'input': result,
+    final cleanedInput = input.trimRight().trimLeft();
+    final queryParameters = <String, String>{
+      'input': cleanedInput,
       'key': apiKEY,
+      if (location != null)
+        'location': '${location.latitude},${location.longitude}',
+      if (offset != null) 'offset': offset.toString(),
+      if (radius != null) 'radius': radius.toString(),
+      if (language != null && language != '') 'language': language,
     };
 
-    if (location != null) {
-      var item = {
-        'location': '${location.latitude},${location.longitude}',
-      };
-      queryParameters.addAll(item);
-    }
-
-    if (offset != null) {
-      var item = {
-        'offset': offset.toString(),
-      };
-      queryParameters.addAll(item);
-    }
-
-    if (radius != null) {
-      var item = {
-        'radius': radius.toString(),
-      };
-      queryParameters.addAll(item);
-    }
-
-    if (language != null && language != '') {
-      var item = {
-        'language': language,
-      };
-      queryParameters.addAll(item);
-    }
     return queryParameters;
   }
 }

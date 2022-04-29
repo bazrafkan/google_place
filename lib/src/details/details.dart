@@ -1,15 +1,20 @@
-import 'package:google_place/google_place.dart';
-import 'package:google_place/src/details/details_response.dart';
+import 'dart:convert';
+
+import 'package:google_place/src/details/details_response/details_response.dart';
 import 'package:google_place/src/utils/network_utility.dart';
 
 class Details {
   static final _authority = 'maps.googleapis.com';
+
   static final _unencodedPath = 'maps/api/place/details/json';
+
   final String apiKEY;
+
   final Map<String, String> headers;
+
   final String? proxyUrl;
 
-  Details(this.apiKEY, this.headers, this.proxyUrl);
+  const Details(this.apiKEY, this.headers, this.proxyUrl);
 
   /// Once you have a place_id from a Place Search, you can request more details about a
   /// particular establishment or point of interest by initiating a Place Details request.
@@ -44,7 +49,7 @@ class Details {
     String? fields,
   }) async {
     assert(placeId != "");
-    var queryParameters = _createParameters(
+    final queryParameters = _createParameters(
       apiKEY,
       placeId,
       language,
@@ -52,16 +57,18 @@ class Details {
       sessionToken,
       fields,
     );
-    var uri = NetworkUtility.createUri(
+    final uri = NetworkUtility.createUri(
       proxyUrl,
       _authority,
       _unencodedPath,
       queryParameters,
     );
-    var response = await NetworkUtility.fetchUrl(uri, headers: headers);
+    final response = await NetworkUtility.fetchUrl(uri, headers: headers);
+
     if (response != null) {
-      return DetailsResponse.parseDetailsResult(response);
+      return DetailsResponse.fromJson(jsonDecode(response));
     }
+
     return null;
   }
 
@@ -98,7 +105,7 @@ class Details {
     String? fields,
   }) async {
     assert(placeId != "");
-    var queryParameters = _createParameters(
+    final queryParameters = _createParameters(
       apiKEY,
       placeId,
       language,
@@ -106,14 +113,14 @@ class Details {
       sessionToken,
       fields,
     );
-
-    var uri = Uri.https(
+    final uri = Uri.https(
       proxyUrl != null && proxyUrl != '' ? proxyUrl! : _authority,
       proxyUrl != null && proxyUrl != ''
           ? 'https://$_authority/$_unencodedPath'
           : _unencodedPath,
       queryParameters,
     );
+
     return await NetworkUtility.fetchUrl(uri, headers: headers);
   }
 
@@ -126,38 +133,16 @@ class Details {
     String? sessionToken,
     String? fields,
   ) {
-    Map<String, String> queryParameters = {
+    final queryParameters = <String, String>{
       'key': apiKEY,
       'place_id': placeId,
+      if (language != null && language != '') 'language': language,
+      if (region != null && region != '') 'region': region,
+      if (sessionToken != null && sessionToken != '')
+        'sessiontoken': sessionToken,
+      if (fields != null && fields != '') 'fields': fields,
     };
 
-    if (language != null && language != '') {
-      var item = {
-        'language': language,
-      };
-      queryParameters.addAll(item);
-    }
-
-    if (region != null && region != '') {
-      var item = {
-        'region': region,
-      };
-      queryParameters.addAll(item);
-    }
-
-    if (sessionToken != null && sessionToken != '') {
-      var item = {
-        'sessiontoken': sessionToken,
-      };
-      queryParameters.addAll(item);
-    }
-
-    if (fields != null && fields != '') {
-      var item = {
-        'fields': fields,
-      };
-      queryParameters.addAll(item);
-    }
     return queryParameters;
   }
 }

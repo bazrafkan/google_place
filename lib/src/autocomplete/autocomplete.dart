@@ -1,14 +1,25 @@
+import 'dart:convert';
+
 import 'package:google_place/google_place.dart';
+import 'package:google_place/src/autocomplete/autocomplete_response/autocomplete_response.dart';
 import 'package:google_place/src/utils/network_utility.dart';
 
 class Autocomplete {
   static final _authority = 'maps.googleapis.com';
+
   static final _unencodedPath = 'maps/api/place/autocomplete/json';
+
   final String apiKEY;
+
   final Map<String, String> headers;
+
   final String? proxyUrl;
 
-  Autocomplete(this.apiKEY, this.headers, this.proxyUrl);
+  const Autocomplete(
+    this.apiKEY,
+    this.headers,
+    this.proxyUrl,
+  );
 
   /// The Place Autocomplete service is a web service that returns place predictions in response
   ///  to an HTTP request. The request specifies a textual search string and optional geographic
@@ -105,10 +116,13 @@ class Autocomplete {
       _unencodedPath,
       queryParameters,
     );
-    var response = await NetworkUtility.fetchUrl(uri, headers: headers);
+
+    final response = await NetworkUtility.fetchUrl(uri, headers: headers);
+
     if (response != null) {
-      return AutocompleteResponse.parseAutocompleteResult(response);
+      return AutocompleteResponse.fromJson(jsonDecode(response));
     }
+
     return null;
   }
 
@@ -225,13 +239,24 @@ class Autocomplete {
     List<Component>? components,
     bool strictbounds,
   ) {
-    String result = input.trimRight();
-    result = result.trimLeft();
-    Map<String, String> queryParameters = {
-      'input': result,
+    final cleanedInput = input.trimRight().trimLeft();
+    final queryParameters = <String, String>{
+      'input': cleanedInput,
       'key': apiKEY,
+      if (origin != null) 'origin': '${origin.latitude},${origin.longitude}',
+      if (location != null)
+        'location': '${location.latitude},${location.longitude}',
+      if (offset != null) 'offset': offset.toString(),
+      if (radius != null) 'radius': radius.toString(),
+      if (sessionToken != null && sessionToken != '')
+        'sessiontoken': sessionToken,
+      if (region != null && region != '') 'region': region,
+      if (language != null && language != '') 'language': language,
+      if (types != null && types != '') 'types': types,
+      if (strictbounds) 'strictbounds': 'true',
     };
 
+    // TODO: What is this doing?
     if (components != null && components.length > 0) {
       String result = '';
       for (int i = 0; i < components.length; i++) {
@@ -242,69 +267,6 @@ class Autocomplete {
       }
       var item = {
         'components': result,
-      };
-      queryParameters.addAll(item);
-    }
-
-    if (origin != null) {
-      var item = {
-        'origin': '${origin.latitude},${origin.longitude}',
-      };
-      queryParameters.addAll(item);
-    }
-
-    if (location != null) {
-      var item = {
-        'location': '${location.latitude},${location.longitude}',
-      };
-      queryParameters.addAll(item);
-    }
-
-    if (offset != null) {
-      var item = {
-        'offset': offset.toString(),
-      };
-      queryParameters.addAll(item);
-    }
-
-    if (radius != null) {
-      var item = {
-        'radius': radius.toString(),
-      };
-      queryParameters.addAll(item);
-    }
-
-    if (sessionToken != null && sessionToken != '') {
-      var item = {
-        'sessionToken': sessionToken,
-      };
-      queryParameters.addAll(item);
-    }
-
-    if (region != null && region != '') {
-      var item = {
-        'region': region,
-      };
-      queryParameters.addAll(item);
-    }
-
-    if (language != null && language != '') {
-      var item = {
-        'language': language,
-      };
-      queryParameters.addAll(item);
-    }
-
-    if (types != null && types != '') {
-      var item = {
-        'types': types,
-      };
-      queryParameters.addAll(item);
-    }
-
-    if (strictbounds) {
-      var item = {
-        'strictbounds': strictbounds.toString(),
       };
       queryParameters.addAll(item);
     }
