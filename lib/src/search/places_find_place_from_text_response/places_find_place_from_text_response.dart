@@ -1,7 +1,7 @@
 import 'package:google_place/src/places_details/place/place.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'places_find_place__from_text_response.g.dart';
+part 'places_find_place_from_text_response.g.dart';
 
 /// The Find Place Search response contains html Attributions and search results and status
 @JsonSerializable()

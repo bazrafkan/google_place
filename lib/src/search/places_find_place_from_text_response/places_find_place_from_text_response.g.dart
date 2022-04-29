@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'places_find_place__from_text_response.dart';
+part of 'places_find_place_from_text_response.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

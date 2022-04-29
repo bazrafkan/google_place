@@ -30,7 +30,7 @@ export 'package:google_place/src/models/term/term.dart';
 export 'package:google_place/src/places_details/place/place.dart';
 export 'package:google_place/src/places_details/places_details.dart';
 export 'package:google_place/src/places_details/places_details_response/places_details_response.dart';
-export 'package:google_place/src/search/places_find_place__from_text_response/places_find_place__from_text_response.dart';
+export 'package:google_place/src/search/places_find_place_from_text_response/places_find_place_from_text_response.dart';
 export 'package:google_place/src/search/places_nearby_search_response/places_nearby_search_response.dart';
 export 'package:google_place/src/search/places_text_search_response/places_text_search_response.dart';
 
