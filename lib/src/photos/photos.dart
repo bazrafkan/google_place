@@ -1,6 +1,5 @@
-import 'dart:typed_data';
-
 import 'package:google_place/src/utils/network_utility.dart';
+import 'package:http/http.dart';
 
 class Photos {
   static const _authority = 'maps.googleapis.com';
@@ -26,13 +25,13 @@ class Photos {
   /// [photoReference] Required parameters - A string identifier that uniquely identifies a photo.
   /// Photo references are returned from either a Place Search or Place Details request.
   ///
-  /// [minprice] or [maxprice] Required parameters - Specifies the maximum desired height or width,
+  /// [maxheight] or [maxwidth] Required parameters - Specifies the maximum desired height or width,
   /// in pixels, of the image returned by the Place Photos service. If the image is smaller than
   /// the values specified, the original image will be returned. If the image is larger in either
   /// dimension, it will be scaled to match the smaller of the two dimensions, restricted to its
   /// original aspect ratio. Both the maxheight and maxwidth properties accept an integer
   /// between 1 and 1600.
-  Future<Uint8List> get(
+  Future<Response> get(
     String photoReference,
     int maxHeight,
     int maxWidth,
@@ -51,9 +50,16 @@ class Photos {
       queryParameters,
     );
     final response = await fetchUrl(uri, headers: headers);
-    final list = response.body.codeUnits;
 
-    return Uint8List.fromList(list);
+    if (response.statusCode != 200) {
+      throw Exception(
+        'Failed to load photo reference $photoReference\n'
+        'Status Code: ${response.statusCode}\n'
+        'Reason: ${response.reasonPhrase}',
+      );
+    }
+
+    return response;
   }
 
   /// The Place Photo service, part of the Places API, is a read- only API that allows you to

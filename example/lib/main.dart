@@ -342,10 +342,11 @@ class _DetailsPageState extends State<DetailsPage> {
   }
 
   Future<void> getPhoto(String photoReference) async {
-    var result = await widget.googlePlace.photos.get(photoReference, null, 400);
-    if (result != null && mounted) {
+    final response =
+        await widget.googlePlace.photos.get(photoReference, null, 400);
+    if (response != null && mounted) {
       setState(() {
-        images.add(result);
+        images.add(Uint8List.fromList(response.body.codeUnits));
       });
     }
   }
