@@ -41,7 +41,7 @@ class Search {
   ///
   /// [locationbias] Optional parameters - Prefer results in a specified area, by specifying either a radius plus
   /// lat/lng, or two lat/lng pairs representing the points of a rectangle.
-  Future<PlacesFindPlaceFromTextResponse?> getFindPlace(
+  Future<PlacesFindPlaceFromTextResponse> getFindPlace(
     String input,
     InputType inputType, {
     String? language,
@@ -109,7 +109,7 @@ class Search {
   /// [pagetoken] Optional parameters - Returns up to 20 results from a previously run search. Setting a
   /// pagetoken parameter will execute a search with the same parameters used previously — all parameters
   /// other than pagetoken will be ignored.
-  Future<PlacesNearbySearchResponse?> getNearBySearch(
+  Future<PlacesNearbySearchResponse> getNearBySearch(
     LatLngLiteral location,
     int radius, {
     String? keyword,
@@ -190,7 +190,7 @@ class Search {
   /// [pagetoken] Optional parameters - Returns up to 20 results from a previously run search. Setting a pagetoken
   /// parameter will execute a search with the same parameters used previously — all parameters other than pagetoken
   /// will be ignored.
-  Future<PlacesTextSearchResponse?> getTextSearch(
+  Future<PlacesTextSearchResponse> getTextSearch(
     String query, {
     String? region,
     LatLngLiteral? location,
@@ -246,7 +246,7 @@ class Search {
   /// [locationbias] Optional parameters - Prefer results in a specified area, by specifying either a radius plus
   /// lat/lng, or two lat/lng pairs representing the points of a rectangle.
   // TODO: Why do we expose this? Whose gonna use this?
-  Future<String?> getFindPlaceJson(
+  Future<String> getFindPlaceJson(
     String input,
     InputType inputType, {
     String? language,
@@ -262,7 +262,6 @@ class Search {
       fields,
       locationbias,
     );
-
     final uri = Uri.https(
       proxyUrl != null && proxyUrl != '' ? proxyUrl! : _authority,
       proxyUrl != null && proxyUrl != ''
@@ -270,6 +269,7 @@ class Search {
           : _unencodedPathFindPlace,
       queryParameters,
     );
+
     return (await fetchUrl(uri, headers: headers)).body;
   }
 
@@ -312,7 +312,7 @@ class Search {
   /// [pagetoken] Optional parameters - Returns up to 20 results from a previously run search. Setting a
   /// pagetoken parameter will execute a search with the same parameters used previously — all parameters
   /// other than pagetoken will be ignored.
-  Future<String?> getNearBySearchJson(
+  Future<String> getNearBySearchJson(
     LatLngLiteral location,
     int radius, {
     String? keyword,
@@ -390,7 +390,7 @@ class Search {
   /// [pagetoken] Optional parameters - Returns up to 20 results from a previously run search. Setting a pagetoken
   /// parameter will execute a search with the same parameters used previously — all parameters other than pagetoken
   /// will be ignored.
-  Future<String?> getTextSearchJson(
+  Future<String> getTextSearchJson(
     String query, {
     String? region,
     LatLngLiteral? location,
@@ -423,7 +423,7 @@ class Search {
   }
 
   /// Prepare query Parameters for find place
-  Map<String, String?> _createFindPlaceParameters(
+  Map<String, String> _createFindPlaceParameters(
     String apiKEY,
     String input,
     InputType inputType,
@@ -432,7 +432,7 @@ class Search {
     Locationbias? locationbias,
   ) {
     final cleanedInput = input.trimRight().trimLeft();
-    final queryParameters = <String, String?>{
+    final queryParameters = <String, String>{
       'input': cleanedInput,
       'key': apiKEY,
       'inputtype': inputType == InputType.textQuery
@@ -457,20 +457,24 @@ class Search {
         value =
             'circle:${locationbias.circular!.radius}@${locationbias.circular!.latLng.latitude},${locationbias.circular!.latLng.longitude}';
       }
-      if (locationbias.rectangular != null) {
+      final _rectangle = locationbias.rectangular;
+
+      if (_rectangle != null) {
         value =
-            'rectangle:${locationbias.rectangular!.southWest.latitude},${locationbias.rectangular!.southWest.longitude}|${locationbias.rectangular!.northEast.latitude},${locationbias.rectangular!.northEast.longitude}';
+            'rectangle:${_rectangle.southWest.latitude},${_rectangle.southWest.longitude}|${_rectangle.northEast.latitude},${_rectangle.northEast.longitude}';
       }
 
-      final item = {'locationbias': value};
-      queryParameters.addAll(item);
+      if (value != null) {
+        final item = {'locationbias': value};
+        queryParameters.addAll(item);
+      }
     }
 
     return queryParameters;
   }
 
   /// Prepare query Parameters for near by search
-  Map<String, String?> _createNearBySearchParameters(
+  Map<String, String> _createNearBySearchParameters(
     String apiKEY,
     LatLngLiteral location,
     int radius,
@@ -484,7 +488,7 @@ class Search {
     String? type,
     String? pagetoken,
   ) {
-    final queryParameters = <String, String?>{
+    final queryParameters = <String, String>{
       'location': '${location.lat},${location.lng}',
       'key': apiKEY,
       'radius': radius.toString(),

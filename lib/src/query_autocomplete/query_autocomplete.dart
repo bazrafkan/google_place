@@ -38,7 +38,7 @@ class QueryAutocomplete {
   /// the selected language may be given a higher ranking. See the supported list of domain languages.
   /// If language is not supplied, the Places service will attempt to use the native language of the
   /// domain from which the request is sent.
-  Future<AutocompleteResponse?> get(
+  Future<AutocompleteResponse> get(
     String input, {
     int? offset,
     LatLon? location,
@@ -89,7 +89,7 @@ class QueryAutocomplete {
   /// the selected language may be given a higher ranking. See the supported list of domain languages.
   /// If language is not supplied, the Places service will attempt to use the native language of the
   /// domain from which the request is sent.
-  Future<String?> getJson(
+  Future<String> getJson(
     String input, {
     int? offset,
     LatLon? location,

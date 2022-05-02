@@ -41,7 +41,7 @@ class PlacesDetails {
   ///
   /// [fields] Optional parameters - One or more fields, specifying the types of place data to return,
   /// separated by a comma.
-  Future<PlacesDetailsResponse?> get(
+  Future<PlacesDetailsResponse> get(
     String placeId, {
     String? language,
     String? region,
@@ -96,7 +96,7 @@ class PlacesDetails {
   /// [fields] Optional parameters - One or more fields, specifying the types of place data to return,
   /// separated by a comma.
   // FIXME: This should be named getJsonString
-  Future<String?> getJson(
+  Future<String> getJson(
     String placeId, {
     String? language,
     String? region,
