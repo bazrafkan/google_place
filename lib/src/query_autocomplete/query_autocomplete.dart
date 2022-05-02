@@ -62,13 +62,9 @@ class QueryAutocomplete {
     );
     final response = await fetchUrl(uri, headers: headers);
 
-    if (response != null) {
-      return AutocompleteResponse.fromJson(
-        jsonDecode(response) as Map<String, dynamic>,
-      );
-    }
-
-    return null;
+    return AutocompleteResponse.fromJson(
+      jsonDecode(response.body) as Map<String, dynamic>,
+    );
   }
 
   /// The Query Autocomplete service can be used to provide a query prediction for text-based
@@ -116,7 +112,7 @@ class QueryAutocomplete {
       queryParameters,
     );
 
-    return await fetchUrl(uri, headers: headers);
+    return (await fetchUrl(uri, headers: headers)).body;
   }
 
   /// Prepare query Parameters

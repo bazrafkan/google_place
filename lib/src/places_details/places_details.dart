@@ -65,13 +65,9 @@ class PlacesDetails {
     );
     final response = await fetchUrl(uri, headers: headers);
 
-    if (response != null) {
-      return PlacesDetailsResponse.fromJson(
-        jsonDecode(response) as Map<String, dynamic>,
-      );
-    }
-
-    return null;
+    return PlacesDetailsResponse.fromJson(
+      jsonDecode(response.body) as Map<String, dynamic>,
+    );
   }
 
   /// Once you have a place_id from a Place Search, you can request more details about a
@@ -99,6 +95,7 @@ class PlacesDetails {
   ///
   /// [fields] Optional parameters - One or more fields, specifying the types of place data to return,
   /// separated by a comma.
+  // FIXME: This should be named getJsonString
   Future<String?> getJson(
     String placeId, {
     String? language,
@@ -123,7 +120,7 @@ class PlacesDetails {
       queryParameters,
     );
 
-    return await fetchUrl(uri, headers: headers);
+    return (await fetchUrl(uri, headers: headers)).body;
   }
 
   /// Prepare query Parameters

@@ -1,22 +1,25 @@
 import 'package:google_place/google_place.dart';
 import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 
 /// The Network Utility
-Future<String?> fetchUrl(
+Future<Response> fetchUrl(
   Uri uri, {
   Map<String, String>? headers,
 }) async {
-  try {
-    final response =
-        await http.get(uri, headers: headers).timeout(GooglePlace.timeout);
+  final response =
+      await http.get(uri, headers: headers).timeout(GooglePlace.timeout);
 
-    if (response.statusCode == 200) {
-      return response.body;
-    }
-    return null;
-  } catch (e) {
-    return null;
+  if (response.statusCode != 200) {
+    // Include all information, including statusCode and reasonPhrase
+    throw Exception(
+      'Failed to load url: $uri\n'
+      'Status code: ${response.statusCode}\n'
+      'Reason phrase: ${response.reasonPhrase}',
+    );
   }
+
+  return response;
 }
 
 /// Creates a uri with the proxy url if it is set

@@ -65,13 +65,9 @@ class Search {
     );
     final response = await fetchUrl(uri, headers: headers);
 
-    if (response != null) {
-      return PlacesFindPlaceFromTextResponse.fromJson(
-        jsonDecode(response) as Map<String, dynamic>,
-      );
-    }
-
-    return null;
+    return PlacesFindPlaceFromTextResponse.fromJson(
+      jsonDecode(response.body) as Map<String, dynamic>,
+    );
   }
 
   /// A Nearby Search lets you search for places within a specified area.
@@ -144,13 +140,9 @@ class Search {
         Uri.https(_authority, _unencodedPathNearBySearch, queryParameters);
     final response = await fetchUrl(uri, headers: headers);
 
-    if (response != null) {
-      return PlacesNearbySearchResponse.fromJson(
-        jsonDecode(response) as Map<String, dynamic>,
-      );
-    }
-
-    return null;
+    return PlacesNearbySearchResponse.fromJson(
+      jsonDecode(response.body) as Map<String, dynamic>,
+    );
   }
 
   /// The Google Places API Text Search Service is a web service that returns information about a set of places
@@ -228,13 +220,9 @@ class Search {
         Uri.https(_authority, _unencodedPathTextSearch, queryParameters);
     final response = await fetchUrl(uri, headers: headers);
 
-    if (response != null) {
-      return PlacesTextSearchResponse.fromJson(
-        jsonDecode(response) as Map<String, dynamic>,
-      );
-    }
-
-    return null;
+    return PlacesTextSearchResponse.fromJson(
+      jsonDecode(response.body) as Map<String, dynamic>,
+    );
   }
 
   /// A Find Place request takes a text input and returns a place.
@@ -257,6 +245,7 @@ class Search {
   ///
   /// [locationbias] Optional parameters - Prefer results in a specified area, by specifying either a radius plus
   /// lat/lng, or two lat/lng pairs representing the points of a rectangle.
+  // TODO: Why do we expose this? Whose gonna use this?
   Future<String?> getFindPlaceJson(
     String input,
     InputType inputType, {
@@ -265,7 +254,7 @@ class Search {
     Locationbias? locationbias,
   }) async {
     assert(input != "");
-    var queryParameters = _createFindPlaceParameters(
+    final queryParameters = _createFindPlaceParameters(
       apiKEY,
       input,
       inputType,
@@ -274,14 +263,14 @@ class Search {
       locationbias,
     );
 
-    var uri = Uri.https(
+    final uri = Uri.https(
       proxyUrl != null && proxyUrl != '' ? proxyUrl! : _authority,
       proxyUrl != null && proxyUrl != ''
           ? 'https://$_authority/$_unencodedPathFindPlace'
           : _unencodedPathFindPlace,
       queryParameters,
     );
-    return await fetchUrl(uri, headers: headers);
+    return (await fetchUrl(uri, headers: headers)).body;
   }
 
   /// A Nearby Search lets you search for places within a specified area.
@@ -336,7 +325,7 @@ class Search {
     String? type,
     String? pagetoken,
   }) async {
-    var queryParameters = _createNearBySearchParameters(
+    final queryParameters = _createNearBySearchParameters(
       apiKEY,
       location,
       radius,
@@ -350,10 +339,10 @@ class Search {
       type,
       pagetoken,
     );
-
-    var uri =
+    final uri =
         Uri.https(_authority, _unencodedPathNearBySearch, queryParameters);
-    return await fetchUrl(uri, headers: headers);
+
+    return (await fetchUrl(uri, headers: headers)).body;
   }
 
   /// The Google Places API Text Search Service is a web service that returns information about a set of places
@@ -414,7 +403,7 @@ class Search {
     String? pagetoken,
   }) async {
     assert(query != "");
-    var queryParameters = _createTextSearchParameters(
+    final queryParameters = _createTextSearchParameters(
       apiKEY,
       query,
       region,
@@ -427,9 +416,10 @@ class Search {
       type,
       pagetoken,
     );
+    final uri =
+        Uri.https(_authority, _unencodedPathTextSearch, queryParameters);
 
-    var uri = Uri.https(_authority, _unencodedPathTextSearch, queryParameters);
-    return await fetchUrl(uri, headers: headers);
+    return (await fetchUrl(uri, headers: headers)).body;
   }
 
   /// Prepare query Parameters for find place

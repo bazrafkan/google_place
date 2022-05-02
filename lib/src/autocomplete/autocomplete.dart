@@ -94,7 +94,7 @@ class Autocomplete {
       assert(location != null);
       assert(radius != null);
     }
-    var queryParameters = _createParameters(
+    final queryParameters = _createParameters(
       apiKEY,
       input,
       sessionToken,
@@ -109,7 +109,7 @@ class Autocomplete {
       strictbounds,
     );
 
-    var uri = createUri(
+    final uri = createUri(
       proxyUrl,
       _authority,
       _unencodedPath,
@@ -118,13 +118,9 @@ class Autocomplete {
 
     final response = await fetchUrl(uri, headers: headers);
 
-    if (response != null) {
-      return AutocompleteResponse.fromJson(
-        jsonDecode(response) as Map<String, dynamic>,
-      );
-    }
-
-    return null;
+    return AutocompleteResponse.fromJson(
+      jsonDecode(response.body) as Map<String, dynamic>,
+    );
   }
 
   /// The Place Autocomplete service is a web service that returns place predictions in response
@@ -200,7 +196,7 @@ class Autocomplete {
       assert(location != null);
       assert(radius != null);
     }
-    var queryParameters = _createParameters(
+    final queryParameters = _createParameters(
       apiKEY,
       input,
       sessionToken,
@@ -214,15 +210,15 @@ class Autocomplete {
       components,
       strictbounds,
     );
-
-    var uri = Uri.https(
+    final uri = Uri.https(
       proxyUrl != null && proxyUrl != '' ? proxyUrl! : _authority,
       proxyUrl != null && proxyUrl != ''
           ? 'https://$_authority/$_unencodedPath'
           : _unencodedPath,
       queryParameters,
     );
-    return await fetchUrl(uri, headers: headers);
+
+    return (await fetchUrl(uri, headers: headers)).body;
   }
 
   /// Prepare query Parameters
@@ -266,7 +262,7 @@ class Autocomplete {
           result += '|';
         }
       }
-      var item = {
+      final item = {
         'components': result,
       };
       queryParameters.addAll(item);

@@ -51,13 +51,9 @@ class Photos {
       queryParameters,
     );
     final response = await fetchUrl(uri, headers: headers);
+    final list = response.body.codeUnits;
 
-    if (response != null) {
-      List<int> list = response.codeUnits;
-      return Uint8List.fromList(list);
-    }
-
-    return null;
+    return Uint8List.fromList(list);
   }
 
   /// The Place Photo service, part of the Places API, is a read- only API that allows you to
@@ -97,7 +93,7 @@ class Photos {
       queryParameters,
     );
 
-    return await fetchUrl(uri, headers: headers);
+    return (await fetchUrl(uri, headers: headers)).body;
   }
 
   /// Prepare query Parameters
