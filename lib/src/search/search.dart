@@ -9,7 +9,7 @@ class Search {
   static const _unencodedPathFindPlace =
       'maps/api/place/findplacefromtext/json';
 
-  static const _unencodedPathNearBySearch = 'maps/api/place/nearbysearch/json';
+  static const _unencodedPathNearbySearch = 'maps/api/place/nearbysearch/json';
 
   static const _unencodedPathTextSearch = 'maps/api/place/textsearch/json';
 
@@ -109,7 +109,7 @@ class Search {
   /// [pagetoken] Optional parameters - Returns up to 20 results from a previously run search. Setting a
   /// pagetoken parameter will execute a search with the same parameters used previously — all parameters
   /// other than pagetoken will be ignored.
-  Future<PlacesNearbySearchResponse> getNearBySearch(
+  Future<PlacesNearbySearchResponse> getNearbySearch(
     LatLngLiteral location,
     int radius, {
     String? keyword,
@@ -122,7 +122,7 @@ class Search {
     String? type,
     String? pagetoken,
   }) async {
-    final queryParameters = _createNearBySearchParameters(
+    final queryParameters = _createNearbySearchParameters(
       apiKEY,
       location,
       radius,
@@ -137,7 +137,7 @@ class Search {
       pagetoken,
     );
     final uri =
-        Uri.https(_authority, _unencodedPathNearBySearch, queryParameters);
+        Uri.https(_authority, _unencodedPathNearbySearch, queryParameters);
     final response = await fetchUrl(uri, headers: headers);
 
     return PlacesNearbySearchResponse.fromJson(
@@ -312,7 +312,7 @@ class Search {
   /// [pagetoken] Optional parameters - Returns up to 20 results from a previously run search. Setting a
   /// pagetoken parameter will execute a search with the same parameters used previously — all parameters
   /// other than pagetoken will be ignored.
-  Future<String> getNearBySearchJson(
+  Future<String> getNearbySearchJson(
     LatLngLiteral location,
     int radius, {
     String? keyword,
@@ -325,7 +325,7 @@ class Search {
     String? type,
     String? pagetoken,
   }) async {
-    final queryParameters = _createNearBySearchParameters(
+    final queryParameters = _createNearbySearchParameters(
       apiKEY,
       location,
       radius,
@@ -340,7 +340,7 @@ class Search {
       pagetoken,
     );
     final uri =
-        Uri.https(_authority, _unencodedPathNearBySearch, queryParameters);
+        Uri.https(_authority, _unencodedPathNearbySearch, queryParameters);
 
     return (await fetchUrl(uri, headers: headers)).body;
   }
@@ -474,7 +474,7 @@ class Search {
   }
 
   /// Prepare query Parameters for near by search
-  Map<String, String> _createNearBySearchParameters(
+  Map<String, String> _createNearbySearchParameters(
     String apiKEY,
     LatLngLiteral location,
     int radius,

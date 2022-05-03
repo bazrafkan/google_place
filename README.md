@@ -77,7 +77,7 @@ Uint8List result = await googlePlace.details.get("ChIJN1t_tDeuEmsRUsoyG83frY4",
 
     ```dart
     var googlePlace = GooglePlace("Your-Key");
-    var result = await googlePlace.search.getNearBySearch(
+    var result = await googlePlace.search.getNearbySearch(
         Location(lat: -33.8670522, lng: 151.1957362), 1500,
         type: "restaurant", keyword: "cruise");
     ```
