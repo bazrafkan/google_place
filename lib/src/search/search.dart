@@ -111,7 +111,7 @@ class Search {
     String? type,
     String? pagetoken,
   }) async {
-    var queryParameters = _createNearBySearchParameters(
+    final queryParameters = _createNearBySearchParameters(
       apiKEY,
       location,
       radius,
@@ -126,9 +126,9 @@ class Search {
       pagetoken,
     );
 
-    var uri =
-        Uri.https(_authority, _unencodedPathNearBySearch, queryParameters);
-    var response = await NetworkUtility.fetchUrl(uri, headers: headers);
+    final uri = NetworkUtility.createUri(
+        proxyUrl, _authority, _unencodedPathNearBySearch, queryParameters);
+    final response = await NetworkUtility.fetchUrl(uri, headers: headers);
     if (response != null) {
       return NearBySearchResponse.parseNearBySearchResult(response);
     }
