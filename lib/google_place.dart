@@ -72,15 +72,22 @@ class GooglePlace {
   /// http proxies are supported, but are not recommended for production use.
   final String? proxyUrl;
 
+  /// Optional: include protocol in proxy url path.  Need to set true when using
+  /// proxy server hosted in Azure.
+  final bool includeProtocol;
+
   GooglePlace(
     this.apiKEY, {
     this.headers = const {},
     this.proxyUrl,
+    this.includeProtocol = true,
   }) {
-    this.search = Search(apiKEY, headers, proxyUrl);
-    this.details = Details(apiKEY, headers, proxyUrl);
-    this.photos = Photos(apiKEY, headers, proxyUrl);
-    this.autocomplete = Autocomplete(apiKEY, headers, proxyUrl);
-    this.queryAutocomplete = QueryAutocomplete(apiKEY, headers, proxyUrl);
+    this.search = Search(apiKEY, headers, proxyUrl, includeProtocol);
+    this.details = Details(apiKEY, headers, proxyUrl, includeProtocol);
+    this.photos = Photos(apiKEY, headers, proxyUrl, includeProtocol);
+    this.autocomplete =
+        Autocomplete(apiKEY, headers, proxyUrl, includeProtocol);
+    this.queryAutocomplete =
+        QueryAutocomplete(apiKEY, headers, proxyUrl, includeProtocol);
   }
 }

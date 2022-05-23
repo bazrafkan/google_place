@@ -25,7 +25,8 @@ class NetworkUtility {
   /// [unencodedGoogleMapsPath] Required parameters - the path to the api, usually something like maps/api/...
   /// [queryParameters] Required parameters - a map of query parameters to be appended to the url
   static Uri createUri(String? proxyUrl, String authority,
-      String unencodedGoogleMapsPath, Map<String, String?> queryParameters) {
+      String unencodedGoogleMapsPath, Map<String, String?> queryParameters,
+      {bool includeProtocol = true}) {
     Uri uri;
     final googleApiUri = Uri.https(
       authority,
@@ -75,19 +76,25 @@ class NetworkUtility {
         }
       } else {
         //no parameter
+        if (!includeProtocol) {
+          return Uri.https(
+            proxyHostname,
+            '$everythingAfterHostname$authority:443/$unencodedGoogleMapsPath',
+            queryParameters,
+          );
+        }
         if (usingHttps) {
-          uri = Uri.https(
+          return Uri.https(
             proxyHostname,
             '${everythingAfterHostname}https://$authority/$unencodedGoogleMapsPath',
             queryParameters,
           );
-        } else {
-          uri = Uri.http(
-            proxyHostname,
-            '${everythingAfterHostname}http://$authority/$unencodedGoogleMapsPath',
-            queryParameters,
-          );
         }
+        return Uri.http(
+          proxyHostname,
+          '${everythingAfterHostname}http://$authority/$unencodedGoogleMapsPath',
+          queryParameters,
+        );
       }
     } else {
       uri = googleApiUri;

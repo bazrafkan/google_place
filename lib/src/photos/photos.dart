@@ -8,8 +8,9 @@ class Photos {
   final String apiKEY;
   final Map<String, String> headers;
   final String? proxyUrl;
+  final bool includeProtocol;
 
-  Photos(this.apiKEY, this.headers, this.proxyUrl);
+  Photos(this.apiKEY, this.headers, this.proxyUrl, this.includeProtocol);
 
   /// The Place Photo service, part of the Places API, is a read- only API that allows you to
   /// add high quality photographic content to your application. The Place Photo service gives
@@ -41,7 +42,8 @@ class Photos {
       maxWidth,
     );
     var uri = NetworkUtility.createUri(
-        proxyUrl, _authority, _unencodedPath, queryParameters);
+        proxyUrl, _authority, _unencodedPath, queryParameters,
+        includeProtocol: includeProtocol);
     var response = await NetworkUtility.fetchUrl(uri, headers: headers);
     if (response != null) {
       List<int> list = response.codeUnits;

@@ -8,8 +8,9 @@ class Details {
   final String apiKEY;
   final Map<String, String> headers;
   final String? proxyUrl;
+  final bool includeProtocol;
 
-  Details(this.apiKEY, this.headers, this.proxyUrl);
+  Details(this.apiKEY, this.headers, this.proxyUrl, this.includeProtocol);
 
   /// Once you have a place_id from a Place Search, you can request more details about a
   /// particular establishment or point of interest by initiating a Place Details request.
@@ -53,11 +54,8 @@ class Details {
       fields,
     );
     var uri = NetworkUtility.createUri(
-      proxyUrl,
-      _authority,
-      _unencodedPath,
-      queryParameters,
-    );
+        proxyUrl, _authority, _unencodedPath, queryParameters,
+        includeProtocol: includeProtocol);
     var response = await NetworkUtility.fetchUrl(uri, headers: headers);
     if (response != null) {
       return DetailsResponse.parseDetailsResult(response);
