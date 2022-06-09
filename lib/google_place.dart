@@ -41,22 +41,22 @@ class GooglePlace {
   final String apiKEY;
 
   /// [search] returns a list of places based on a user's location or search string.
-  late Search search;
+  final Search search;
 
   /// [details] returns more detailed information about a specific place, including user reviews.
-  late PlacesDetails details;
+  final PlacesDetails details;
 
   /// [photos] provides access to the millions of place-related photos stored in Google's Place database.
-  late Photos photos;
+  final Photos photos;
 
   /// [autocomplete] automatically fills in the name and/or address of a place as users type.
-  late Autocomplete autocomplete;
+  final Autocomplete autocomplete;
 
   /// [queryAutocomplete] provides a query prediction service for text-based geographic searches, returning suggested queries as users type.
-  late QueryAutocomplete queryAutocomplete;
+  final QueryAutocomplete queryAutocomplete;
 
   /// [timeout] timeout for http call.
-  static Duration timeout = const Duration(milliseconds: 1500);
+  final Duration timeout;
 
   /// Optional headers to pass on each request
   final Map<String, String> headers;
@@ -70,11 +70,10 @@ class GooglePlace {
     this.apiKEY, {
     this.headers = const {},
     this.proxyUrl,
-  }) {
-    search = Search(apiKEY, headers, proxyUrl);
-    details = PlacesDetails(apiKEY, headers, proxyUrl);
-    photos = Photos(apiKEY, headers, proxyUrl);
-    autocomplete = Autocomplete(apiKEY, headers, proxyUrl);
-    queryAutocomplete = QueryAutocomplete(apiKEY, headers, proxyUrl);
-  }
+    this.timeout = const Duration(milliseconds: 30000),
+  })  : search = Search(apiKEY, headers, proxyUrl),
+        details = PlacesDetails(apiKEY, headers, proxyUrl),
+        photos = Photos(apiKEY, headers, proxyUrl),
+        autocomplete = Autocomplete(apiKEY, headers, proxyUrl),
+        queryAutocomplete = QueryAutocomplete(apiKEY, headers, proxyUrl);
 }
