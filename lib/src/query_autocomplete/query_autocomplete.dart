@@ -14,7 +14,14 @@ class QueryAutocomplete {
 
   final String? proxyUrl;
 
-  const QueryAutocomplete(this.apiKEY, this.headers, this.proxyUrl);
+  final Duration timeout;
+
+  const QueryAutocomplete(
+    this.apiKEY,
+    this.headers,
+    this.proxyUrl,
+    this.timeout,
+  );
 
   /// The Query Autocomplete service can be used to provide a query prediction for text-based
   /// geographic searches, by returning suggested queries as you type.
@@ -60,7 +67,7 @@ class QueryAutocomplete {
       _unencodedPath,
       queryParameters,
     );
-    final response = await fetchUrl(uri, headers: headers);
+    final response = await fetchUrl(uri, headers: headers, timeout: timeout);
 
     return AutocompleteResponse.fromJson(
       jsonDecode(response.body) as Map<String, dynamic>,
@@ -112,7 +119,7 @@ class QueryAutocomplete {
       queryParameters,
     );
 
-    return (await fetchUrl(uri, headers: headers)).body;
+    return (await fetchUrl(uri, headers: headers, timeout: timeout)).body;
   }
 
   /// Prepare query Parameters

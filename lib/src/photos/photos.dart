@@ -12,7 +12,14 @@ class Photos {
 
   final String? proxyUrl;
 
-  const Photos(this.apiKEY, this.headers, this.proxyUrl);
+  final Duration timeout;
+
+  const Photos(
+    this.apiKEY,
+    this.headers,
+    this.proxyUrl,
+    this.timeout,
+  );
 
   /// The Place Photo service, part of the Places API, is a read- only API that allows you to
   /// add high quality photographic content to your application. The Place Photo service gives
@@ -49,7 +56,7 @@ class Photos {
       _unencodedPath,
       queryParameters,
     );
-    final response = await fetchUrl(uri, headers: headers);
+    final response = await fetchUrl(uri, headers: headers, timeout: timeout);
 
     if (response.statusCode != 200) {
       throw Exception(
@@ -99,7 +106,7 @@ class Photos {
       queryParameters,
     );
 
-    return (await fetchUrl(uri, headers: headers)).body;
+    return (await fetchUrl(uri, headers: headers, timeout: timeout)).body;
   }
 
   /// Prepare query Parameters

@@ -14,7 +14,9 @@ class PlacesDetails {
 
   final String? proxyUrl;
 
-  const PlacesDetails(this.apiKEY, this.headers, this.proxyUrl);
+  final Duration timeout;
+
+  const PlacesDetails(this.apiKEY, this.headers, this.proxyUrl, this.timeout);
 
   /// Once you have a place_id from a Place Search, you can request more details about a
   /// particular establishment or point of interest by initiating a Place Details request.
@@ -63,7 +65,7 @@ class PlacesDetails {
       _unencodedPath,
       queryParameters,
     );
-    final response = await fetchUrl(uri, headers: headers);
+    final response = await fetchUrl(uri, headers: headers, timeout: timeout);
 
     return PlacesDetailsResponse.fromJson(
       jsonDecode(response.body) as Map<String, dynamic>,
@@ -120,7 +122,7 @@ class PlacesDetails {
       queryParameters,
     );
 
-    return (await fetchUrl(uri, headers: headers)).body;
+    return (await fetchUrl(uri, headers: headers, timeout: timeout)).body;
   }
 
   /// Prepare query Parameters

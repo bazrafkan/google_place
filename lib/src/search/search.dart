@@ -19,7 +19,9 @@ class Search {
 
   final String? proxyUrl;
 
-  const Search(this.apiKEY, this.headers, this.proxyUrl);
+  final Duration timeout;
+
+  const Search(this.apiKEY, this.headers, this.proxyUrl, this.timeout);
 
   /// A Find Place request takes a text input and returns a place.
   /// The input can be any kind of Places text data, such as a name, address, or phone number.
@@ -63,7 +65,7 @@ class Search {
       _unencodedPathFindPlace,
       queryParameters,
     );
-    final response = await fetchUrl(uri, headers: headers);
+    final response = await fetchUrl(uri, headers: headers, timeout: timeout);
 
     return PlacesFindPlaceFromTextResponse.fromJson(
       jsonDecode(response.body) as Map<String, dynamic>,
@@ -138,7 +140,7 @@ class Search {
     );
     final uri =
         Uri.https(_authority, _unencodedPathNearbySearch, queryParameters);
-    final response = await fetchUrl(uri, headers: headers);
+    final response = await fetchUrl(uri, headers: headers, timeout: timeout);
 
     return PlacesNearbySearchResponse.fromJson(
       jsonDecode(response.body) as Map<String, dynamic>,
@@ -218,7 +220,7 @@ class Search {
     );
     final uri =
         Uri.https(_authority, _unencodedPathTextSearch, queryParameters);
-    final response = await fetchUrl(uri, headers: headers);
+    final response = await fetchUrl(uri, headers: headers, timeout: timeout);
 
     return PlacesTextSearchResponse.fromJson(
       jsonDecode(response.body) as Map<String, dynamic>,
@@ -270,7 +272,7 @@ class Search {
       queryParameters,
     );
 
-    return (await fetchUrl(uri, headers: headers)).body;
+    return (await fetchUrl(uri, headers: headers, timeout: timeout)).body;
   }
 
   /// A Nearby Search lets you search for places within a specified area.
@@ -342,7 +344,7 @@ class Search {
     final uri =
         Uri.https(_authority, _unencodedPathNearbySearch, queryParameters);
 
-    return (await fetchUrl(uri, headers: headers)).body;
+    return (await fetchUrl(uri, headers: headers, timeout: timeout)).body;
   }
 
   /// The Google Places API Text Search Service is a web service that returns information about a set of places
@@ -419,7 +421,7 @@ class Search {
     final uri =
         Uri.https(_authority, _unencodedPathTextSearch, queryParameters);
 
-    return (await fetchUrl(uri, headers: headers)).body;
+    return (await fetchUrl(uri, headers: headers, timeout: timeout)).body;
   }
 
   /// Prepare query Parameters for find place

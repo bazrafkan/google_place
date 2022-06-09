@@ -14,10 +14,13 @@ class Autocomplete {
 
   final String? proxyUrl;
 
+  final Duration timeout;
+
   const Autocomplete(
     this.apiKEY,
     this.headers,
     this.proxyUrl,
+    this.timeout,
   );
 
   /// The Place Autocomplete service is a web service that returns place predictions in response
@@ -115,7 +118,7 @@ class Autocomplete {
       queryParameters,
     );
 
-    final response = await fetchUrl(uri, headers: headers);
+    final response = await fetchUrl(uri, headers: headers, timeout: timeout);
 
     return AutocompleteResponse.fromJson(
       jsonDecode(response.body) as Map<String, dynamic>,
@@ -217,7 +220,7 @@ class Autocomplete {
       queryParameters,
     );
 
-    return (await fetchUrl(uri, headers: headers)).body;
+    return (await fetchUrl(uri, headers: headers, timeout: timeout)).body;
   }
 
   /// Prepare query Parameters

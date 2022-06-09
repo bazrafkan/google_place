@@ -71,9 +71,10 @@ class GooglePlace {
     this.headers = const {},
     this.proxyUrl,
     this.timeout = const Duration(milliseconds: 30000),
-  })  : search = Search(apiKEY, headers, proxyUrl),
-        details = PlacesDetails(apiKEY, headers, proxyUrl),
-        photos = Photos(apiKEY, headers, proxyUrl),
-        autocomplete = Autocomplete(apiKEY, headers, proxyUrl),
-        queryAutocomplete = QueryAutocomplete(apiKEY, headers, proxyUrl);
+  })  : search = Search(apiKEY, headers, proxyUrl, timeout),
+        details = PlacesDetails(apiKEY, headers, proxyUrl, timeout),
+        photos = Photos(apiKEY, headers, proxyUrl, timeout),
+        autocomplete = Autocomplete(apiKEY, headers, proxyUrl, timeout),
+        queryAutocomplete =
+            QueryAutocomplete(apiKEY, headers, proxyUrl, timeout);
 }

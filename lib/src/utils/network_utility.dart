@@ -1,4 +1,3 @@
-import 'package:google_place/google_place.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 
@@ -6,9 +5,9 @@ import 'package:http/http.dart';
 Future<Response> fetchUrl(
   Uri uri, {
   Map<String, String>? headers,
+  Duration timeout = const Duration(milliseconds: 30000),
 }) async {
-  final response =
-      await http.get(uri, headers: headers).timeout(GooglePlace.timeout);
+  final response = await http.get(uri, headers: headers).timeout(timeout);
 
   if (response.statusCode != 200) {
     // Include all information, including statusCode and reasonPhrase
