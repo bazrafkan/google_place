@@ -18,10 +18,12 @@ class StructuredFormatting {
   factory StructuredFormatting.fromJson(Map<String, dynamic> json) {
     return StructuredFormatting(
       mainText: json['main_text'] as String?,
-      mainTextMatchedSubstrings: json['main_text_matched_substrings']
-          .map<MainTextMatchedSubstring>(
-              (json) => MainTextMatchedSubstring.fromJson(json))
-          .toList(),
+      mainTextMatchedSubstrings: json['main_text_matched_substrings'] != null
+          ? json['main_text_matched_substrings']
+              .map<MainTextMatchedSubstring>(
+                  (json) => MainTextMatchedSubstring.fromJson(json))
+              .toList()
+          : null,
       secondaryText: json['secondary_text'] as String?,
     );
   }
