@@ -4,7 +4,11 @@ import 'package:google_place/src/models/opening_hours.dart';
 import 'package:google_place/src/models/photo.dart';
 import 'package:google_place/src/models/plus_code.dart';
 import 'package:google_place/src/models/review.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'details_result.g.dart';
+
+@JsonSerializable()
 class DetailsResult {
   /// [addressComponents] is an array containing the separate components applicable to this address.
   final List<AddressComponent>? addressComponents;
@@ -142,51 +146,8 @@ class DetailsResult {
     this.permanentlyClosed,
   });
 
-  factory DetailsResult.fromJson(Map<String, dynamic> json) {
-    return DetailsResult(
-      addressComponents: json['address_components'] != null
-          ? json['address_components']
-              .map<AddressComponent>((json) => AddressComponent.fromJson(json))
-              .toList()
-          : null,
-      businessStatus: json['business_status'],
-      adrAddress: json['adr_address'],
-      formattedAddress: json['formatted_address'],
-      formattedPhoneNumber: json['formatted_phone_number'],
-      geometry:
-          json['geometry'] != null ? Geometry.fromJson(json['geometry']) : null,
-      icon: json['icon'],
-      id: json['id'],
-      internationalPhoneNumber: json['international_phone_number'],
-      name: json['name'],
-      openingHours: json['opening_hours'] != null
-          ? OpeningHours.fromJson(json['opening_hours'])
-          : null,
-      photos: json['photos'] != null
-          ? json['photos'].map<Photo>((json) => Photo.fromJson(json)).toList()
-          : null,
-      placeId: json['place_id'],
-      plusCode: json['plus_code'] != null
-          ? PlusCode.fromJson(json['plus_code'])
-          : null,
-      rating: json['rating'] != null ? json['rating'].toDouble() : null,
-      reference: json['reference'],
-      reviews: json['reviews'] != null
-          ? json['reviews']
-              .map<Review>((json) => Review.fromJson(json))
-              .toList()
-          : null,
-      scope: json['scope'],
-      types: json['types'] != null
-          ? (json['types'] as List<dynamic>).cast<String>()
-          : null,
-      url: json['url'],
-      userRatingsTotal: json['user_ratings_total'],
-      utcOffset: json['utc_offset'],
-      vicinity: json['vicinity'],
-      website: json['website'],
-      priceLevel: json['price_level'],
-      permanentlyClosed: json['permanently_closed'],
-    );
-  }
+  factory DetailsResult.fromJson(Map<String, dynamic> json) =>
+      _$DetailsResultFromJson(json);
+
+  Map<String, dynamic> toJson() => _$DetailsResultToJson(this);
 }

@@ -1,3 +1,8 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'review.g.dart';
+
+@JsonSerializable()
 class Review {
   /// [authorName] the name of the user who submitted the review. Anonymous reviews are attributed to "A Google user".
   final String? authorName;
@@ -38,16 +43,7 @@ class Review {
     this.time,
   });
 
-  factory Review.fromJson(Map<String, dynamic> json) {
-    return Review(
-      authorName: json['author_name'],
-      authorUrl: json['author_url'],
-      language: json['language'],
-      profilePhotoUrl: json['profile_photo_url'],
-      rating: json['rating'],
-      relativeTimeDescription: json['relative_time_description'],
-      text: json['text'],
-      time: json['time'],
-    );
-  }
+  factory Review.fromJson(Map<String, dynamic> json) => _$ReviewFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ReviewToJson(this);
 }

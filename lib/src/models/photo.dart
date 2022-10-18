@@ -1,3 +1,8 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'photo.g.dart';
+
+@JsonSerializable()
 class Photo {
   /// [photoReference] a string used to identify the photo when you perform a Photo request.
   final String? photoReference;
@@ -13,14 +18,7 @@ class Photo {
 
   Photo({this.photoReference, this.height, this.width, this.htmlAttributions});
 
-  factory Photo.fromJson(Map<String, dynamic> json) {
-    return Photo(
-      photoReference: json['photo_reference'],
-      height: json['height'],
-      width: json['width'],
-      htmlAttributions: json['html_attributions'] != null
-          ? (json['html_attributions'] as List<dynamic>).cast<String>()
-          : null,
-    );
-  }
+  factory Photo.fromJson(Map<String, dynamic> json) => _$PhotoFromJson(json);
+
+  Map<String, dynamic> toJson() => _$PhotoToJson(this);
 }

@@ -2,7 +2,11 @@ import 'package:google_place/src/models/geometry.dart';
 import 'package:google_place/src/models/opening_hours.dart';
 import 'package:google_place/src/models/photo.dart';
 import 'package:google_place/src/models/plus_code.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'search_result.g.dart';
+
+@JsonSerializable()
 class SearchResult {
   /// [geometry] contains geometry information about the result,
   /// generally including the location (geocode) of the place and (optionally)
@@ -102,35 +106,8 @@ class SearchResult {
     this.permanentlyClosed,
   });
 
-  factory SearchResult.fromJson(Map<String, dynamic> json) {
-    return SearchResult(
-      geometry:
-          json['geometry'] != null ? Geometry.fromJson(json['geometry']) : null,
-      businessStatus: json['business_status'],
-      openingHours: json['opening_hours'] != null
-          ? OpeningHours.fromJson(json['opening_hours'])
-          : null,
-      photos: json['photos'] != null
-          ? json['photos'].map<Photo>((json) => Photo.fromJson(json)).toList()
-          : null,
-      plusCode: json['plus_code'] != null
-          ? PlusCode.fromJson(json['plus_code'])
-          : null,
-      formattedAddress: json['formatted_address'],
-      name: json['name'],
-      rating: json['rating'] != null ? json['rating'].toDouble() : null,
-      icon: json['icon'],
-      id: json['id'],
-      placeId: json['place_id'],
-      priceLevel: json['price_level'],
-      reference: json['reference'],
-      scope: json['scope'],
-      types: json['types'] != null
-          ? (json['types'] as List<dynamic>).cast<String>()
-          : null,
-      userRatingsTotal: json['user_ratings_total'],
-      vicinity: json['vicinity'],
-      permanentlyClosed: json['permanently_closed'],
-    );
-  }
+  factory SearchResult.fromJson(Map<String, dynamic> json) =>
+      _$SearchResultFromJson(json);
+
+  Map<String, dynamic> toJson() => _$SearchResultToJson(this);
 }

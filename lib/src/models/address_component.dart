@@ -1,3 +1,8 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'address_component.g.dart';
+
+@JsonSerializable()
 class AddressComponent {
   /// [longName] is the full text description or name of the address component as returned by the Geocoder.
   final String? longName;
@@ -16,13 +21,8 @@ class AddressComponent {
     this.types,
   });
 
-  factory AddressComponent.fromJson(Map<String, dynamic> json) {
-    return AddressComponent(
-      longName: json['long_name'],
-      shortName: json['short_name'],
-      types: json['types'] != null
-          ? (json['types'] as List<dynamic>).cast<String>()
-          : null,
-    );
-  }
+  factory AddressComponent.fromJson(Map<String, dynamic> json) =>
+      _$AddressComponentFromJson(json);
+
+  Map<String, dynamic> toJson() => _$AddressComponentToJson(this);
 }

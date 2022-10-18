@@ -2,8 +2,13 @@ import 'dart:convert';
 
 import 'package:google_place/src/models/debug_log.dart';
 import 'package:google_place/src/search/search_candidate.dart';
+import 'package:json_annotation/json_annotation.dart';
+
+part 'find_place_response.g.dart';
 
 /// The Find Place Search response contains html Attributions and search results and status
+
+@JsonSerializable()
 class FindPlaceResponse {
   final String? status;
   final List<String>? htmlAttributions;
@@ -19,23 +24,10 @@ class FindPlaceResponse {
     this.candidates,
   });
 
-  factory FindPlaceResponse.fromJson(Map<String, dynamic> json) {
-    return FindPlaceResponse(
-      status: json['status'],
-      htmlAttributions: json['html_attributions'] != null
-          ? (json['html_attributions'] as List<dynamic>).cast<String>()
-          : null,
-      nextPageToken: json['next_page_token'],
-      debugLog: json['debug_log'] != null
-          ? DebugLog.fromJson(json['debug_log'])
-          : null,
-      candidates: json['candidates'] != null
-          ? json['candidates']
-              .map<SearchCandidate>((json) => SearchCandidate.fromJson(json))
-              .toList()
-          : null,
-    );
-  }
+  factory FindPlaceResponse.fromJson(Map<String, dynamic> json) =>
+      _$FindPlaceResponseFromJson(json);
+
+  Map<String, dynamic> toJson() => _$FindPlaceResponseToJson(this);
 
   static FindPlaceResponse parseFindPlaceResult(String responseBody) {
     final parsed = json.decode(responseBody).cast<String, dynamic>();

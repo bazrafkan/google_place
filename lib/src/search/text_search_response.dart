@@ -2,8 +2,12 @@ import 'dart:convert';
 
 import 'package:google_place/src/models/debug_log.dart';
 import 'package:google_place/src/search/search_result.dart';
+import 'package:json_annotation/json_annotation.dart';
+
+part 'text_search_response.g.dart';
 
 /// The Text Search response contains html Attributions and search results and status
+@JsonSerializable()
 class TextSearchResponse {
   final String? status;
   final List<String>? htmlAttributions;
@@ -19,23 +23,10 @@ class TextSearchResponse {
     this.results,
   });
 
-  factory TextSearchResponse.fromJson(Map<String, dynamic> json) {
-    return TextSearchResponse(
-      status: json['status'],
-      htmlAttributions: json['html_attributions'] != null
-          ? (json['html_attributions'] as List<dynamic>).cast<String>()
-          : null,
-      nextPageToken: json['next_page_token'],
-      debugLog: json['debug_log'] != null
-          ? DebugLog.fromJson(json['debug_log'])
-          : null,
-      results: json['results'] != null
-          ? json['results']
-              .map<SearchResult>((json) => SearchResult.fromJson(json))
-              .toList()
-          : null,
-    );
-  }
+  factory TextSearchResponse.fromJson(Map<String, dynamic> json) =>
+      _$TextSearchResponseFromJson(json);
+
+  Map<String, dynamic> toJson() => _$TextSearchResponseToJson(this);
 
   static TextSearchResponse parseTextSearchResult(String responseBody) {
     final parsed = json.decode(responseBody).cast<String, dynamic>();

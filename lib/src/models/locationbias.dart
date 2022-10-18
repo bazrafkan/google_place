@@ -1,8 +1,13 @@
 import 'package:google_place/src/models/lat_lon.dart';
+import 'package:json_annotation/json_annotation.dart';
+
+part 'locationbias.g.dart';
 
 /// [Locationbias] - Prefer results in a specified area, by specifying either a radius plus lat/lng,
 /// or two lat/lng pairs representing the points of a rectangle.
 /// If this parameter is not specified, the API uses IP address biasing by default.
+
+@JsonSerializable()
 class Locationbias {
   /// [ipbias] - Instructs the API to use IP address biasing.
   final bool? ipbias;
@@ -41,18 +46,32 @@ class Locationbias {
     if (ipbias == null || ipbias!)
       assert(point != null && circular != null && rectangular != null);
   }
+  factory Locationbias.fromJson(Map<String, dynamic> json) =>
+      _$LocationbiasFromJson(json);
+
+  Map<String, dynamic> toJson() => _$LocationbiasToJson(this);
 }
 
+@JsonSerializable()
 class Circular {
   final int radius;
   final LatLon latLng;
 
   Circular(this.radius, this.latLng);
+  factory Circular.fromJson(Map<String, dynamic> json) =>
+      _$CircularFromJson(json);
+
+  Map<String, dynamic> toJson() => _$CircularToJson(this);
 }
 
+@JsonSerializable()
 class Rectangular {
   final LatLon southWest;
   final LatLon northEast;
 
   Rectangular(this.southWest, this.northEast);
+  factory Rectangular.fromJson(Map<String, dynamic> json) =>
+      _$RectangularFromJson(json);
+
+  Map<String, dynamic> toJson() => _$RectangularToJson(this);
 }
