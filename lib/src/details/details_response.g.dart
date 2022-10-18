@@ -8,7 +8,7 @@ part of 'details_response.dart';
 
 DetailsResponse _$DetailsResponseFromJson(Map json) => DetailsResponse(
       status: json['status'] as String?,
-      htmlAttributions: (json['htmlAttributions'] as List<dynamic>?)
+      htmlAttributions: (json['html_attributions'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
       result: json['result'] == null
@@ -20,6 +20,6 @@ DetailsResponse _$DetailsResponseFromJson(Map json) => DetailsResponse(
 Map<String, dynamic> _$DetailsResponseToJson(DetailsResponse instance) =>
     <String, dynamic>{
       'status': instance.status,
-      'htmlAttributions': instance.htmlAttributions,
+      'html_attributions': instance.htmlAttributions,
       'result': instance.result?.toJson(),
     };

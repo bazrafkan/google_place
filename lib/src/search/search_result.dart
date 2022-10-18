@@ -18,9 +18,11 @@ class SearchResult {
   ///   OPERATIONAL
   ///   CLOSED_TEMPORARILY
   ///   CLOSED_PERMANENTLY
+  @JsonKey(name: "business_status")
   final String? businessStatus;
 
   /// [openingHours] show opening hours
+  @JsonKey(name: "opening_hours")
   final OpeningHours? openingHours;
 
   /// [photos] an array of photo objects, each containing a reference to an image.
@@ -30,10 +32,12 @@ class SearchResult {
   /// that represents an area: 1/8000th of a degree by 1/8000th of a degree (about 14m x 14m at the equator) or smaller.
   /// Plus codes can be used as a replacement for street addresses in places where they do not exist
   /// (where buildings are not numbered or streets are not named).
+  @JsonKey(name: "plus_code")
   final PlusCode? plusCode;
 
   /// [formattedAddress] is a string containing the human-readable address of this place.
   /// Often this address is equivalent to the "postal address".
+  @JsonKey(name: "formatted_address")
   final String? formattedAddress;
 
   /// [name] contains the human-readable name for the returned result.
@@ -51,6 +55,7 @@ class SearchResult {
 
   /// [placeId] a textual identifier that uniquely identifies a place. To retrieve information about the place,
   /// pass this identifier in the placeId field of a Places API request. For more information about place IDs.
+  @JsonKey(name: "place_id")
   final String? placeId;
 
   /// [priceLevel] The price level of the place, on a scale of 0 to 4.
@@ -60,6 +65,7 @@ class SearchResult {
   ///   2 — Moderate
   ///   3 — Expensive
   ///   4 — Very Expensive
+  @JsonKey(name: "price_level")
   final int? priceLevel;
 
   /// [reference] contains reference.
@@ -73,6 +79,7 @@ class SearchResult {
   final List<String>? types;
 
   /// [userRatingsTotal] is user ratings total.
+  @JsonKey(name: "user_ratings_total")
   final int? userRatingsTotal;
 
   /// [vicinity] contains a feature name of a nearby location. Often this feature refers to a street or
@@ -83,6 +90,7 @@ class SearchResult {
   /// or temporarily (value true). If the place is operational, or if no data is available, the flag is absent from the response.
   @Deprecated(
       'permanently_closed is now deprecated. Instead, use business_status to get the operational status of businesses.')
+  @JsonKey(name: "permanently_closed")
   final bool? permanentlyClosed;
 
   SearchResult({

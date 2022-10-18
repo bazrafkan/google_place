@@ -55,6 +55,7 @@ class Locationbias {
 @JsonSerializable()
 class Circular {
   final int radius;
+  @JsonKey(name: "lat_lng")
   final LatLon latLng;
 
   Circular(this.radius, this.latLng);
@@ -66,7 +67,9 @@ class Circular {
 
 @JsonSerializable()
 class Rectangular {
+  @JsonKey(name: "south_west")
   final LatLon southWest;
+  @JsonKey(name: "north_east")
   final LatLon northEast;
 
   Rectangular(this.southWest, this.northEast);

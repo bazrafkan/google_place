@@ -9,6 +9,7 @@ part 'details_response.g.dart';
 @JsonSerializable()
 class DetailsResponse {
   final String? status;
+  @JsonKey(name: "html_attributions")
   final List<String>? htmlAttributions;
   final DetailsResult? result;
 
@@ -17,9 +18,10 @@ class DetailsResponse {
     this.htmlAttributions,
     this.result,
   });
-  factory DetailsResponse.fromJson(Map<String, dynamic> json) => _$DetailsResponseFromJson(json);
+  factory DetailsResponse.fromJson(Map<String, dynamic> json) =>
+      _$DetailsResponseFromJson(json);
 
-    Map<String, dynamic> toJson() => _$DetailsResponseToJson(this);
+  Map<String, dynamic> toJson() => _$DetailsResponseToJson(this);
 
   static DetailsResponse parseDetailsResult(String responseBody) {
     final parsed = json.decode(responseBody).cast<String, dynamic>();

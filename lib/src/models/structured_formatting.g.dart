@@ -8,20 +8,20 @@ part of 'structured_formatting.dart';
 
 StructuredFormatting _$StructuredFormattingFromJson(Map json) =>
     StructuredFormatting(
-      mainText: json['mainText'] as String?,
+      mainText: json['main_text'] as String?,
       mainTextMatchedSubstrings:
-          (json['mainTextMatchedSubstrings'] as List<dynamic>?)
+          (json['main_text_matched_substrings'] as List<dynamic>?)
               ?.map((e) => MainTextMatchedSubstring.fromJson(
                   Map<String, dynamic>.from(e as Map)))
               .toList(),
-      secondaryText: json['secondaryText'] as String?,
+      secondaryText: json['secondary_text'] as String?,
     );
 
 Map<String, dynamic> _$StructuredFormattingToJson(
         StructuredFormatting instance) =>
     <String, dynamic>{
-      'mainText': instance.mainText,
-      'mainTextMatchedSubstrings':
+      'main_text': instance.mainText,
+      'main_text_matched_substrings':
           instance.mainTextMatchedSubstrings?.map((e) => e.toJson()).toList(),
-      'secondaryText': instance.secondaryText,
+      'secondary_text': instance.secondaryText,
     };

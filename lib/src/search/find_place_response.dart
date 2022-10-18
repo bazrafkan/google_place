@@ -11,8 +11,11 @@ part 'find_place_response.g.dart';
 @JsonSerializable()
 class FindPlaceResponse {
   final String? status;
+  @JsonKey(name: "html_attributions")
   final List<String>? htmlAttributions;
+  @JsonKey(name: "next_page_token")
   final String? nextPageToken;
+  @JsonKey(name: "debug_log")
   final DebugLog? debugLog;
   final List<SearchCandidate>? candidates;
 

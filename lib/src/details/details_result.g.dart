@@ -7,34 +7,34 @@ part of 'details_result.dart';
 // **************************************************************************
 
 DetailsResult _$DetailsResultFromJson(Map json) => DetailsResult(
-      addressComponents: (json['addressComponents'] as List<dynamic>?)
+      addressComponents: (json['address_components'] as List<dynamic>?)
           ?.map((e) =>
               AddressComponent.fromJson(Map<String, dynamic>.from(e as Map)))
           .toList(),
-      businessStatus: json['businessStatus'] as String?,
-      adrAddress: json['adrAddress'] as String?,
-      formattedAddress: json['formattedAddress'] as String?,
-      formattedPhoneNumber: json['formattedPhoneNumber'] as String?,
+      businessStatus: json['business_status'] as String?,
+      adrAddress: json['adr_address'] as String?,
+      formattedAddress: json['formatted_address'] as String?,
+      formattedPhoneNumber: json['formatted_phone_number'] as String?,
       geometry: json['geometry'] == null
           ? null
           : Geometry.fromJson(
               Map<String, dynamic>.from(json['geometry'] as Map)),
       icon: json['icon'] as String?,
       id: json['id'] as String?,
-      internationalPhoneNumber: json['internationalPhoneNumber'] as String?,
+      internationalPhoneNumber: json['international_phone_number'] as String?,
       name: json['name'] as String?,
-      openingHours: json['openingHours'] == null
+      openingHours: json['opening_hours'] == null
           ? null
           : OpeningHours.fromJson(
-              Map<String, dynamic>.from(json['openingHours'] as Map)),
+              Map<String, dynamic>.from(json['opening_hours'] as Map)),
       photos: (json['photos'] as List<dynamic>?)
           ?.map((e) => Photo.fromJson(Map<String, dynamic>.from(e as Map)))
           .toList(),
-      placeId: json['placeId'] as String?,
-      plusCode: json['plusCode'] == null
+      placeId: json['place_id'] as String?,
+      plusCode: json['plus_code'] == null
           ? null
           : PlusCode.fromJson(
-              Map<String, dynamic>.from(json['plusCode'] as Map)),
+              Map<String, dynamic>.from(json['plus_code'] as Map)),
       rating: (json['rating'] as num?)?.toDouble(),
       reference: json['reference'] as String?,
       reviews: (json['reviews'] as List<dynamic>?)
@@ -44,41 +44,41 @@ DetailsResult _$DetailsResultFromJson(Map json) => DetailsResult(
       types:
           (json['types'] as List<dynamic>?)?.map((e) => e as String).toList(),
       url: json['url'] as String?,
-      userRatingsTotal: json['userRatingsTotal'] as int?,
-      utcOffset: json['utcOffset'] as int?,
+      userRatingsTotal: json['user_ratings_total'] as int?,
+      utcOffset: json['utc_offset'] as int?,
       vicinity: json['vicinity'] as String?,
       website: json['website'] as String?,
-      priceLevel: json['priceLevel'] as int?,
-      permanentlyClosed: json['permanentlyClosed'] as bool?,
+      priceLevel: json['price_level'] as int?,
+      permanentlyClosed: json['permanently_closed'] as bool?,
     );
 
 Map<String, dynamic> _$DetailsResultToJson(DetailsResult instance) =>
     <String, dynamic>{
-      'addressComponents':
+      'address_components':
           instance.addressComponents?.map((e) => e.toJson()).toList(),
-      'businessStatus': instance.businessStatus,
-      'adrAddress': instance.adrAddress,
-      'formattedAddress': instance.formattedAddress,
-      'formattedPhoneNumber': instance.formattedPhoneNumber,
+      'business_status': instance.businessStatus,
+      'adr_address': instance.adrAddress,
+      'formatted_address': instance.formattedAddress,
+      'formatted_phone_number': instance.formattedPhoneNumber,
       'geometry': instance.geometry?.toJson(),
       'icon': instance.icon,
       'id': instance.id,
-      'internationalPhoneNumber': instance.internationalPhoneNumber,
+      'international_phone_number': instance.internationalPhoneNumber,
       'name': instance.name,
-      'openingHours': instance.openingHours?.toJson(),
+      'opening_hours': instance.openingHours?.toJson(),
       'photos': instance.photos?.map((e) => e.toJson()).toList(),
-      'placeId': instance.placeId,
-      'plusCode': instance.plusCode?.toJson(),
+      'place_id': instance.placeId,
+      'plus_code': instance.plusCode?.toJson(),
       'rating': instance.rating,
       'reference': instance.reference,
       'reviews': instance.reviews?.map((e) => e.toJson()).toList(),
       'scope': instance.scope,
       'types': instance.types,
       'url': instance.url,
-      'userRatingsTotal': instance.userRatingsTotal,
-      'utcOffset': instance.utcOffset,
+      'user_ratings_total': instance.userRatingsTotal,
+      'utc_offset': instance.utcOffset,
       'vicinity': instance.vicinity,
       'website': instance.website,
-      'priceLevel': instance.priceLevel,
-      'permanentlyClosed': instance.permanentlyClosed,
+      'price_level': instance.priceLevel,
+      'permanently_closed': instance.permanentlyClosed,
     };

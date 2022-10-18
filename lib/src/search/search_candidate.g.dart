@@ -11,52 +11,52 @@ SearchCandidate _$SearchCandidateFromJson(Map json) => SearchCandidate(
           ? null
           : Geometry.fromJson(
               Map<String, dynamic>.from(json['geometry'] as Map)),
-      businessStatus: json['businessStatus'] as String?,
-      openingHours: json['openingHours'] == null
+      businessStatus: json['business_status'] as String?,
+      openingHours: json['opening_hours'] == null
           ? null
           : OpeningHours.fromJson(
-              Map<String, dynamic>.from(json['openingHours'] as Map)),
+              Map<String, dynamic>.from(json['opening_hours'] as Map)),
       photos: (json['photos'] as List<dynamic>?)
           ?.map((e) => Photo.fromJson(Map<String, dynamic>.from(e as Map)))
           .toList(),
-      plusCode: json['plusCode'] == null
+      plusCode: json['plus_code'] == null
           ? null
           : PlusCode.fromJson(
-              Map<String, dynamic>.from(json['plusCode'] as Map)),
-      formattedAddress: json['formattedAddress'] as String?,
+              Map<String, dynamic>.from(json['plus_code'] as Map)),
+      formattedAddress: json['formatted_address'] as String?,
       name: json['name'] as String?,
       rating: (json['rating'] as num?)?.toDouble(),
       icon: json['icon'] as String?,
       id: json['id'] as String?,
-      placeId: json['placeId'] as String?,
-      priceLevel: json['priceLevel'] as int?,
+      placeId: json['place_id'] as String?,
+      priceLevel: json['price_level'] as int?,
       reference: json['reference'] as String?,
       scope: json['scope'] as String?,
       types:
           (json['types'] as List<dynamic>?)?.map((e) => e as String).toList(),
-      userRatingsTotal: json['userRatingsTotal'] as int?,
+      userRatingsTotal: json['user_ratings_total'] as int?,
       vicinity: json['vicinity'] as String?,
-      permanentlyClosed: json['permanentlyClosed'] as bool?,
+      permanentlyClosed: json['permanently_closed'] as bool?,
     );
 
 Map<String, dynamic> _$SearchCandidateToJson(SearchCandidate instance) =>
     <String, dynamic>{
       'geometry': instance.geometry?.toJson(),
-      'businessStatus': instance.businessStatus,
-      'openingHours': instance.openingHours?.toJson(),
+      'business_status': instance.businessStatus,
+      'opening_hours': instance.openingHours?.toJson(),
       'photos': instance.photos?.map((e) => e.toJson()).toList(),
-      'plusCode': instance.plusCode?.toJson(),
-      'formattedAddress': instance.formattedAddress,
+      'plus_code': instance.plusCode?.toJson(),
+      'formatted_address': instance.formattedAddress,
       'name': instance.name,
       'rating': instance.rating,
       'icon': instance.icon,
       'id': instance.id,
-      'placeId': instance.placeId,
-      'priceLevel': instance.priceLevel,
+      'place_id': instance.placeId,
+      'price_level': instance.priceLevel,
       'reference': instance.reference,
       'scope': instance.scope,
       'types': instance.types,
-      'userRatingsTotal': instance.userRatingsTotal,
+      'user_ratings_total': instance.userRatingsTotal,
       'vicinity': instance.vicinity,
-      'permanentlyClosed': instance.permanentlyClosed,
+      'permanently_closed': instance.permanentlyClosed,
     };

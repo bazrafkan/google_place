@@ -5,6 +5,7 @@ part 'photo.g.dart';
 @JsonSerializable()
 class Photo {
   /// [photoReference] a string used to identify the photo when you perform a Photo request.
+  @JsonKey(name: "photo_reference")
   final String? photoReference;
 
   /// [height] the maximum height of the image.
@@ -14,6 +15,7 @@ class Photo {
   final int? width;
 
   /// [htmlAttributions] contains any required attributions. This field will always be present, but may be empty.
+  @JsonKey(name: "html_attributions")
   final List<String>? htmlAttributions;
 
   Photo({this.photoReference, this.height, this.width, this.htmlAttributions});

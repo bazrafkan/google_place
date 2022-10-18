@@ -9,18 +9,18 @@ part of 'autocomplete_prediction.dart';
 AutocompletePrediction _$AutocompletePredictionFromJson(Map json) =>
     AutocompletePrediction(
       description: json['description'] as String?,
-      distanceMeters: json['distanceMeters'] as int?,
+      distanceMeters: json['distance_meters'] as int?,
       id: json['id'] as String?,
-      matchedSubstrings: (json['matchedSubstrings'] as List<dynamic>?)
+      matchedSubstrings: (json['matched_substrings'] as List<dynamic>?)
           ?.map((e) =>
               MatchedSubstring.fromJson(Map<String, dynamic>.from(e as Map)))
           .toList(),
-      placeId: json['placeId'] as String?,
+      placeId: json['place_id'] as String?,
       reference: json['reference'] as String?,
-      structuredFormatting: json['structuredFormatting'] == null
+      structuredFormatting: json['structured_formatting'] == null
           ? null
           : StructuredFormatting.fromJson(
-              Map<String, dynamic>.from(json['structuredFormatting'] as Map)),
+              Map<String, dynamic>.from(json['structured_formatting'] as Map)),
       terms: (json['terms'] as List<dynamic>?)
           ?.map((e) => Term.fromJson(Map<String, dynamic>.from(e as Map)))
           .toList(),
@@ -32,13 +32,13 @@ Map<String, dynamic> _$AutocompletePredictionToJson(
         AutocompletePrediction instance) =>
     <String, dynamic>{
       'description': instance.description,
-      'distanceMeters': instance.distanceMeters,
+      'distance_meters': instance.distanceMeters,
       'id': instance.id,
-      'matchedSubstrings':
+      'matched_substrings':
           instance.matchedSubstrings?.map((e) => e.toJson()).toList(),
-      'placeId': instance.placeId,
+      'place_id': instance.placeId,
       'reference': instance.reference,
-      'structuredFormatting': instance.structuredFormatting?.toJson(),
+      'structured_formatting': instance.structuredFormatting?.toJson(),
       'terms': instance.terms?.map((e) => e.toJson()).toList(),
       'types': instance.types,
     };

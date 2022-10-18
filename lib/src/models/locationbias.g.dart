@@ -31,21 +31,21 @@ Map<String, dynamic> _$LocationbiasToJson(Locationbias instance) =>
 
 Circular _$CircularFromJson(Map json) => Circular(
       json['radius'] as int,
-      LatLon.fromJson(Map<String, dynamic>.from(json['latLng'] as Map)),
+      LatLon.fromJson(Map<String, dynamic>.from(json['lat_lng'] as Map)),
     );
 
 Map<String, dynamic> _$CircularToJson(Circular instance) => <String, dynamic>{
       'radius': instance.radius,
-      'latLng': instance.latLng.toJson(),
+      'lat_lng': instance.latLng.toJson(),
     };
 
 Rectangular _$RectangularFromJson(Map json) => Rectangular(
-      LatLon.fromJson(Map<String, dynamic>.from(json['southWest'] as Map)),
-      LatLon.fromJson(Map<String, dynamic>.from(json['northEast'] as Map)),
+      LatLon.fromJson(Map<String, dynamic>.from(json['south_west'] as Map)),
+      LatLon.fromJson(Map<String, dynamic>.from(json['north_east'] as Map)),
     );
 
 Map<String, dynamic> _$RectangularToJson(Rectangular instance) =>
     <String, dynamic>{
-      'southWest': instance.southWest.toJson(),
-      'northEast': instance.northEast.toJson(),
+      'south_west': instance.southWest.toJson(),
+      'north_east': instance.northEast.toJson(),
     };

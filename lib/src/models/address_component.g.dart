@@ -7,15 +7,15 @@ part of 'address_component.dart';
 // **************************************************************************
 
 AddressComponent _$AddressComponentFromJson(Map json) => AddressComponent(
-      longName: json['longName'] as String?,
-      shortName: json['shortName'] as String?,
+      longName: json['long_name'] as String?,
+      shortName: json['short_name'] as String?,
       types:
           (json['types'] as List<dynamic>?)?.map((e) => e as String).toList(),
     );
 
 Map<String, dynamic> _$AddressComponentToJson(AddressComponent instance) =>
     <String, dynamic>{
-      'longName': instance.longName,
-      'shortName': instance.shortName,
+      'long_name': instance.longName,
+      'short_name': instance.shortName,
       'types': instance.types,
     };

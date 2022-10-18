@@ -14,6 +14,7 @@ class AutocompletePrediction {
   /// [distanceMeters] contains an integer indicating the straight-line distance between the predicted place,
   /// and the specified origin point, in meters. This field is only returned when the origin point is specified in the request.
   /// This field is not returned in predictions of type route.
+  @JsonKey(name: "distance_meters")
   final int? distanceMeters;
 
   /// [id] contains id.
@@ -21,16 +22,19 @@ class AutocompletePrediction {
 
   /// [matchedSubstrings] contains an array with offset value and length. These describe the location of the entered term in
   /// the prediction result text, so that the term can be highlighted if desired.
+  @JsonKey(name: "matched_substrings")
   final List<MatchedSubstring>? matchedSubstrings;
 
   /// [placeId] is a textual identifier that uniquely identifies a place. To retrieve information about the place,
   /// pass this identifier in the placeId field of a Places API request. For more information about place IDs.
+  @JsonKey(name: "place_id")
   final String? placeId;
 
   /// [reference] contains reference.
   final String? reference;
 
   /// [structuredFormatting] provides pre-formatted text that can be shown in your autocomplete results
+  @JsonKey(name: "structured_formatting")
   final StructuredFormatting? structuredFormatting;
 
   /// contains an array of terms identifying each section of the returned description
