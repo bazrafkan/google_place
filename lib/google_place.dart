@@ -5,6 +5,7 @@ import 'package:google_place/src/details/details.dart';
 import 'package:google_place/src/photos/photos.dart';
 import 'package:google_place/src/query_autocomplete/query_autocomplete.dart';
 import 'package:google_place/src/search/search.dart';
+import 'package:google_place/src/timezone/timezone.dart';
 
 export 'package:google_place/src/autocomplete/autocomplete_prediction.dart';
 export 'package:google_place/src/autocomplete/autocomplete_response.dart';
@@ -61,6 +62,8 @@ class GooglePlace {
   /// [queryAutocomplete] provides a query prediction service for text-based geographic searches, returning suggested queries as users type.
   late QueryAutocomplete queryAutocomplete;
 
+  late TimeZone timeZone;
+
   /// [timeout] timeout for http call.
   static Duration timeout = Duration(milliseconds: 1500);
 
@@ -82,5 +85,6 @@ class GooglePlace {
     this.photos = Photos(apiKEY, headers, proxyUrl);
     this.autocomplete = Autocomplete(apiKEY, headers, proxyUrl);
     this.queryAutocomplete = QueryAutocomplete(apiKEY, headers, proxyUrl);
+    this.timeZone = TimeZone(apiKEY, headers, proxyUrl);
   }
 }
