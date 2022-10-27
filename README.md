@@ -1,5 +1,12 @@
 # google_place
 
+## Discontinued
+
+### This project is no longer maintained, and will not receive further updates.
+
+
+
+
 A Flutter plugin for iOS and Android and Web that provides a [Google Place API](https://developers.google.com/places/web-service/intro).
 
 ## Preview
