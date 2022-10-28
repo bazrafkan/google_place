@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## [0.4.8] - 2022-04-16
+
+- Fix Locationbias assertion Logic
+
 ## [0.4.7] - 2022-01-22
 
 - Reformatting code
