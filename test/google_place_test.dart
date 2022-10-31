@@ -33,4 +33,13 @@ void main() {
     googlePlace = GooglePlace(apiKey, proxyUrl: 'localhost:6969******');
     expect(googlePlace.autocomplete.get("some place"), throwsException);
   });
+
+  test('timezone', () async {
+    GooglePlace googlePlace = GooglePlace(apiKey);
+    final result = await googlePlace.timeZone.getTimezone(Location(
+      lat: 22.3673481,
+      lng: 114.1159563,
+    ));
+    print(result!.status);
+  });
 }
