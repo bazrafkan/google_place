@@ -1,14 +1,27 @@
+import 'dart:convert';
+
 import 'package:google_place/google_place.dart';
 import 'package:google_place/src/utils/network_utility.dart';
 
 class QueryAutocomplete {
-  static final _authority = 'maps.googleapis.com';
-  static final _unencodedPath = 'maps/api/place/queryautocomplete/json';
+  static const _authority = 'maps.googleapis.com';
+
+  static const _unencodedPath = 'maps/api/place/queryautocomplete/json';
+
   final String apiKEY;
+
   final Map<String, String> headers;
+
   final String? proxyUrl;
 
-  QueryAutocomplete(this.apiKEY, this.headers, this.proxyUrl);
+  final Duration timeout;
+
+  const QueryAutocomplete(
+    this.apiKEY,
+    this.headers,
+    this.proxyUrl,
+    this.timeout,
+  );
 
   /// The Query Autocomplete service can be used to provide a query prediction for text-based
   /// geographic searches, by returning suggested queries as you type.
@@ -32,7 +45,7 @@ class QueryAutocomplete {
   /// the selected language may be given a higher ranking. See the supported list of domain languages.
   /// If language is not supplied, the Places service will attempt to use the native language of the
   /// domain from which the request is sent.
-  Future<AutocompleteResponse?> get(
+  Future<AutocompleteResponse> get(
     String input, {
     int? offset,
     LatLon? location,
@@ -40,7 +53,7 @@ class QueryAutocomplete {
     String? language,
   }) async {
     assert(input != "");
-    var queryParameters = _createParameters(
+    final queryParameters = _createParameters(
       apiKEY,
       input,
       offset,
@@ -48,13 +61,17 @@ class QueryAutocomplete {
       radius,
       language,
     );
-    var uri = NetworkUtility.createUri(
-        proxyUrl, _authority, _unencodedPath, queryParameters);
-    var response = await NetworkUtility.fetchUrl(uri, headers: headers);
-    if (response != null) {
-      return AutocompleteResponse.parseAutocompleteResult(response);
-    }
-    return null;
+    final uri = createUri(
+      proxyUrl,
+      _authority,
+      _unencodedPath,
+      queryParameters,
+    );
+    final response = await fetchUrl(uri, headers: headers, timeout: timeout);
+
+    return AutocompleteResponse.fromJson(
+      jsonDecode(response.body) as Map<String, dynamic>,
+    );
   }
 
   /// The Query Autocomplete service can be used to provide a query prediction for text-based
@@ -79,7 +96,7 @@ class QueryAutocomplete {
   /// the selected language may be given a higher ranking. See the supported list of domain languages.
   /// If language is not supplied, the Places service will attempt to use the native language of the
   /// domain from which the request is sent.
-  Future<String?> getJson(
+  Future<String> getJson(
     String input, {
     int? offset,
     LatLon? location,
@@ -87,7 +104,7 @@ class QueryAutocomplete {
     String? language,
   }) async {
     assert(input != "");
-    var queryParameters = _createParameters(
+    final queryParameters = _createParameters(
       apiKEY,
       input,
       offset,
@@ -95,10 +112,14 @@ class QueryAutocomplete {
       radius,
       language,
     );
+    final uri = createUri(
+      proxyUrl,
+      _authority,
+      _unencodedPath,
+      queryParameters,
+    );
 
-    var uri = NetworkUtility.createUri(
-        proxyUrl, _authority, _unencodedPath, queryParameters);
-    return await NetworkUtility.fetchUrl(uri, headers: headers);
+    return (await fetchUrl(uri, headers: headers, timeout: timeout)).body;
   }
 
   /// Prepare query Parameters
@@ -110,40 +131,17 @@ class QueryAutocomplete {
     int? radius,
     String? language,
   ) {
-    String result = input.trimRight();
-    result = result.trimLeft();
-    Map<String, String> queryParameters = {
-      'input': result,
+    final cleanedInput = input.trimRight().trimLeft();
+    final queryParameters = <String, String>{
+      'input': cleanedInput,
       'key': apiKEY,
+      if (location != null)
+        'location': '${location.latitude},${location.longitude}',
+      if (offset != null) 'offset': offset.toString(),
+      if (radius != null) 'radius': radius.toString(),
+      if (language != null && language != '') 'language': language,
     };
 
-    if (location != null) {
-      var item = {
-        'location': '${location.latitude},${location.longitude}',
-      };
-      queryParameters.addAll(item);
-    }
-
-    if (offset != null) {
-      var item = {
-        'offset': offset.toString(),
-      };
-      queryParameters.addAll(item);
-    }
-
-    if (radius != null) {
-      var item = {
-        'radius': radius.toString(),
-      };
-      queryParameters.addAll(item);
-    }
-
-    if (language != null && language != '') {
-      var item = {
-        'language': language,
-      };
-      queryParameters.addAll(item);
-    }
     return queryParameters;
   }
 }

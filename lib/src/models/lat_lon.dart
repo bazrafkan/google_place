@@ -1,12 +1,5 @@
-/// A pair of latitude and longitude coordinates, stored as degrees.
+// TODO: Why do we have this when we have Location?
 class LatLon {
-  /// Creates a geographical location specified in degrees [latitude] and
-  /// [longitude].
-  ///
-  /// The latitude is clamped to the inclusive interval from -90.0 to +90.0.
-  ///
-  /// The longitude is normalized to the half-open interval from -180.0
-  /// (inclusive) to +180.0 (exclusive)
   const LatLon(double latitude, double longitude)
       : latitude =
             (latitude < -90.0 ? -90.0 : (90.0 < latitude ? 90.0 : latitude)),
