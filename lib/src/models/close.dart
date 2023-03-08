@@ -1,3 +1,8 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'close.g.dart';
+
+@JsonSerializable()
 class Close {
   /// [day] a number from 0–6, corresponding to the days of the week, starting on Sunday. For example, 2 means Tuesday.
   final int? day;
@@ -8,10 +13,7 @@ class Close {
 
   Close({this.day, this.time});
 
-  factory Close.fromJson(Map<String, dynamic> json) {
-    return Close(
-      day: json['day'],
-      time: json['time'],
-    );
-  }
+  factory Close.fromJson(Map<String, dynamic> json) => _$CloseFromJson(json);
+
+  Map<String, dynamic> toJson() => _$CloseToJson(this);
 }

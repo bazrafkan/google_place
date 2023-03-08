@@ -1,8 +1,15 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'review.g.dart';
+
+@JsonSerializable()
 class Review {
   /// [authorName] the name of the user who submitted the review. Anonymous reviews are attributed to "A Google user".
+  @JsonKey(name: "author_name")
   final String? authorName;
 
   /// [authorUrl] the URL to the user's Google Maps Local Guides profile, if available.
+  @JsonKey(name: "author_url")
   final String? authorUrl;
 
   /// [language] an IETF language code indicating the language used in the user's review.
@@ -11,12 +18,14 @@ class Review {
   final String? language;
 
   /// [profilePhotoUrl] the URL to the user's profile photo, if available.
+  @JsonKey(name: "profile_photo_url")
   final String? profilePhotoUrl;
 
   /// [rating] the user's overall rating for this place. This is a whole number, ranging from 1 to 5.
   final int? rating;
 
   /// [relativeTimeDescription] the time that the review was submitted, relative to the current time.
+  @JsonKey(name: "relative_time_description")
   final String? relativeTimeDescription;
 
   /// [text] the user's review. When reviewing a location with Google Places, text reviews are considered optional.
@@ -38,16 +47,7 @@ class Review {
     this.time,
   });
 
-  factory Review.fromJson(Map<String, dynamic> json) {
-    return Review(
-      authorName: json['author_name'],
-      authorUrl: json['author_url'],
-      language: json['language'],
-      profilePhotoUrl: json['profile_photo_url'],
-      rating: json['rating'],
-      relativeTimeDescription: json['relative_time_description'],
-      text: json['text'],
-      time: json['time'],
-    );
-  }
+  factory Review.fromJson(Map<String, dynamic> json) => _$ReviewFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ReviewToJson(this);
 }

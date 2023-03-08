@@ -1,3 +1,8 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'term.g.dart';
+
+@JsonSerializable()
 class Term {
   /// [offset] defining the start position of this term in the description
   final int? offset;
@@ -7,10 +12,7 @@ class Term {
 
   Term({this.offset, this.value});
 
-  factory Term.fromJson(Map<String, dynamic> json) {
-    return Term(
-      offset: json['offset'] as int?,
-      value: json['value'] as String?,
-    );
-  }
+  factory Term.fromJson(Map<String, dynamic> json) => _$TermFromJson(json);
+
+  Map<String, dynamic> toJson() => _$TermToJson(this);
 }

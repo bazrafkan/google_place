@@ -1,4 +1,10 @@
+import 'package:json_annotation/json_annotation.dart';
+
 /// A pair of latitude and longitude coordinates, stored as degrees.
+
+part 'lat_lon.g.dart';
+
+@JsonSerializable()
 class LatLon {
   /// Creates a geographical location specified in degrees [latitude] and
   /// [longitude].
@@ -20,4 +26,8 @@ class LatLon {
 
   @override
   String toString() => '$runtimeType($latitude, $longitude)';
+
+  factory LatLon.fromJson(Map<String, dynamic> json) => _$LatLonFromJson(json);
+
+  Map<String, dynamic> toJson() => _$LatLonToJson(this);
 }

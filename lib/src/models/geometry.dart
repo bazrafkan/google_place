@@ -1,7 +1,11 @@
 import 'package:google_place/src/models/bounds.dart';
 import 'package:google_place/src/models/location.dart';
 import 'package:google_place/src/models/viewport.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'geometry.g.dart';
+
+@JsonSerializable()
 class Geometry {
   /// [location] contains the geocoded latitude,longitude value for this place.
   final Location? location;
@@ -14,13 +18,8 @@ class Geometry {
 
   Geometry({this.location, this.viewport, this.bounds});
 
-  factory Geometry.fromJson(Map<String, dynamic> json) {
-    return Geometry(
-      location:
-          json['location'] != null ? Location.fromJson(json['location']) : null,
-      viewport:
-          json['viewport'] != null ? Viewport.fromJson(json['viewport']) : null,
-      bounds: json['bounds'] != null ? Bounds.fromJson(json['bounds']) : null,
-    );
-  }
+  factory Geometry.fromJson(Map<String, dynamic> json) =>
+      _$GeometryFromJson(json);
+
+  Map<String, dynamic> toJson() => _$GeometryToJson(this);
 }

@@ -97,10 +97,15 @@ class Photos {
     int? maxWidth,
   ) {
     Map<String, String> queryParameters = {
-      'photoreference': photoReference,
+      'photo_reference': photoReference,
       'key': apiKEY,
     };
-    if (maxHeight != null) {}
+    if (maxHeight != null) {
+      var item = {
+        'maxheight': maxHeight.toString(),
+      };
+      queryParameters.addAll(item);
+    }
     if (maxWidth != null) {
       var item = {
         'maxwidth': maxWidth.toString(),

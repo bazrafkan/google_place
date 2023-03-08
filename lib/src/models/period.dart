@@ -1,6 +1,10 @@
 import 'package:google_place/src/models/close.dart';
 import 'package:google_place/src/models/open.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'period.g.dart';
+
+@JsonSerializable()
 class Period {
   /// [close] may contain a pair of day and time objects describing when the place closes.
   /// Note: If a place is always open, the close section will be missing from the response.
@@ -13,10 +17,7 @@ class Period {
 
   Period({this.close, this.open});
 
-  factory Period.fromJson(Map<String, dynamic> json) {
-    return Period(
-      close: json['close'] != null ? Close.fromJson(json['close']) : null,
-      open: json['open'] != null ? Open.fromJson(json['open']) : null,
-    );
-  }
+  factory Period.fromJson(Map<String, dynamic> json) => _$PeriodFromJson(json);
+
+  Map<String, dynamic> toJson() => _$PeriodToJson(this);
 }

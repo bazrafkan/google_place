@@ -62,7 +62,7 @@ class GooglePlace {
   late QueryAutocomplete queryAutocomplete;
 
   /// [timeout] timeout for http call.
-  static Duration timeout = Duration(milliseconds: 1500);
+  static Duration timeout = Duration(milliseconds: 3000);
 
   /// Optional headers to pass on each request
   final Map<String, String> headers;
