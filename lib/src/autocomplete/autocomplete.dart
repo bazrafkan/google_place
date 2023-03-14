@@ -7,8 +7,9 @@ class Autocomplete {
   final String apiKEY;
   final Map<String, String> headers;
   final String? proxyUrl;
+  final bool includeProtocol;
 
-  Autocomplete(this.apiKEY, this.headers, this.proxyUrl);
+  Autocomplete(this.apiKEY, this.headers, this.proxyUrl, this.includeProtocol);
 
   /// The Place Autocomplete service is a web service that returns place predictions in response
   ///  to an HTTP request. The request specifies a textual search string and optional geographic
@@ -100,11 +101,8 @@ class Autocomplete {
     );
 
     var uri = NetworkUtility.createUri(
-      proxyUrl,
-      _authority,
-      _unencodedPath,
-      queryParameters,
-    );
+        proxyUrl, _authority, _unencodedPath, queryParameters,
+        includeProtocol: includeProtocol);
     var response = await NetworkUtility.fetchUrl(uri, headers: headers);
     if (response != null) {
       return AutocompleteResponse.parseAutocompleteResult(response);

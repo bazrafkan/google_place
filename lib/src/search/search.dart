@@ -10,8 +10,9 @@ class Search {
   final String apiKEY;
   final Map<String, String> headers;
   final String? proxyUrl;
+  final bool includeProtocol;
 
-  Search(this.apiKEY, this.headers, this.proxyUrl);
+  Search(this.apiKEY, this.headers, this.proxyUrl, this.includeProtocol);
 
   /// A Find Place request takes a text input and returns a place.
   /// The input can be any kind of Places text data, such as a name, address, or phone number.
@@ -51,7 +52,8 @@ class Search {
     );
 
     var uri = NetworkUtility.createUri(
-        proxyUrl, _authority, _unencodedPathFindPlace, queryParameters);
+        proxyUrl, _authority, _unencodedPathFindPlace, queryParameters,
+        includeProtocol: includeProtocol);
     var response = await NetworkUtility.fetchUrl(uri, headers: headers);
     if (response != null) {
       return FindPlaceResponse.parseFindPlaceResult(response);
@@ -111,7 +113,7 @@ class Search {
     String? type,
     String? pagetoken,
   }) async {
-    var queryParameters = _createNearBySearchParameters(
+    final queryParameters = _createNearBySearchParameters(
       apiKEY,
       location,
       radius,
@@ -126,9 +128,10 @@ class Search {
       pagetoken,
     );
 
-    var uri =
-        Uri.https(_authority, _unencodedPathNearBySearch, queryParameters);
-    var response = await NetworkUtility.fetchUrl(uri, headers: headers);
+    final uri = NetworkUtility.createUri(
+        proxyUrl, _authority, _unencodedPathNearBySearch, queryParameters,
+        includeProtocol: includeProtocol);
+    final response = await NetworkUtility.fetchUrl(uri, headers: headers);
     if (response != null) {
       return NearBySearchResponse.parseNearBySearchResult(response);
     }

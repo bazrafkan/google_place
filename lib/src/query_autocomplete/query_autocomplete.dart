@@ -7,8 +7,10 @@ class QueryAutocomplete {
   final String apiKEY;
   final Map<String, String> headers;
   final String? proxyUrl;
+  final bool includeProtocol;
 
-  QueryAutocomplete(this.apiKEY, this.headers, this.proxyUrl);
+  QueryAutocomplete(
+      this.apiKEY, this.headers, this.proxyUrl, this.includeProtocol);
 
   /// The Query Autocomplete service can be used to provide a query prediction for text-based
   /// geographic searches, by returning suggested queries as you type.
@@ -49,7 +51,8 @@ class QueryAutocomplete {
       language,
     );
     var uri = NetworkUtility.createUri(
-        proxyUrl, _authority, _unencodedPath, queryParameters);
+        proxyUrl, _authority, _unencodedPath, queryParameters,
+        includeProtocol: includeProtocol);
     var response = await NetworkUtility.fetchUrl(uri, headers: headers);
     if (response != null) {
       return AutocompleteResponse.parseAutocompleteResult(response);
@@ -97,7 +100,8 @@ class QueryAutocomplete {
     );
 
     var uri = NetworkUtility.createUri(
-        proxyUrl, _authority, _unencodedPath, queryParameters);
+        proxyUrl, _authority, _unencodedPath, queryParameters,
+        includeProtocol: includeProtocol);
     return await NetworkUtility.fetchUrl(uri, headers: headers);
   }
 
